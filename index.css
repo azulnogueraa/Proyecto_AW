@@ -29,19 +29,18 @@ body, html{
 .topbar-item {
     float: center;
     display:inline-grid;
-    grid-template-columns: 1fr, 1fr, 1fr, 1fr;
     color: white;
     text-align: center;
     padding: 24px 40px; 
     text-decoration: none;
-    align-items: center;  
+      
 }
-
 
 .topbar-item:hover {
-    background-color: #FEFBF4;
+    background-color: #fefbf49e;
     color: black;
 }
+
 
 @media screen and (max-width: 600px) {
     .topbar-item {
