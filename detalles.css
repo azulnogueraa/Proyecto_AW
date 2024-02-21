@@ -24,6 +24,7 @@ body, html{
     left: 0;
     right: 0;
     top: 0;
+    position:fixed
 }
 
 .topbar-item {
@@ -89,5 +90,17 @@ img{
     height: auto;
     margin: 0;
     padding: 0;
-    align-self: center;
+}
+
+
+.intro{
+    margin: 20px;
+}
+
+.usuarios{
+    margin: 2opx;
+}
+
+.funcionalidades{
+    margin: 50px;
 }
