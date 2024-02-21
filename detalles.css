@@ -82,7 +82,7 @@ h1 {
 
 p{
     margin: 0;
-    padding: 5px;
+    /* padding: 5px; */
 }
 
 img{
@@ -94,11 +94,11 @@ img{
 
 
 .intro{
-    margin: 20px;
+    margin: 50px;
 }
 
 .usuarios{
-    margin: 2opx;
+    margin: 50px;
 }
 
 .funcionalidades{
