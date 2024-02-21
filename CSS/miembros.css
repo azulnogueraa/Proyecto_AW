@@ -12,7 +12,6 @@ body, html{
 
 }
 
-
 /* Barra de contenido */
 
 .topbar {
@@ -65,42 +64,4 @@ body, html{
 }
 
 
-
-/* Detalle */
-
-h1 {
-    font-size: 3em;
-    margin: 0;
-    padding: 0;
-}
-
-.detalle {
-    gap: 20px;
-    padding: 100px;
-    /* margin-top: 60px; */
-}
-
-p{
-    margin: 0;
-    /* padding: 5px; */
-}
-
-img{
-    width: 50%;
-    height: auto;
-    margin: 0;
-    padding: 0;
-}
-
-
-.intro{
-    margin: 50px;
-}
-
-.usuarios{
-    margin: 50px;
-}
-
-.funcionalidades{
-    margin: 50px;
-}
+/* miembros */
