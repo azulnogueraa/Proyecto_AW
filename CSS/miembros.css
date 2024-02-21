@@ -5,11 +5,6 @@ body, html{
     margin-right: 50px;
     padding: 0;
     color: #123949;
-    /* justify-content: center;
-    height: 100%;
-    display: flex;
-    align-items: center; */
-
 }
 
 /* Barra de contenido */
@@ -80,40 +75,37 @@ img {
 .nameList{
     gap: 20px;
     padding: 100px;
-    /* margin-top: 10px; */
 }
 
-
 h3 a {
-    color: inherit; 
+    color: white; 
     text-decoration: none; 
 }
 
-
 h3 a:hover {
-    /* text-decoration: underline;  */
-    color: #12394991; 
+    background-color: #12394964;
+    color: black;
 }
 
- li{
+h3 {
+    display: inline-flex;
+    padding: 20px;
+    font-weight: lighter;
+}
+
+li{
     list-style-type: none;
     padding: 10px;
     margin: 10px;
 } 
 
 .nombres{
-    border: 1px solid #123949;
     border-radius: 25px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    background-color: #fefbf4; 
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); */
+    background-color: #123949; 
     transition: 0.3s;
-    /* display: block; */
-    padding: 15px 5px;
+    padding: 15px 15px;
 }
 
-ul{
-    display: inline-grid;
-}
+
 
   
