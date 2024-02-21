@@ -6,28 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacto</title>
     <link rel="icon" href="img/logo.jpg" type="image/png">
-    <link rel="stylesheet" href="contacto.css">
+    <link rel="stylesheet" href="CSS/contacto.css">
 </head>
 <body>
-    <!-- topbar -->
-    <div class="topbar">
-
-        <!-- Learnique -->
-        <div class="topbar-name">
-            <a class="topbar-name">Learnique</a>
-        </div>
-
-        <!-- topbar items -->
-        <div>
-            <a href="index.html" class="topbar-item">Inicio</a>
-            <a href="detalles.html" class="topbar-item">Detalles</a>
-            <a href="bocetos.html" class="topbar-item">Bocetos</a>
-            <a href="miembros.html" class="topbar-item">Miembros</a>
-            <a href="planificacion.html" class="topbar-item">Planificación</a>
-            <a href="contacto.html" class="topbar-item">Contacto</a>
-        </div>
-
-    </div>
+    <!-- include topbar -->
+    <?php
+        require("topbar.html");
+    ?>
 
     <div>
         <form action="mailto:rogonz13@ucm.es" method="post" enctype="text/plain">
