@@ -63,5 +63,17 @@ body, html{
     text-align: center;
 }
 
+.member-container {
+    display: flex;
+    align-items: center;
+}
+.member-info {
+    margin-left: 20px; /* Espacio entre la foto y la información del miembro */
+}
+img {
+    max-width: 100%; /* Asegura que la imagen no se extienda más allá de su contenedor */
+    height: auto;
+}
+
 
 /* miembros */
