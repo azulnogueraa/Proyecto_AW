@@ -75,5 +75,10 @@ img {
     height: auto;
 }
 
+.nameList{
+    gap: 20px;
+    padding: 100px;
+    /* margin-top: 10px; */
+}
 
 /* miembros */
