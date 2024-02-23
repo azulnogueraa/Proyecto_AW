@@ -22,7 +22,6 @@ body, html{
 }
 
 .topbar-item {
-    float: center;
     display:inline-grid;
     color: white;
     text-align: center;
@@ -75,17 +74,17 @@ body, html{
 
 }
 
-.lista a {
+ul a {
     color: white; 
     text-decoration: none; 
 }
 
-.lista a:hover {
+ul a:hover {
     background-color: #12394964;
     color: black;
 }
 
-.lista {
+ul {
     display: inline-flex;
     padding: 20px;
     font-weight: lighter;

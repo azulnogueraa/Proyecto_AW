@@ -5,11 +5,6 @@ body, html{
     margin-right: 50px;
     padding: 0;
     color: #123949;
-    /* justify-content: center;
-    height: 100%;
-    display: flex;
-    align-items: center; */
-
 }
 
 /* Barra de contenido */
@@ -17,9 +12,9 @@ body, html{
 .topbar {
     background-color: #123949;
     overflow: hidden;
-    display: flex; /* Cambiado a flex para un mejor control del layout */
-    width: 100vw; /* Esto hace que la barra ocupe el ancho total de la ventana */
-    position: absolute; /* O 'absolute' si necesitas que esté fijada en una posición */
+    display: flex; 
+    width: 100vw; 
+    position: absolute; 
     left: 0;
     right: 0;
     top: 0;
@@ -27,7 +22,6 @@ body, html{
 }
 
 .topbar-item {
-    float: center;
     display:inline-grid;
     color: white;
     text-align: center;
@@ -80,5 +74,4 @@ img{
 .bocetos{
     gap: 20px;
     padding: 100px;
-    /* margin-top: 10px; */
 }

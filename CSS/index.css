@@ -27,7 +27,6 @@ body, html{
 }
 
 .topbar-item {
-    float: center;
     display:inline-grid;
     color: white;
     text-align: center;

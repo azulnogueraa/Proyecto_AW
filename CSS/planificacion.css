@@ -5,11 +5,6 @@ body, html{
     margin-right: 50px;
     padding: 0;
     color: #123949;
-    justify-content: center;
-    height: 100%;
-    display: flex;
-    align-items: center;
-
 }
 
 /* Barra de contenido */
@@ -17,16 +12,16 @@ body, html{
 .topbar {
     background-color: #123949;
     overflow: hidden;
-    display: flex; /* Cambiado a flex para un mejor control del layout */
-    width: 100vw; /* Esto hace que la barra ocupe el ancho total de la ventana */
-    position: absolute; /* O 'absolute' si necesitas que esté fijada en una posición */
+    display: flex; 
+    width: 100vw; 
+    position: absolute; 
     left: 0;
     right: 0;
     top: 0;
+    position:fixed
 }
 
 .topbar-item {
-    float: center;
     display:inline-grid;
     color: white;
     text-align: center;
@@ -60,4 +55,49 @@ body, html{
     font-weight: bolder;
     font-size:larger;
     text-align: center;
+}
+
+/* Diagrama de Gantt */
+
+.gantt-chart {
+    width: 100%;
+    max-width: 1000px;
+    border-collapse: collapse;
+    align-self: center;
+}
+
+.gantt-chart th,
+.gantt-chart td {
+    padding: 10px;
+    text-align: left;
+
+}
+
+.gantt-chart thead {
+    background-color: #e9e9e9;
+}
+
+.gantt-chart tbody tr:nth-child(odd) {
+    background-color: #f8f8f8;
+}
+
+.gantt-bar {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    margin: 100px;
+
+}
+
+.cronograma{
+    padding-top: 50px;
+    padding-bottom: 50px;
+
 }

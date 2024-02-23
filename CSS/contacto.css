@@ -17,16 +17,15 @@ body, html{
 .topbar {
     background-color: #123949;
     overflow: hidden;
-    display: flex; /* Cambiado a flex para un mejor control del layout */
-    width: 100vw; /* Esto hace que la barra ocupe el ancho total de la ventana */
-    position: absolute; /* O 'absolute' si necesitas que esté fijada en una posición */
+    display: flex; 
+    width: 100vw; 
+    position: absolute; 
     left: 0;
     right: 0;
     top: 0;
 }
 
 .topbar-item {
-    float: center;
     display:inline-grid;
     color: white;
     text-align: center;
@@ -63,21 +62,15 @@ body, html{
 }
 
 
-/* /////////////////////////////////////////////////////////////////////// */
-
-
 /* Estilos del Formulario */
+
+
 form {
-    /* background-color: white; */
-    /* max-width: 600px; */
     margin: 20px auto;
     padding: 20px;
-    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
-    /* border-radius: 8px; */
 }
 
 label {
-    /* display: flex; */
     margin-bottom: 8px;
 }
 
@@ -117,6 +110,7 @@ input[type=checkbox] {
 }
 
 /* Estilo para los términos y condiciones */
+
 label[for=terminos] {
     display: inline-block;
     margin-bottom: 20px;
