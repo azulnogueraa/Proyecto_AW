@@ -61,3 +61,63 @@ body, html{
     font-size:larger;
     text-align: center;
 }
+
+
+/* /////////////////////////////////////////////////////////////////////// */
+
+
+/* Estilos del Formulario */
+form {
+    /* background-color: white; */
+    /* max-width: 600px; */
+    margin: 20px auto;
+    padding: 20px;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    /* border-radius: 8px; */
+}
+
+label {
+    /* display: flex; */
+    margin-bottom: 8px;
+}
+
+input[type=text],
+input[type=email],
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type=radio] {
+    margin-right: 10px;
+}
+
+input[type=submit],
+input[type=reset] {
+    cursor: pointer;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #123949;
+    color: white;
+    margin-right: 10px;
+}
+
+input[type=submit]:hover,
+input[type=reset]:hover {
+    background-color: #12394970;
+    color: #123949;
+}
+
+input[type=checkbox] {
+    margin-right: 5px;
+}
+
+/* Estilo para los términos y condiciones */
+label[for=terminos] {
+    display: inline-block;
+    margin-bottom: 20px;
+}
