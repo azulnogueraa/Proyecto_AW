@@ -1,0 +1,37 @@
+Memoria de Proyecto Final
+
+1. Listado de scripts para las vistas
+
+    - index.php : Pantalla principal de la web
+
+    F1:
+    - login.php : Pantalla de login
+    - registro.php : Pantalla de registro
+
+    F2:
+    - inscripcion.php : Pantalla de inscripción a un curso (se agrega el curso al carrito)
+    - carrito.php : Pantalla de carrito de compras 
+
+    F3:
+    - cursos.php : Pantalla de listado de cursos
+
+    f4: 
+    - anadirCurso.php : Pantalla de añadir curso
+    - editarCurso.php : Pantalla de editar curso
+    - eliminarCurso.php : Pantalla de eliminar curso
+
+    F5:
+    - chat.php : Pantalla de chat
+
+
+    comun:
+    - topBar.php : Cabecera de la web
+
+
+2. Listado de scripts adicionales
+    - 
+
+3. Estructura de la base de datos
+
+
+4. Prototipo funcional del proyecto
