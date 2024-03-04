@@ -1,0 +1,11 @@
+Pantallas:
+
+-Welcome (primera pagina del web)
+-Login/Sign in
+-Lista de cursos
+-Chat (Profe-alumno y foros)
+-Registrarse a un curso (compra)
+-Anadir curso (para profesores)
+-Filtros para buscar curso
+
+scripts adicionaless (que no cambian la pantalla):

@@ -1,0 +1,117 @@
+body, html{
+    font-family: 'Inter', Arial, sans-serif;
+    background-color: #FEFBF4;
+    margin-left: 50px;
+    margin-right: 50px;
+    padding: 0;
+    color: #123949;
+}
+
+/* Barra de contenido */
+
+.topbar {
+    background-color: #123949;
+    overflow: hidden;
+    display: flex; 
+    width: 100vw;
+    position: absolute; 
+    left: 0;
+    right: 0;
+    top: 0;
+    position:fixed
+}
+
+.topbar-item {
+    display:inline-grid;
+    color: white;
+    text-align: center;
+    padding: 24px 40px; 
+    text-decoration: none;
+      
+}
+
+.topbar-item:hover {
+    background-color: #fefbf49e;
+    color: black;
+}
+
+
+@media screen and (max-width: 600px) {
+    .topbar-item {
+        float: none;
+        display: block;
+        text-align: left;
+    }
+}
+
+.topbar-name {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 10px 16px;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-weight: bolder;
+    font-size:larger;
+    text-align: center;
+}
+
+/* miembros */
+
+.member-container {
+    display: flex;
+    align-items: center;
+    padding: 100px;
+} 
+.member-info {
+    margin-left: 30px; 
+}
+
+.nameList{
+    gap: 20px;
+    padding: 100px;
+
+}
+
+ul a {
+    color: white; 
+    text-decoration: none; 
+}
+
+ul a:hover {
+    background-color: #12394964;
+    color: black;
+}
+
+ul {
+    display: inline-flex;
+    padding: 20px;
+    font-weight: lighter;
+}
+
+li{
+    list-style-type: none;
+    padding: 10px;
+    margin: 10px;
+} 
+
+.nombres{
+    border-radius: 25px;
+    background-color: #123949; 
+    transition: 0.3s;
+    padding: 15px 15px;
+}
+
+img {
+    border-radius: 10%;
+    width: 300px;
+    height: auto;
+    object-fit: cover; 
+    margin-right: 20px; 
+} 
+
+element.style {
+    display: block;
+    padding: 100px;
+}

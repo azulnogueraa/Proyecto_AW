@@ -1,0 +1,59 @@
+<!-- formulario de contacto para pedir más información. -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto</title>
+    <link rel="icon" href="img/logo.jpg" type="image/png">
+    <link rel="stylesheet" href="CSS/contacto.css">
+</head>
+<body>
+    <!-- topbar -->
+    <div class="topbar">
+
+        <!-- Learnique -->
+        <div class="topbar-name">
+            <a class="topbar-name">Learnique</a>
+        </div>
+
+        <!-- topbar items -->
+        <div>
+            <a href="index.html" class="topbar-item">Inicio</a>
+            <a href="detalles.html" class="topbar-item">Detalles</a>
+            <a href="bocetos.html" class="topbar-item">Bocetos</a>
+            <a href="miembros.html" class="topbar-item">Miembros</a>
+            <a href="planificacion.html" class="topbar-item">Planificación</a>
+            <a href="contacto.html" class="topbar-item">Contacto</a>
+        </div>
+
+    </div>
+
+    <div>
+        <h1>Contacto</h1>
+        <form action="mailto:rogonz13@ucm.es" method="post" enctype="text/plain">
+            <label for="nombre">Nombre:</label><br>
+            <input type="text" id="nombre" name="nombre"><br><br>
+
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email"><br><br>
+
+            <label>Motivo de la Consulta:</label><br>
+            <input type="radio" id="evaluacion" name="motivo" value="Evaluación">
+            <label for="evaluacion">Evaluación</label><br>
+            <input type="radio" id="sugerencias" name="motivo" value="Sugerencias">
+            <label for="sugerencias">Sugerencias</label><br>
+            <input type="radio" id="criticas" name="motivo" value="Críticas">
+            <label for="criticas">Críticas</label><br><br>
+
+            <input type="checkbox" id="terminos" name="terminos">
+            <label for="terminos">He leído y acepto los términos y condiciones</label><br><br>
+
+            <label for="consulta">Consulta:</label><br>
+            <textarea id="consulta" name="consulta" rows="4" cols="50"></textarea><br><br>
+
+            <input type="submit" value="Enviar">
+            <input type="reset" value="Borrar">
+        </form>
+    </div>
+</body>
