@@ -10,5 +10,5 @@
 </head>
 <body>
     <?php
-        require("cabecera.php");
+        require("../includes/vistas/comun/cabecera.php");
     ?>
