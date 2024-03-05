@@ -5,7 +5,9 @@
     <title>Pagina Principal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="img/logo.jpg" type="image/png">
+    <link rel="stylesheet" href="CSS/index.css">
     <link rel="stylesheet" href="CSS/topBar.css">
+    
   </head>
   <body>
 
@@ -23,4 +25,14 @@
             <a href="cursos.php" class="topbar-item">Cursos</a>
         </div>
     </div>
+
+
+    <div class="texto"> 
+      <h1> Cursos Online para transformar tu realidad en tiempo récord</h1>
+      <p>Clases en línea y en vivo dictadas por referentes de la industria, 
+        enfoque 100% práctico, mentorías personalizadas y acceso a una gran 
+        comunidad de estudiantes.</p>
+      <button type="submit" name="cursos" value="cursos">Ver todos los cursos</button>
+    </div>
+
   </body>
