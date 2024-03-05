@@ -12,6 +12,11 @@
         $_SESSION["nombre"] = "Administrador";
         $_SESSION["esAdmin"] = true;
     }
+    else if ($username == "profesor" && $password == "profesorpass") {
+        $_SESSION["login"] = true;
+        $_SESSION["nombre"] = "Profesor";
+        $_SESSION["esProfesor"] = true;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -40,6 +45,18 @@
             <a href="registro.php" class="topbar-item">Registro</a>
             <a href="cursos.php" class="topbar-item">Cursos</a>
         </div>
+
+        <?php
+        function mostrarSaludo() {
+            if (isset($_SESSION['login']) && ($_SESSION['login']===true)) {
+                return "Bienvenido, {$_SESSION['nombre']} <a href='logout.php' class='salir'>(salir)</a>";
+                
+            } else {
+                return "Usuario desconocido.";
+            }
+        }
+        ?>
+        <div class="saludo"><?= mostrarSaludo(); ?></div>
     </div>
 
     <div class="texto"> 

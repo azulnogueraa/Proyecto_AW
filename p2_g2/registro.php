@@ -1,3 +1,7 @@
+<?php
+//Inicio del procesamiento
+session_start();
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,6 +25,18 @@
                 <a href="registro.php" class="topbar-item">Registro</a>
                 <a href="cursos.php" class="topbar-item">Cursos</a>
             </div>
+
+            <?php
+            function mostrarSaludo() {
+                if (isset($_SESSION['login']) && ($_SESSION['login']===true)) {
+                    return "Bienvenido, {$_SESSION['nombre']} <a href='logout.php' class='salir'>(salir)</a>";
+                    
+                } else {
+                    return "Usuario desconocido.";
+                }
+            }
+            ?>
+            <div class="saludo"><?= mostrarSaludo(); ?></div>
         </div>
         
         <div class="formularios">
