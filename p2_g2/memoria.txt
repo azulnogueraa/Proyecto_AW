@@ -14,6 +14,7 @@ Memoria de Proyecto Final
 
     F3:
     - cursos.php : Pantalla de listado de cursos
+    - boxCurso.php : vista de un curso que se utiliza en cursos.php
 
     f4: 
     - anadirCurso.php : Pantalla de añadir curso

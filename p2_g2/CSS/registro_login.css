@@ -3,43 +3,74 @@
     margin: 0;
     box-sizing: border-box;
 }
+
 body {
-    /* margin: 50px auto; */
     text-align: center;
     width: 800px;
 }
 
 label {
-    width: 150px;
     display: inline-block;
+    width: 150px;
     text-align: left;
     font-size: 1.5rem;
 }
-input {
+
+input, button {
     border: 2px solid #ccc;
     border-radius: 10px;
     font-size: 1.5rem;
-    font-weight: 100;
     padding: 10px;
 }
+
 form {
     margin: 25px auto;
     width: 500px;
 }
+
 div.form-element {
     margin: 20px 0;
 }
 
 button {
     padding: 15px;
-    border-radius: 10px;
-    font-size: 1.5rem;
-    font-weight: 100;
     background: #123949;
     color: white;
     border: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -30px;
 }
 
 button:hover {
     background: #1ab2a8;
+}
+
+legend, fieldset {
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+fieldset {
+    display: flex;
+    flex-direction: column;
+}
+
+fieldset div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+fieldset label {
+    text-align: right;
+    margin-right: 10px;
+}
+
+fieldset input {
+    flex: 1;
 }
