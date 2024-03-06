@@ -1,3 +1,7 @@
+<?php
+//Inicio del procesamiento
+session_start();
+?>
 <!DOCTYPE html>
 <head> 
     <meta charset="utf-8">
