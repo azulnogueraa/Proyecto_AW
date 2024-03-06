@@ -7,6 +7,7 @@ session_start();
     <head>
         <meta charset="utf-8">
         <title>Pagina Principal</title>
+        <link rel="icon" href="img/logo.jpg" type="image/png">
         <link rel="stylesheet" href="CSS/registro_login.css">
     </head>
     <body>

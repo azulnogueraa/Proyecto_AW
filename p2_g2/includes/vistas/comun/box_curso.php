@@ -22,7 +22,7 @@ class Curso {
     public function toBox() {
         echo "<div class='box'>";
         echo "<h2 class='nombre'>" . $this->getNombre() . "</h2>";
-        echo "<div class='precio'>Precio: " . $this->getPrecio() . "</div>";
+        echo "<div class='precio'>Precio: " . $this->getPrecio() . " EUR" . "</div>";
         echo "<a href='" . $this->getContenido() . "' class='button'>Ver curso</a>";
         echo "</div>";
     }

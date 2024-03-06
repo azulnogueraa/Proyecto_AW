@@ -20,8 +20,9 @@
             <li> Certificado de finalización </li>
             <li> Acceso a la comunidad de estudiantes </li>
         </ul>
-        <button type="submit" name="inscribirme" value="inscribirme">Inscribirme ahora</button>
-        
+        <a href="inscripcion.php">
+            <button type="submit" name="inscribirme" value="inscribirme">Inscribirme ahora</button>
+        </a>
     </div>
     
 </body>

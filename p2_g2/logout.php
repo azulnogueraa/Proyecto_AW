@@ -15,6 +15,7 @@ session_destroy();
 <head>
 	<meta charset="UTF-8">
 	<title>Logout</title>
+    <link rel="icon" href="img/logo.jpg" type="image/png">
 	<link rel="stylesheet" type="text/css" href="CSS/topBar.css" />
 </head>
     <body>
