@@ -1,0 +1,32 @@
+body{
+    flex-direction: row;
+}
+
+.info_marketing{
+    margin-right: 30%;
+}
+
+h1 {
+    padding-bottom: 10px ;
+    font-size: 5em;
+}
+
+ul{
+    font-size: large;
+}
+
+button {
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    font-weight: 100;
+    background: #123949;
+    color: white;
+    border: none;
+    margin: 20px;
+}
+
+button:hover {
+    background: #1ab2a8;
+}
+

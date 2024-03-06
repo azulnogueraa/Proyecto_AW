@@ -18,10 +18,10 @@
 
             // Sólo un ejemplo aquí, que se cambiará cuando tengamos la base de datos
             $cursos = [
-                new Curso("Criptomonedas", "44 EUR", ""),
-                new Curso("Trading", "35 EUR", ""),
-                new Curso("Blockchain", "52 EUR", ""),
-                new Curso("Marketing", "60 EUR", ""),
+                new Curso("Criptomonedas", "44 EUR", "cripto.php"),
+                new Curso("Trading", "35 EUR", "trading.php"),
+                new Curso("Blockchain", "52 EUR", "blockchain.php"),
+                new Curso("Marketing", "60 EUR", "marketing.php"),
             ];
 
             echo "<div class='container'>";
