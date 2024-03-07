@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 <head>
     <meta charset="utf-8">
     <title>TopBar</title>
@@ -13,9 +14,20 @@
         <!-- topbar items -->
         <div class="topbar-items">
             <a href="index.php" class="topbar-item">Inicio</a>
-            <a href="login.php" class="topbar-item">Log In</a>
-            <a href="registro.php" class="topbar-item">Registro</a>
+            <?php
+            // Verificar si el usuario no está autenticado
+            if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true) {
+                echo "<a href='login.php' class='topbar-item'>Log In</a>";
+                echo "<a href='registro.php' class='topbar-item'>Registro</a>";
+            }
+            ?>
             <a href="cursos.php" class="topbar-item">Cursos</a>
+            <?php
+            // Verificar si el usuario es un administrador y está autenticado
+            if (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"] === true && isset($_SESSION["login"]) && $_SESSION["login"] === true) {
+                echo "<a href='ajustes.php' class='topbar-item'>Ajustes</a>";
+            }
+            ?>
         </div>
         <?php
         function mostrarSaludo() {
