@@ -27,8 +27,12 @@ session_start();
                         <input id="nombreUsuario" type="text" name="nombreUsuario" />
                     </div>
                     <div>
-                        <label for="nombre">Nombre:</label>
-                        <input id="nombre" type="text" name="nombre" />
+                        <label for="apellido">Apellido:</label>
+                        <input id="apellido" type="text" name="apellido" />
+                    </div>
+                    <div>
+                        <label for="email">Email:</label>
+                        <input id="email" type="email" name="email" />
                     </div>
                     <div>
                         <label for="password">Password:</label>

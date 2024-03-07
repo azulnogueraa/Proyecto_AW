@@ -1,30 +1,156 @@
 <?php
-include 'conexion.php'; // Incluimos el archivo de conexión
+//Inicio del procesamiento
+session_start();
 
-// Verificar si se ha enviado el formulario de registro
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Realizar todas las validaciones necesarias y procesar el registro
-    // ...
+$formEnviando = isset($_POST["registro"]);
+if (! $formEnviando) {
+    header('Location: registro.php');
+    exit();
+}
 
-    // Verificar si el usuario o el correo electrónico ya están registrados en la base de datos
-    $sql = "SELECT * FROM Usuarios WHERE nombre_usuario = '$usuario' OR email = '$email'";
-    $resultado = $conn->query($sql);
+require_once __DIR__.'/includes/utils.php';
 
-    if ($resultado->num_rows > 0) {
-        // El usuario o el correo electrónico ya están registrados
-        echo "No puedes usar este usuario o correo electrónico porque ya están registrados. Por favor, intenta con otro.";
-    } else {
-        // El usuario y el correo electrónico no están registrados, proceder con el registro
+$erroresFormulario = [];
 
-        // Consulta SQL para insertar un nuevo usuario
-        $sql = "INSERT INTO usuarios (nombre_usuario, email, contraseña) VALUES ('$usuario', '$email', '$contraseña')";
+$nombreUsuario = filter_input(INPUT_POST,'nombreUsuario', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+if ( ! $nombreUsuario || empty($nombreUsuario=trim($nombreUsuario)) || mb_strlen($nombreUsuario) < 3) {
+	$erroresFormulario['nombreUsuario'] = 'El nombre de usuario tiene que tener una longitud de al menos 3 caracteres.';
+}
 
-        // Ejecutar la consulta de inserción
-        if ($conn->query($sql) === TRUE) {
-            echo "Registro exitoso";
+$apellido = filter_input(INPUT_POST, 'apellido', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+if ( ! $apellido || empty($nombre=trim($apellido)) || mb_strlen($apellido) < 3) {
+	$erroresFormulario['apellido'] = 'El apellido tiene que tener una longitud de al menos 3 caracteres.';
+}
+
+$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+if ( ! $email || empty($nombre=trim($email)) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+	$erroresFormulario['email'] = 'Introduce una dirección de correo electrónico válida.';
+}
+$domain = substr($email, strpos($email, '@') + 1);
+
+if (strpos($domain, 'estudiante') !== false) {
+    $table = 'Estudiante';
+    $role = ESTUDIANTE_ROLE;
+} elseif (strpos($domain, 'profesor') !== false) {
+    $table = 'Profesor';
+    $role = PROFESOR_ROLE;
+} else {
+    $erroresFormulario['email'] = 'Introduce una dirección de correo electrónico válida.';
+}
+
+$password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+if ( ! $password || empty($password=trim($password)) || mb_strlen($password) < 5 ) {
+	$erroresFormulario['password'] = 'El password tiene que tener una longitud de al menos 5 caracteres.';
+}
+
+$password2 = filter_input(INPUT_POST, 'password2', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+if ( ! $password2 || empty($password2=trim($password2)) || $password != $password2 ) {
+	$erroresFormulario['password2'] = 'Los passwords deben coincidir';
+}
+
+if (count($erroresFormulario) == 0) {
+    $conn = conexionBD();
+
+    $query=sprintf("SELECT * FROM %s WHERE (nombreUsuario = '%s' AND apellido = '%s') OR email = '%s'"
+        , $table
+        , $conn->real_escape_string($nombreUsuario)
+        , $conn->real_escape_string($apellido)
+        , $conn->real_escape_string($email)
+    );
+    $rs = $conn->query($query);
+    if ($rs) {
+        if ($rs->num_rows > 0) {
+            $erroresFormulario[] = 'No puedes usar este usuario o correo electrónico porque ya están registrados. Por favor, intenta con otro.';
+            $rs->free();
         } else {
-            echo "Error al registrar usuario: " . $conn->error;
+            $query=sprintf("INSERT INTO %s(nombreUsuario,apellido,email,contrasena) VALUES('%s','%s','%s','%s')"
+                , $table
+                , $conn->real_escape_string($nombreUsuario)
+                , $conn->real_escape_string($apellido)
+                , $conn->real_escape_string($email)
+                ,password_hash($password, PASSWORD_DEFAULT)
+            );
+            if ($conn->query($query)) {
+                $idUsuario = $conn->insert_id;
+                $query=sprintf("INSERT INTO RolesUsuario(rol,usuario) VALUES(%d, %d)"
+                    , $role
+                    , $idUsuario
+                );
+                if ($conn->query($query)) {
+                    $_SESSION["login"] = true;
+                    $_SESSION["nombre"] = $nombreUsuario;
+                    $_SESSION["email"] = $email;
+                    $_SESSION["esAdmin"] = false;
+                    $_SESSION["esProfesor"] = ($role == PROFESOR_ROLE);
+                    header('Location: index.php');
+                    exit();
+                } else {
+                    echo "Error SQL ({$conn->errno}):  {$conn->error}";
+                    exit();
+                }
+            } else {
+                echo "Error SQL ({$conn->errno}):  {$conn->error}";
+                exit();
+            }
         }
+    } else {
+        echo "Error SQL ({$conn->errno}):  {$conn->error}";
+        exit();
     }
 }
+
 ?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Registro</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="img/logo.jpg" type="image/png">
+        <link rel="stylesheet" href="CSS/login_registro.css">
+    </head>
+    <body>
+        <?php require "includes/vistas/comun/topbar.php"; ?>
+        <main>
+            <article>
+                <h1>Registro de usuario</h1>
+                <?= generaErroresGlobalesFormulario($erroresFormulario) ?>
+                <form action="procesarRegistro.php" method="POST">
+                <fieldset>
+                    <div class="legenda">
+                        <legend>Datos para el registro</legend>
+                    </div>
+                    <div>
+                        <label for="nombreUsuario">Nombre de usuario:</label>
+                        <input id="nombreUsuario" type="text" name="nombreUsuario" />
+                        <?=  generarError('nombreUsuario', $erroresFormulario) ?>
+                    </div>
+                    <div>
+                        <label for="apellido">Apellido:</label>
+                        <input id="apellido" type="text" name="apellido" />
+                        <?=  generarError('apellido', $erroresFormulario) ?>
+                    </div>
+                    <div>
+                        <label for="email">Email:</label>
+                        <input id="email" type="email" name="email" />
+                        <?=  generarError('email', $erroresFormulario) ?>
+                    </div>
+                    <div>
+                        <label for="password">Password:</label>
+                        <input id="password" type="password" name="password" />
+                        <?=  generarError('password', $erroresFormulario) ?>
+                    </div>
+                    <div>
+                        <label for="password2">Reintroduce el password:</label>
+                        <input id="password2" type="password" name="password2" />
+                        <?=  generarError('password2', $erroresFormulario) ?>
+                    </div>
+                    <div class="boton">
+                        <button type="submit" name="registro">Registrar</button>
+                    </div>
+                </fieldset>
+                </form>
+            </article>
+        </main>
+    </body>
+</html>
