@@ -8,7 +8,7 @@ session_start();
         <meta charset="utf-8">
         <title>Registro</title>
         <link rel="icon" href="img/logo.jpg" type="image/png">
-        <link rel="stylesheet" href="CSS/registro_login.css">
+        <link rel="stylesheet" href="CSS/login_registro.css">
     </head>
     <body>
         <!-- topbar -->
@@ -19,7 +19,9 @@ session_start();
                 <h1>Registro de usuario</h1>
                 <form action="procesarRegistro.php" method="POST">
                 <fieldset>
-                    <legend>Datos para el registro</legend>
+                    <div class="legenda">
+                        <legend>Datos para el registro</legend>
+                    </div>
                     <div>
                         <label for="nombreUsuario">Nombre de usuario:</label>
                         <input id="nombreUsuario" type="text" name="nombreUsuario" />
@@ -36,7 +38,7 @@ session_start();
                         <label for="password2">Reintroduce el password:</label>
                         <input id="password2" type="password" name="password2" />
                     </div>
-                    <div>
+                    <div class="boton">
                         <button type="submit" name="registro">Registrar</button>
                     </div>
                 </fieldset>
