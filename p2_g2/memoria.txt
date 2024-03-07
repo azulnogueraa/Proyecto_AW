@@ -9,8 +9,8 @@ USUARIOS cargados:
         contraseña: userpass
 
     - profesor
-        usuario: ...
-        contraseña: ...
+        usuario: profesor
+        contraseña: profesorpass
 
 
 
