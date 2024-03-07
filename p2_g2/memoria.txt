@@ -1,3 +1,21 @@
+
+USUARIOS cargados:
+    - administrador:
+        usuario: admin
+        contraseña: adminpass
+
+    - usuario:
+        usuario: user
+        contraseña: userpass
+
+    - profesor
+        usuario: ...
+        contraseña: ...
+
+
+
+
+
 Memoria de Proyecto Final
 
 1. Listado de scripts para las vistas
