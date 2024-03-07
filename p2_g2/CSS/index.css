@@ -1,6 +1,7 @@
 .texto{
-    padding: 200px;
+    /* padding: 200px; */
     text-align: center;
+    display: flex;
 }
 
 h1 {
