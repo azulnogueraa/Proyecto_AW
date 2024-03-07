@@ -19,3 +19,10 @@ VALUES
  'Conocimientos básicos de marketing son útiles pero no requeridos.', 
  99.99, 
  'Activo');
+
+insert into Usuario () values ();
+insert into Commentarios () values();
+insert into Estudiante() values ();
+insert into Profesor() values ();
+insert into Registrado() values();
+

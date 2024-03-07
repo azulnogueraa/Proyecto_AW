@@ -11,7 +11,7 @@ if (! $formEnviando) {
 require_once __DIR__.'/includes/utils.php';
 
 $erroresFormulario = [];
-/*
+
 $nombreUsuario = filter_input(INPUT_POST,'nombreUsuario', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 if ( ! $nombreUsuario || empty($nombreUsuario=trim($nombreUsuario)) || mb_strlen($nombreUsuario) < 3) {
 	$erroresFormulario['nombreUsuario'] = 'El nombre de usuario tiene que tener una longitud de al menos 3 caracteres.';
@@ -23,9 +23,9 @@ if ( ! $apellido || empty($nombre=trim($apellido)) || mb_strlen($apellido) < 3) 
 }
 
 $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-//if ( ! $email || empty($nombre=trim($email)) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-//	$erroresFormulario['email'] = 'Introduce una dirección de correo electrónico válida.';
-//}
+if ( ! $email || empty($nombre=trim($email)) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+	$erroresFormulario['email'] = 'Introduce una dirección de correo electrónico válida.';
+}
 $domain = substr($email, strpos($email, '@') + 1);
 
 if (strpos($domain, 'estudiante') !== false) {
@@ -46,46 +46,57 @@ if ( ! $password || empty($password=trim($password)) || mb_strlen($password) < 5
 $password2 = filter_input(INPUT_POST, 'password2', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 if ( ! $password2 || empty($password2=trim($password2)) || $password != $password2 ) {
 	$erroresFormulario['password2'] = 'Los passwords deben coincidir';
-}*/
+}
 
 if (count($erroresFormulario) == 0) {
-    
+    $conn = conexionBD();
 
-    $username = $_POST["username"];
-    $apellido = $_POST["apellido"];
-    $contrasena = $_POST["password"];
-    $email = $_POST["email"];
-    // Add more variables for other form fields as needed
-
-    // Database connection parameters
-    $servername = "localhost";
-    $database = "your_database";
-    $username_db = "your_username";
-    $password_db = "your_password";
-
-    // Create a PDO connection
-    $conn = new PDO("mysql:host=$servername;dbname=$database", $username_db, $password_db);
-
-    $sqlFile = file_get_contents('database.sql');
-    $conn->exec($sqlFile);
-
-    // Read and execute SQL commands from the SQL file
-    $stmt = $conn->prepare("INSERT INTO Usuarios (id, nombre_usuario, apellido, email, contrasena) VALUES ( 1, :username, :apellido, :email, :contrasena)");
-    $stmt->bindParam(':username', $username);
-    $stmt->bindParam(':email', $email);
-    $stmt->bindParam(':apellido', $apellido);
-    $stmt->bindParam(':contrasena', $contrasena);
-    // Bind more parameters for other form fields as needed
-
-    // Execute the statement
-    $stmt->execute();
-
-    // Close the connection
-    $conn = null;
-
-    // Redirect or display a success message as needed
-    header("Location: success.php");
-    exit();
+    $query=sprintf("SELECT * FROM %s WHERE (nombreUsuario = '%s' AND apellido = '%s') OR email = '%s'"
+        , $table
+        , $conn->real_escape_string($nombreUsuario)
+        , $conn->real_escape_string($apellido)
+        , $conn->real_escape_string($email)
+    );
+    $rs = $conn->query($query);
+    if ($rs) {
+        if ($rs->num_rows > 0) {
+            $erroresFormulario[] = 'No puedes usar este usuario o correo electrónico porque ya están registrados. Por favor, intenta con otro.';
+            $rs->free();
+        } else {
+            $query=sprintf("INSERT INTO %s(nombreUsuario,apellido,email,contrasena) VALUES('%s','%s','%s','%s')"
+                , $table
+                , $conn->real_escape_string($nombreUsuario)
+                , $conn->real_escape_string($apellido)
+                , $conn->real_escape_string($email)
+                ,password_hash($password, PASSWORD_DEFAULT)
+            );
+            if ($conn->query($query)) {
+                $idUsuario = $conn->insert_id;
+                $query=sprintf("INSERT INTO RolesUsuario(rol,usuario) VALUES(%d, %d)"
+                    , $role
+                    , $idUsuario
+                );
+                if ($conn->query($query)) {
+                    $_SESSION["login"] = true;
+                    $_SESSION["nombre"] = $nombreUsuario;
+                    $_SESSION["email"] = $email;
+                    $_SESSION["esAdmin"] = false;
+                    $_SESSION["esProfesor"] = ($role == PROFESOR_ROLE);
+                    header('Location: index.php');
+                    exit();
+                } else {
+                    echo "Error SQL ({$conn->errno}):  {$conn->error}";
+                    exit();
+                }
+            } else {
+                echo "Error SQL ({$conn->errno}):  {$conn->error}";
+                exit();
+            }
+        }
+    } else {
+        echo "Error SQL ({$conn->errno}):  {$conn->error}";
+        exit();
+    }
 }
 
 ?>
