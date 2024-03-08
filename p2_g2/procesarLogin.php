@@ -19,63 +19,42 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
     // Consulta SQL para verificar si el usuario es un estudiante
     // Consulta SQL para obtener el usuario con el nombre de usuario proporcionado
-    $query = sprintf("SELECT * FROM Estudiante WHERE nombre_usuario = '%s'", $conn->real_escape_string($username));
+    $query = sprintf("SELECT * FROM Estudiante WHERE nombre_usuario = '%s' AND contrasena = '%s'", $conn->real_escape_string($username), $conn->real_escape_string($password));
     $result = $conn->query($query);
 
     if ($result && $result->num_rows > 0) {
-        // Usuario es un estudiante, verificar la contraseña
-        $row = $result->fetch_assoc();
-        if (password_verify($password, $row['contrasena'])) {
-            // Contraseña válida, iniciar sesión
-            $_SESSION['login'] = true;
-            $_SESSION['nombre'] = $row['nombre_usuario']; // o cualquier otro dato que desees almacenar en la sesión
-            $_SESSION['tipo_usuario'] = 'Estudiante';
-            header('Location: index.php');
-            exit();
-        } else {
-            // Contraseña incorrecta
-            $error = "Usuario o contraseña incorrectos.";
-        }
+        // Usuario es un estudiante, iniciar sesión
+        $_SESSION['login'] = true;
+        $_SESSION['nombre'] = $username;
+        $_SESSION['tipo_usuario'] = 'Estudiante';
+        header('Location: index.php');
+        exit();
     } else {
         // El usuario no es un estudiante, verificar si es administrador
-        $query = sprintf("SELECT * FROM Administrador WHERE nombre_usuario = '%s'", $conn->real_escape_string($username));
+        $query = sprintf("SELECT * FROM Administrador WHERE nombre_usuario = '%s' AND contrasena = '%s'", $conn->real_escape_string($username), $conn->real_escape_string($password));
         $result = $conn->query($query);
         
         if ($result && $result->num_rows > 0) {
-            // Usuario es un administrador, verificar la contraseña
-            $row = $result->fetch_assoc();
-            if (password_verify($password, $row['contrasena'])) {
-                // Contraseña válida, iniciar sesión
-                $_SESSION['login'] = true;
-                $_SESSION['esAdmin'] = true;
-                $_SESSION['nombre'] = $row['nombre_usuario']; // o cualquier otro dato que desees almacenar en la sesión
-                $_SESSION['tipo_usuario'] = 'Administrador';
-                header('Location: index.php');
-                exit();
-            } else {
-                // Contraseña incorrecta
-                $error = "Usuario o contraseña incorrectos.";
-            }
+            // Usuario es un administrador, iniciar sesión
+            $_SESSION['login'] = true;
+            $_SESSION['esAdmin'] = true;
+            $_SESSION['nombre'] = $username;
+            $_SESSION['tipo_usuario'] = 'Administrador';
+            header('Location: index.php');
+            exit();
         } else {
             // El usuario no es un administrador, verificar si es profesor
-            $query = sprintf("SELECT * FROM Profesor WHERE nombre_usuario = '%s'", $conn->real_escape_string($username));
+            $query = sprintf("SELECT * FROM Profesor WHERE nombre_usuario = '%s' AND contrasena = '%s'", $conn->real_escape_string($username), $conn->real_escape_string($password));
             $result = $conn->query($query);
             
             if ($result && $result->num_rows > 0) {
-                // Usuario es un profesor, verificar la contraseña
-                $row = $result->fetch_assoc();
-                if (password_verify($password, $row['contrasena'])) {
-                    // Contraseña válida, iniciar sesión
-                    $_SESSION['login'] = true;
-                    $_SESSION['esProfesor'] = true;
-                    $_SESSION['nombre'] = $row['nombre_usuario']; // o cualquier otro dato que desees almacenar en la sesión
-                    $_SESSION['tipo_usuario'] = 'Profesor';
-                    header('Location: index.php');
-                    exit();
-                } else {
-                    // Contraseña incorrecta
-                    $error = "Usuario o contraseña incorrectos.";
-                }
+                // Usuario es un profesor, iniciar sesión
+                $_SESSION['login'] = true;
+                $_SESSION['esProfesor'] = true;
+                $_SESSION['nombre'] = $username;
+                $_SESSION['tipo_usuario'] = 'Profesor';
+                header('Location: index.php');
+                exit();
             } else {
                 // El usuario no es un profesor
                 $error = "Usuario o contraseña incorrectos.";
