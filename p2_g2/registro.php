@@ -17,14 +17,14 @@ session_start();
         <main>
             <article>
                 <h1>Registro de usuario</h1>
-                <form action="procesarRegistro.php" method="POST">
+                <form action="procesarRegistro1.php" method="POST">
                 <fieldset>
                     <div class="legenda">
                         <legend>Datos para el registro</legend>
                     </div>
                     <div>
-                        <label for="nombreUsuario">Nombre de usuario:</label>
-                        <input id="nombreUsuario" type="text" name="nombreUsuario" />
+                        <label for="nombre_usuario">Nombre de usuario:</label>
+                        <input id="nombre_usuario" type="text" name="nombre_usuario" />
                     </div>
                     <div>
                         <label for="apellido">Apellido:</label>
