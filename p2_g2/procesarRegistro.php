@@ -80,11 +80,6 @@ if (count($erroresFormulario) == 0) {
                 ,password_hash($password, PASSWORD_DEFAULT)
             );
             if ($conn->query($query)) {
-                $idUsuario = $conn->insert_id;
-                $query=sprintf("INSERT INTO Roles(rol,usuario) VALUES(%d, %d)"
-                    , $role
-                    , $idUsuario
-                );
                 if ($conn->query($query)) {
                     $_SESSION["login"] = true;
                     $_SESSION["nombre"] = $nombre_usuario;
