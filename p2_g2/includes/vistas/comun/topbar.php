@@ -30,14 +30,16 @@
             ?>
         </div>
         <?php
+        // Función para mostrar el saludo dependiendo del estado de sesión del usuario
         function mostrarSaludo() {
-            if (isset($_SESSION['login']) && ($_SESSION['login']===true)) {
-                return "Bienvenido, {$_SESSION['nombre']} <a href='logout.php' class='salir'>(salir)</a>";   
+            if (isset($_SESSION['login']) && ($_SESSION['login'] === true)) {
+                return "Bienvenido, {$_SESSION['tipo_usuario']} {$_SESSION['nombre']} <a href='logout.php' class='salir'>(salir)</a>";   
             } else {
                 return "Usuario desconocido.";
             }
         }
         ?>
+        <!-- Mostrar el saludo -->
         <div class="saludo"><?= mostrarSaludo(); ?></div>
     </header>
 </body>
