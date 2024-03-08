@@ -1,51 +1,118 @@
 <?php
-    session_start();
-    $username = htmlspecialchars(trim(strip_tags($_REQUEST["username"])));
-    $password = htmlspecialchars(trim(strip_tags($_REQUEST["password"])));
+session_start();
+
+// Mostrar errores de PHP en la página web
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+// Verificar si se enviaron los datos del formulario
+if (isset($_POST['username']) && isset($_POST['password'])) {
+    // Obtener los datos del formulario
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    
+    // Conectar a la base de datos
+    require_once 'includes/utils.php'; // Asegúrate de que este archivo contenga la función conexionBD()
+
+    $conn = conexionBD();
+
+    // Consulta SQL para verificar si el usuario es un estudiante
+    // Consulta SQL para obtener el usuario con el nombre de usuario proporcionado
+    $query = sprintf("SELECT * FROM estudiante WHERE nombre_usuario = '%s'", $conn->real_escape_string($username));
+    $result = $conn->query($query);
+
+    if ($result && $result->num_rows > 0) {
+        // Usuario es un estudiante, verificar la contraseña
+        $row = $result->fetch_assoc();
+        if (password_verify($password, $row['contrasena'])) {
+            // Contraseña válida, iniciar sesión
+            $_SESSION['login'] = true;
+            $_SESSION['nombre'] = $row['nombre_usuario']; // o cualquier otro dato que desees almacenar en la sesión
+            $_SESSION['tipo_usuario'] = 'Estudiante';
+            header('Location: index.php');
+            exit();
+        } else {
+            // Contraseña incorrecta
+            $error = "Usuario o contraseña incorrectos.";
+        }
+    } else {
+        // El usuario no es un estudiante, verificar si es administrador
+        $query = sprintf("SELECT * FROM Administrador WHERE nombre_usuario = '%s'", $conn->real_escape_string($username));
+        $result = $conn->query($query);
         
-    if ($username == "user" && $password == "userpass") {
-        $_SESSION["login"] = true;
-        $_SESSION["nombre"] = "Usuario";
+        if ($result && $result->num_rows > 0) {
+            // Usuario es un administrador, verificar la contraseña
+            $row = $result->fetch_assoc();
+            if (password_verify($password, $row['contrasena'])) {
+                // Contraseña válida, iniciar sesión
+                $_SESSION['login'] = true;
+                $_SESSION['esAdmin'] = true;
+                $_SESSION['nombre'] = $row['nombre_usuario']; // o cualquier otro dato que desees almacenar en la sesión
+                $_SESSION['tipo_usuario'] = 'Administrador';
+                header('Location: index.php');
+                exit();
+            } else {
+                // Contraseña incorrecta
+                $error = "Usuario o contraseña incorrectos.";
+            }
+        } else {
+            // El usuario no es un administrador, verificar si es profesor
+            $query = sprintf("SELECT * FROM Profesor WHERE nombre_usuario = '%s'", $conn->real_escape_string($username));
+            $result = $conn->query($query);
+            
+            if ($result && $result->num_rows > 0) {
+                // Usuario es un profesor, verificar la contraseña
+                $row = $result->fetch_assoc();
+                if (password_verify($password, $row['contrasena'])) {
+                    // Contraseña válida, iniciar sesión
+                    $_SESSION['login'] = true;
+                    $_SESSION['esProfesor'] = true;
+                    $_SESSION['nombre'] = $row['nombre_usuario']; // o cualquier otro dato que desees almacenar en la sesión
+                    $_SESSION['tipo_usuario'] = 'Profesor';
+                    header('Location: index.php');
+                    exit();
+                } else {
+                    // Contraseña incorrecta
+                    $error = "Usuario o contraseña incorrectos.";
+                }
+            } else {
+                // El usuario no es un profesor
+                $error = "Usuario o contraseña incorrectos.";
+            }
+        }
     }
-    else if ($username == "admin" && $password == "adminpass") {
-        $_SESSION["login"] = true;
-        $_SESSION["nombre"] = "Administrador";
-        $_SESSION["esAdmin"] = true;
-    }
-    else if ($username == "profesor" && $password == "profesorpass") {
-        $_SESSION["login"] = true;
-        $_SESSION["nombre"] = "Profesor";
-        $_SESSION["esProfesor"] = true;
-    }
+} else {
+    // Los datos del formulario no fueron enviados
+    $error = "Por favor, introduce tu nombre de usuario y contraseña.";
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
-  <head>
+<head>
     <meta charset="utf-8">
-    <title>Pagina Principal</title>
+    <title>Iniciar Sesión</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="img/logo.jpg" type="image/png">
     <link rel="stylesheet" href="CSS/index.css">
     <link rel="stylesheet" href="CSS/topBar.css">
-    
-  </head>
-  <body>
-   <!-- topbar -->
-   <?php require "includes/vistas/comun/topbar.php"; ?>
+</head>
+<body>
+    <!-- topbar -->
+    <?php require "includes/vistas/comun/topbar.php"; ?>
 
     <div class="texto"> 
         <?php
-            session_start();
-            if (!isset($_SESSION["login"])) { //Usuario incorrecto
-                echo "<h1>ERROR</h1>";
-                echo "<p>El usuario o contraseña no son válidos.</p>";
-            }
-            else { //Usuario registrado
-                echo "<h1>Bienvenido {$_SESSION['nombre']}</h1>";
-            }
+        if (isset($error)) {
+            // Mostrar mensaje de error
+            echo "<h1>ERROR</h1>";
+            echo "<p>$error</p>";
+        } elseif (isset($_SESSION['login'])) {
+            // Usuario autenticado, redirigir al inicio
+            echo "<h1>Bienvenido {$_SESSION['tipo_usuario']}</h1>";
+        }
         ?>
     </div>
-
-  </body>
+</body>
 </html>
