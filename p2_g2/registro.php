@@ -17,7 +17,7 @@ session_start();
         <main>
             <article>
                 <h1>Registro de usuario</h1>
-                <form action="procesarRegistro1.php" method="POST">
+                <form action="procesarRegistro.php" method="POST">
                 <fieldset>
                     <div class="legenda">
                         <legend>Datos para el registro</legend>
