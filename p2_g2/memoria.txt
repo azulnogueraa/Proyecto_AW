@@ -1,3 +1,59 @@
+Memoria de Proyecto Final
+
+2. Listado de scripts para las vistas
+
+    - index.php : Pantalla principal de la web
+
+    F1: Gestión de Roles: Estudiante, Profesor, Administrador
+    - login.php : Pantalla de login
+    - registro.php : Pantalla de registro
+    - logout.php : Pantalla de logout
+
+    F2: Gestión de Inscripciones y Matriculaciones
+    - inscripcion.php : Pantalla de inscripción a un curso (se agrega el curso al carrito)
+    - carrito.php : Pantalla de carrito de compras 
+
+    F3: Gestión de Búsqueda con Filtros
+    - cursos.php : Pantalla de listado de cursos
+    - trading.php : vista de el curso de trading 
+    - blockchain.php : vista de el curso de blockchain
+    - cripto.php : vista de el curso de criptomonedas   
+    - marketing.php : vista de el curso de marketing
+
+    f4: Panel de Administración
+    - anadirCurso.php : Pantalla de añadir curso
+    - editarCurso.php : Pantalla de editar curso
+    - eliminarCurso.php : Pantalla de eliminar curso
+
+    F5: Gestión de Comunicación: Estudiantes y Profesores
+    - chat.php : Pantalla de chat
+
+
+    comun:
+    - topBar.php : Cabecera de la web
+
+
+3. Listado de scripts adicionales
+    - boxCurso.php : vista de un curso que se utiliza en cursos.php
+    - procesarRegistro.php : script que procesa el registro de un usuario
+    - procesarLogin.php : script que procesa el login de un usuario
+    - createdb.sql : script para crear la base de datos
+    - createuser.sql : script para crear el usuario de la base de datos
+    - datos.sql : script con datos que se insertan a la base de datos para pruebas
+    - tablas.sql : script que crea la estructura de las tablas de la base de datos
+    - utils.php : script conexion de la base de datos 
+    
+
+
+
+4. Estructura de la base de datos
+
+
+5. Prototipo funcional del proyecto
+
+
+
+
 
 USUARIOS cargados:
     - administrador:
@@ -11,46 +67,3 @@ USUARIOS cargados:
     - profesor
         usuario: profesor
         contraseña: profesorpass
-
-
-
-
-
-Memoria de Proyecto Final
-
-1. Listado de scripts para las vistas
-
-    - index.php : Pantalla principal de la web
-
-    F1:
-    - login.php : Pantalla de login
-    - registro.php : Pantalla de registro
-
-    F2:
-    - inscripcion.php : Pantalla de inscripción a un curso (se agrega el curso al carrito)
-    - carrito.php : Pantalla de carrito de compras 
-
-    F3:
-    - cursos.php : Pantalla de listado de cursos
-    - boxCurso.php : vista de un curso que se utiliza en cursos.php
-
-    f4: 
-    - anadirCurso.php : Pantalla de añadir curso
-    - editarCurso.php : Pantalla de editar curso
-    - eliminarCurso.php : Pantalla de eliminar curso
-
-    F5:
-    - chat.php : Pantalla de chat
-
-
-    comun:
-    - topBar.php : Cabecera de la web
-
-
-2. Listado de scripts adicionales
-    - 
-
-3. Estructura de la base de datos
-
-
-4. Prototipo funcional del proyecto

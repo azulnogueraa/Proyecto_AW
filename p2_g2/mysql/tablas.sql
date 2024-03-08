@@ -1,5 +1,5 @@
 create table if not exists Estudiante (
-    id int auto_increment,
+    id INT AUTO_INCREMENT,
     nombre_usuario varchar(100),
     apellido varchar(100),
     email varchar(100),
@@ -8,7 +8,7 @@ create table if not exists Estudiante (
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 create table if not exists Profesor (
-    id int auto_increment,
+    id INT AUTO_INCREMENT,
     nombre_usuario varchar(100),
     apellido varchar(100),
     email varchar(100),
@@ -18,7 +18,7 @@ create table if not exists Profesor (
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 create table if not exists Administrador (
-    id int auto_increment,
+    id INT AUTO_INCREMENT,
     nombre_usuario varchar(100),
     apellido varchar(100),
     email varchar(100),
