@@ -100,7 +100,7 @@ if (count($erroresFormulario) == 0) {
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang ="es">
 <head>
     <meta charset="utf-8">
     <title>Registro</title>
