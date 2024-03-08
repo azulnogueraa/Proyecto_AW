@@ -61,13 +61,44 @@ Memoria de Proyecto Final
 
 USUARIOS cargados:
     - administrador:
-        usuario: admin
-        contraseña: adminpass
+        nombre_usuario: admin
+        apellido : admin
+        email : admin@admin.com
+        contraseña: admin1
 
-    - usuario:
-        usuario: user
-        contraseña: userpass
+    - estudiantes:
+        nombre_usuario: azul
+        apellido: noguera
+        email: azul@estudiante.com
+        contraseña: azul1
+
+        nombre_usuario: rocio
+        apellido: gonzalez
+        email: rocio@estudiante.com
+        contraseña: rocio1
+
+        nombre_usuario: patricio
+        apellido: guledjian
+        email: patricio@estudiante.com
+        contraseña: patricio1
+
+        nombre_usuario: gabriel
+        apellido: zamy
+        email: gabriel@estudiante.com
+        contraseña: gabriel1
+
+        nombre_usuario: vincent
+        apellido: jansou
+        email: vincent@estudiante.com
+        contraseña: vincent1
 
     - profesor
-        usuario: profesor
-        contraseña: profesorpass
+        nombre_usuario: javier
+        apellido: bravo
+        email: javier@profesor.com
+        contraseña: javier1
+
+        nombre_usuario: eva
+        apellido: ullan
+        email: eva@profesor.com
+        contraseña: eva12
