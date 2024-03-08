@@ -19,7 +19,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
     // Consulta SQL para verificar si el usuario es un estudiante
     // Consulta SQL para obtener el usuario con el nombre de usuario proporcionado
-    $query = sprintf("SELECT * FROM estudiante WHERE nombre_usuario = '%s'", $conn->real_escape_string($username));
+    $query = sprintf("SELECT * FROM Estudiante WHERE nombre_usuario = '%s'", $conn->real_escape_string($username));
     $result = $conn->query($query);
 
     if ($result && $result->num_rows > 0) {
