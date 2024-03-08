@@ -19,6 +19,7 @@ Memoria de Proyecto Final
     - blockchain.php : vista de el curso de blockchain
     - cripto.php : vista de el curso de criptomonedas   
     - marketing.php : vista de el curso de marketing
+    - curso.php : vista para un curso en particular, va a reemplazar los 4 previos.
 
     f4: Panel de Administración
     - anadirCurso.php : Pantalla de añadir curso
@@ -37,6 +38,7 @@ Memoria de Proyecto Final
     - boxCurso.php : vista de un curso que se utiliza en cursos.php
     - procesarRegistro.php : script que procesa el registro de un usuario
     - procesarLogin.php : script que procesa el login de un usuario
+    -procesarInscripcion.php : script que procesa la inscripcion de un estudiante a un curso
     - createdb.sql : script para crear la base de datos
     - createuser.sql : script para crear el usuario de la base de datos
     - datos.sql : script con datos que se insertan a la base de datos para pruebas
