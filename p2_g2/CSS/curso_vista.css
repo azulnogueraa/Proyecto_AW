@@ -1,5 +1,7 @@
 body{
-    flex-direction: row;
+    display: flex;
+    justify-content: center;
+    align-content: center;
 }
 
 .info_marketing{
