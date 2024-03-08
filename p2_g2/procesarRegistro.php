@@ -77,7 +77,7 @@ if (count($erroresFormulario) == 0) {
                 , $conn->real_escape_string($nombre_usuario)
                 , $conn->real_escape_string($apellido)
                 , $conn->real_escape_string($email)
-                ,password_hash($password, PASSWORD_DEFAULT)
+                , $conn->real_escape_string($password)
             );
             if ($conn->query($query)) {
                 $_SESSION["login"] = true;
