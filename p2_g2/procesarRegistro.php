@@ -80,18 +80,13 @@ if (count($erroresFormulario) == 0) {
                 ,password_hash($password, PASSWORD_DEFAULT)
             );
             if ($conn->query($query)) {
-                if ($conn->query($query)) {
-                    $_SESSION["login"] = true;
-                    $_SESSION["nombre"] = $nombre_usuario;
-                    $_SESSION["email"] = $email;
-                    $_SESSION["esAdmin"] = ($role == ADMIN_ROLE);
-                    $_SESSION["esProfesor"] = ($role == PROFESOR_ROLE);
-                    header('Location: index.php');
-                    exit();
-                } else {
-                    echo "Error SQL ({$conn->errno}):  {$conn->error}";
-                    exit();
-                }
+                $_SESSION["login"] = true;
+                $_SESSION["nombre"] = $nombre_usuario;
+                $_SESSION["email"] = $email;
+                $_SESSION["esAdmin"] = ($role == ADMIN_ROLE);
+                $_SESSION["esProfesor"] = ($role == PROFESOR_ROLE);
+                header('Location: index.php');
+                exit();
             } else {
                 echo "Error SQL ({$conn->errno}):  {$conn->error}";
                 exit();

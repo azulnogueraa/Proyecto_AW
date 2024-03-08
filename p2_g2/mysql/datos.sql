@@ -19,3 +19,7 @@ INSERT INTO Administrador (id, nombre_usuario, apellido, email, contrasena)
 VALUES 
 ('-1', 'admin', 'admin', 'admin@admin.com','admin1');
 
+
+INSERT INTO Curso (nombre_curso, descripcion, profesor_id, fecha_creacion, duracion, nivel_dificultad, categoria, requisitos_previos, precio, estado_curso)
+VALUES
+('Marketing', 'descripcion del curso', '-1','2024-01-01', '20h','Intermedio', 'Negocios', '', 60, 'Activo')

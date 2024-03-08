@@ -1,6 +1,68 @@
 <?php
-//Inicio del procesamiento
-session_start();
+    session_start();
+
+    // Mostrar errores de PHP en la página web
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+
+
+    $nombre_curso = isset($_POST['nombre_curso']) ? $_POST['nombre_curso'] : '';
+    $formEnviando = isset($_POST["inscripcion"]);
+    if (! $formEnviando) {
+        header("Location: inscripcion.php?nombre_curso=$nombre_curso");
+        exit();
+    }
+
+    require_once __DIR__.'/includes/utils.php';
+
+    $erroresFormulario = [];
+
+    $nombre_usuario = filter_input(INPUT_POST,'nombre_usuario', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+    $apellido = filter_input(INPUT_POST, 'apellido', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    if ( ! $email || empty($nombre=trim($email)) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $erroresFormulario['email'] = 'Introduce una dirección de correo electrónico válida.';
+    }
+
+    if (count($erroresFormulario) == 0) {
+        $conn = conexionBD();
+
+        $query=sprintf("SELECT id FROM Estudiante WHERE (nombre_usuario = '%s' AND apellido = '%s' AND email = '%s'"
+            , $nombre_usuario
+            , $apellido
+            , $email
+        );
+        $rs = $conn->query($query);
+        if ($rs) {
+            if ($rs->num_rows == 0) {
+                $erroresFormulario[] = "El estudiante no existe";
+                $rs->free();
+            } else {
+                $row = $rs->fetch_assoc();
+                $u_id = $row['id'];
+                $rs->free();
+                $query=sprintf("INSERT INTO Registrado(u_id,curso_id) VALUES('%s','%s')"
+                    , $u_id
+                    , $nombre_curso
+                );
+                if ($conn->query($query)) {
+                    //El estudiante es bien registrado al curso
+                    header('cursos.php');
+                    exit();
+                } else {
+                    echo "Error SQL ({$conn->errno}):  {$conn->error}";
+                    exit();
+                }
+            }
+        } else {
+            echo "Error SQL ({$conn->errno}):  {$conn->error}";
+            exit();
+        }
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -36,6 +98,7 @@ session_start();
                             <label for="email">Email:</label>
                             <input id="email" type="email" name="email" required 
                             value="<?= isset($_SESSION['email']) ? $_SESSION['email'] : ''; ?>" />
+                            <?=  generarError('email', $erroresFormulario) ?>
                         </div>
                         <div>
                             <input type="checkbox" id="terminos" name="terminos" required>
