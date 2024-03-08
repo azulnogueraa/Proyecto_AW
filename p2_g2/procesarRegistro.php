@@ -130,7 +130,7 @@ if (count($erroresFormulario) == 0) {
                 unset($_SESSION['registro_exitoso']);
             }
             ?>
-            <form action="procesarRegistro1.php" method="POST">
+            <form action="procesarRegistro.php" method="POST">
             <fieldset>
                 <div class="legenda">
                     <legend>Datos para el registro</legend>
