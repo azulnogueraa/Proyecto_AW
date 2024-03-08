@@ -23,7 +23,8 @@ session_start();
       <p>Clases en línea y en vivo dictadas por referentes de la industria, 
         enfoque 100% práctico, mentorías personalizadas y acceso a una gran 
         comunidad de estudiantes.</p>
-      <button type="submit" name="cursos" value="cursos">Ver todos los cursos</button>
+      <button onclick="location.href='cursos.php';" type="submit" name="cursos" value="cursos">Ver todos los cursos</button>
+
     </div>
 
   </body>
