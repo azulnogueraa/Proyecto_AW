@@ -14,11 +14,12 @@ Memoria de Proyecto Final
     - carrito.php : Pantalla de carrito de compras 
 
     F3: Gestión de Búsqueda con Filtros
-    - cursos.php : Pantalla de listado de cursos
-    - trading.php : vista de el curso de trading 
-    - blockchain.php : vista de el curso de blockchain
-    - cripto.php : vista de el curso de criptomonedas   
-    - marketing.php : vista de el curso de marketing
+    - cursos.php : Pantalla de listado de cursos. A partir de ahí, podemos seleccionar el curso para acceder a la información que deseamos.
+        - trading.php : vista de el curso de trading 
+        - blockchain.php : vista de el curso de blockchain
+        - cripto.php : vista de el curso de criptomonedas   
+        - marketing.php : vista de el curso de marketing
+    --> estos cuatros cursos son ejemplos para entender lo que queremos hacer despues con la base de datos.
     - curso.php : vista para un curso en particular, va a reemplazar los 4 previos.
 
     f4: Panel de Administración
@@ -36,14 +37,15 @@ Memoria de Proyecto Final
 
 3. Listado de scripts adicionales
     - boxCurso.php : vista de un curso que se utiliza en cursos.php
-    - procesarRegistro.php : script que procesa el registro de un usuario
+    - procesarRegistro.php : script que procesa el registro de un usuario. Para definir el rol de un usuario, 
+    hemos optado por el momento de utilizar el nombre de dominio del correo electrónico.
     - procesarLogin.php : script que procesa el login de un usuario
-    -procesarInscripcion.php : script que procesa la inscripcion de un estudiante a un curso
+    - procesarInscripcion.php : script que procesa la inscripcion de un estudiante a un curso
     - createdb.sql : script para crear la base de datos
     - createuser.sql : script para crear el usuario de la base de datos
     - datos.sql : script con datos que se insertan a la base de datos para pruebas
     - tablas.sql : script que crea la estructura de las tablas de la base de datos
-    - utils.php : script conexion de la base de datos 
+    - utils.php : script de conexion de la base de datos y de gestion de errores
     
 
 
