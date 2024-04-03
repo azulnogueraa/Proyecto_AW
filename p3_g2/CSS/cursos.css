@@ -1,0 +1,42 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    overflow-x: auto;
+}
+.box {
+    background-color: #123949;
+    color: white;
+    width: 200px;
+    height: 250px;
+    padding: 20px;
+    margin: 50px;
+    border-radius: 15px;
+    flex: 0 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.nombre {
+    font-size: 1.5rem; 
+}
+.precio {
+    text-align: left;
+}
+.button {
+    color: white;
+    margin-top: auto;
+    display: inline-block;
+    padding: 10px;
+    border: 2px solid white;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.button:hover {
+    background-color: white;
+    color: #123949;
+}
