@@ -50,6 +50,12 @@ session_start();
       </div>
     </div>
 
+    <div class="recomendaciones">
+    <h2> Más de 200.000 estudiantes nos recomiendan en todo Europa </h2>
+    <img class="reco" src="img/recomendaciones.png" alt="">
+
+    </div>  
+
 
   </body>
 </html>

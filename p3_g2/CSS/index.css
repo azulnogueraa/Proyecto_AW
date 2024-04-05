@@ -103,3 +103,16 @@ h2{
     display: flex;
     flex-direction: column;
 }
+
+.recomendaciones{
+    /* margin-right: 10%; */
+    /* margin-left: 10%; */
+    margin: 0% 10% 2% 10%;
+    align-content: center;
+}
+
+.reco{
+    width: 100%;
+    height: auto;
+    /* margin: 2% 10% 2% 10%; */
+}
