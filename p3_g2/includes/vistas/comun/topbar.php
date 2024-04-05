@@ -28,6 +28,8 @@
                 echo "<a href='ajustes.php' class='topbar-item'>Ajustes</a>";
             }
             ?>
+            <!-- Enlace al buscador -->
+            <a href="buscar_cursos.php" class="topbar-item">Buscar Curso</a>
         </div>
         <?php
         // Función para mostrar el saludo dependiendo del estado de sesión del usuario
