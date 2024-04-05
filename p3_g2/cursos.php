@@ -22,7 +22,7 @@
                 new Curso("Trading", "35", "trading.php"),
                 new Curso("Blockchain", "52", "blockchain.php"),
                 new Curso("Marketing", "60", "marketing.php"),
-                new Curso("Marketing2", "60", "curso.php?nombre_curso=Marketing"),
+                new Curso("Programación", "58", "curso.php?nombre_curso=Marketing"),
             ];
 
             echo "<div class='container'>";
