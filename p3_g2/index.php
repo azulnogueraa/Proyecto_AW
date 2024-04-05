@@ -42,10 +42,11 @@ session_start();
 
     <div class="profesores">
       <div>
-        <p> texto o imagen despues se ve </p>
+        <img class="profe" src="img/chat_profe.png" alt="">
       </div>
-      <div>
-      <img class="profe" src="img/chat_profe.png" alt="">
+      <div class="doble_caja">
+        <img class="profesionales" src="img/profesionales.png" alt="">
+        <img class="tutores" src="img/tutores.png" alt="">
       </div>
     </div>
 
