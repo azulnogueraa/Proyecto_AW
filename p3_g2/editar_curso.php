@@ -41,6 +41,7 @@ if (isset($_GET['nombre_curso'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="img/logo.jpg" type="image/png">
     <link rel="stylesheet" href="CSS/index.css">
+    <link rel="stylesheet" href="CSS/topBar.css">
 </head>
 <body>
     <!-- topbar -->

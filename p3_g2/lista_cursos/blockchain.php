@@ -6,17 +6,18 @@ session_start();
 <head> 
     <meta charset="utf-8">
     <title>Marketing</title>
-    <link rel="stylesheet" href="CSS/curso_vista.css">
+    <link rel="stylesheet" href="../CSS/curso_vista.css">
+    <link rel="stylesheet" href="../CSS/topBar.css">
     
 
 </head>
 
 <body>
     <!-- topbar -->
-    <?php require "includes/vistas/comun/topbar.php"; ?>
+    <?php require "../includes/vistas/comun/topbar.php"; ?>
 
-    <div class="info_marketing">
-        <h1>Carrera de Criptomonedas</h1>
+    <div class="info_marketing-cursos_vistas">
+        <h1>Carrera de Blockchain</h1>
         <!-- lista desorenada -->
         <ul>
             <li> Correción de proyectos prácticos</li>
@@ -24,7 +25,7 @@ session_start();
             <li> Certificado de finalización </li>
             <li> Acceso a la comunidad de estudiantes </li>
         </ul>
-        <a href="inscripcion.php">
+        <a href="../inscripcion.php">
             <button type="submit" name="inscribirme" value="inscribirme">Inscribirme ahora</button>
         </a>
         
@@ -33,3 +34,4 @@ session_start();
 </body>
 
 </html>
+

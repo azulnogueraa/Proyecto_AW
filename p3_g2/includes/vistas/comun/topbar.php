@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>TopBar</title>
-    <link rel="stylesheet" href="CSS/topBar.css">
-</head>
 <body>
     <header class="topbar">
         <!-- Learnique -->
@@ -35,14 +28,14 @@
         // Función para mostrar el saludo dependiendo del estado de sesión del usuario
         function mostrarSaludo() {
             if (isset($_SESSION['login']) && ($_SESSION['login'] === true)) {
-                return "Bienvenido, {$_SESSION['tipo_usuario']} {$_SESSION['nombre']} <a href='logout.php' class='salir'>(salir)</a>";   
+                return "Bienvenido, {$_SESSION['tipo_usuario']} {$_SESSION['nombre']} <a href='logout.php' class='salir-topbar'>(salir)</a>";   
             } else {
                 return "Usuario desconocido.";
             }
         }
         ?>
         <!-- Mostrar el saludo -->
-        <div class="saludo"><?= mostrarSaludo(); ?></div>
+        <div class="saludo-topbar"><?= mostrarSaludo(); ?></div>
     </header>
 </body>
 </html>

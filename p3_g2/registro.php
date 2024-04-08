@@ -9,6 +9,7 @@ session_start();
         <title>Registro</title>
         <link rel="icon" href="img/logo.jpg" type="image/png">
         <link rel="stylesheet" href="CSS/login_registro.css">
+        <link rel="stylesheet" href="CSS/topBar.css">
     </head>
     <body>
         <!-- topbar -->

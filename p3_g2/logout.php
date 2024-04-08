@@ -22,7 +22,7 @@ session_destroy();
         <!-- topbar -->
         <?php require "includes/vistas/comun/topbar.php"; ?>
 
-        <div id="contenedor">
+        <div id="contenedor"><!-- maybe change the id -->
             <main>
                 <article>
                     <h1>Hasta pronto!</h1>
