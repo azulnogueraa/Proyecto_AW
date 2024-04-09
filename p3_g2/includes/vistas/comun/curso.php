@@ -32,11 +32,12 @@
         <meta charset="utf-8">
         <title><?=$nombre_curso?></title>
         <link rel="stylesheet" href="CSS/curso_vista.css">
+        <link rel="stylesheet" href="CSS/topBar.css">
     </head>
     <body>
         <?php require "includes/vistas/comun/topbar.php"; ?>
 
-        <div class="info_curso">
+        <div class="info_curso"> <!-- do not exist in css -->
             <h1>Carrera de <?=$nombre_curso?></h1>
             <p><?=$descripcion?></p>
             <a href="inscripcion.php?nombre_curso=<?=$nombre_curso?>">

@@ -4,7 +4,7 @@ body{
     align-content: center;
 }
 
-.info_marketing{
+.info_marketing-cursos_vistas{
     margin-right: 30%;
     margin-top: 50px;
 }
@@ -32,4 +32,5 @@ button {
 button:hover {
     background: #1ab2a8;
 }
+
 

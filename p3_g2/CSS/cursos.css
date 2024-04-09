@@ -1,4 +1,4 @@
-.container {
+.container-cursos {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -6,7 +6,7 @@
     align-items: center;
     overflow-x: auto;
 }
-.box {
+.box-cursos {
     background-color: #123949;
     color: white;
     width: 200px;
@@ -20,13 +20,13 @@
     flex-direction: column;
     justify-content: space-between;
 }
-.nombre {
+.nombre-cursos {
     font-size: 1.5rem; 
 }
-.precio {
+.precio-cursos {
     text-align: left;
 }
-.button {
+.button-cursos {
     color: white;
     margin-top: auto;
     display: inline-block;
@@ -36,7 +36,7 @@
     transition: all 0.3s ease;
 }
 
-.button:hover {
+.button-cursos:hover {
     background-color: white;
     color: #123949;
 }

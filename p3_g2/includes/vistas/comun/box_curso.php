@@ -20,10 +20,10 @@ class Curso {
         return $this->contenido;
     }
     public function toBox() {
-        echo "<div class='box'>";
-        echo "<h2 class='nombre'>" . $this->getNombre() . "</h2>";
-        echo "<div class='precio'>Precio: " . $this->getPrecio() . " EUR" . "</div>";
-        echo "<a href='" . $this->getContenido() . "' class='button'>Ver curso</a>";
+        echo "<div class='box-cursos'>";
+        echo "<h2 class='nombre-cursos'>" . $this->getNombre() . "</h2>";
+        echo "<div class='precio-cursos'>Precio: " . $this->getPrecio() . " EUR" . "</div>";
+        echo "<a href='" . $this->getContenido() . "' class='button-cursos'>Ver curso</a>";
         echo "</div>";
     }
 }

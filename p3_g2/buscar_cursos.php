@@ -9,10 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="img/logo.jpg" type="image/png">
     <link rel="stylesheet" href="CSS/cursos.css">
+    <link rel="stylesheet" href="CSS/topBar.css">
 </head>
 <body>
-<div class="container">
-    <div class="content">
+<div class="container-cursos">
+    <div class="content"> <!-- add -cursos? but there is no content in cursos.css -->
         <h1>Buscar Curso</h1>
         <input type="text" id="searchInput" placeholder="Buscar curso...">
         <div id="searchResults"></div>

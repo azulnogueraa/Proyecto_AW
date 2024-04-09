@@ -6,7 +6,8 @@ session_start();
 <head> 
     <meta charset="utf-8">
     <title>Marketing</title>
-    <link rel="stylesheet" href="CSS/curso_vista.css">
+    <link rel="stylesheet" href="../CSS/curso_vista.css">
+    <link rel="stylesheet" href="../CSS/topBar.css">
     
 
 </head>
