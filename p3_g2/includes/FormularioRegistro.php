@@ -100,24 +100,24 @@ class FormularioRegistro extends Formulario {
         }
 
         if (count($this->errores) === 0) {
-            
+            if ($datos['rol'] == 'Estudiante') {
+                $usuario = Estudiante::busca($nombre_usuario);
+            } else { // ($datos['rol'] = 'Profesor')
+                $usuario = Profesor::busca($nombre_usuario);
+            }
             if ($usuario) {
                 $this->errores[] = "El usuario ya existe";
-            } else{
-                if (strpos($datos['rol'], 'Profesor') !== false) {
-                    $role = $datos['rol'];
-                    $usuario = Profesor::buscaUsuario($nombre_usuario);
-                    $_SESSION['login'] = true;
-                    $_SESSION['nombre'] = $nombre_usuario;
-                    $_SESSION['tipo_usuario'] = $role;
-
-                }elseif (strpos($datos['rol'], 'Estudiante') !== false) {
-                    $role = $datos['rol'];
-                    $usuario = Estudiante::buscaUsuario($nombre_usuario);
-                    $_SESSION['login'] = true;
-                    $_SESSION['nombre'] = $nombre_usuario;
-                    $_SESSION['tipo_usuario'] = $role;
-                }   
+            } else {
+                if ($datos['rol'] == 'Estudiante') {
+                    $rol = Usuario::ESTUDIANTE_ROLE;
+                    $usuario = Estudiante::crea($nombre_usuario, $apellido, $email, $password);
+                } else { // ($datos['rol'] = 'Profesor')
+                    $rol = Usuario::PROFESOR_ROLE;
+                    $usuario = Profesor::crea($nombre_usuario, $apellido, $email, $password);
+                }
+                $_SESSION['login'] = true;
+                $_SESSION['nombre'] = $nombre_usuario;
+                $_SESSION['tipo_usuario'] = $rol;
             }
         }
     }

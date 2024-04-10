@@ -1,10 +1,17 @@
 <?php
-
 namespace es\ucm\fdi\aw;
-
 abstract class Usuario {
-
-    abstract public static function login($nombre_usuario, $contrasena);
+    public const ADMIN_ROLE = 1;
+    public const ESTUDIANTE_ROLE = 2;
+    public const PROFESOR_ROLE = 3;
+    public static function login($nombre_usuario, $contrasena) {
+        $result = static::busca($nombre_usuario);
+        $usuario = $result;
+        if ($usuario && $usuario->compruebaPassword($contrasena)) {
+            return $usuario;
+        }
+        return false;
+    }
     abstract public static function crea($nombre_usuario, $apellido, $email, $contrasena);
     protected static function creaUsuario($class, $nombre_usuario, $apellido, $email, $contrasena) {
         $user = new $class($nombre_usuario, $apellido, $email, self::hashPassword($contrasena));
@@ -24,7 +31,13 @@ abstract class Usuario {
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Estudiante($fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena'],  $fila['id']);
+                if ($table == 'Estudiante') {
+                    $result = new Estudiante($fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena'],  $fila['id']);
+                } elseif ($table == 'Profesor') {
+                    $result = new Profesor($fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena'],  $fila['id']);
+                } else {
+                    $result = new Admin($fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena'],  $fila['id']);
+                }
             }
             $rs->free();
         } else {
@@ -110,8 +123,8 @@ abstract class Usuario {
     }
     public function guarda() {
         if ($this->id !== null) {
-            return self::actualiza($this);
+            return static::actualiza($this);
         }
-        return self::inserta($this);
+        return static::inserta($this);
     }
 }

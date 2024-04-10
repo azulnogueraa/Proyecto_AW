@@ -1,15 +1,7 @@
 <?php
 namespace es\ucm\fdi\aw;
 class Profesor extends Usuario {
-    
-    public static function login($nombre_usuario, $contrasena) {
-        $result = self::busca($nombre_usuario);
-        $usuario = $result;
-        if ($usuario && $usuario->compruebaPassword($contrasena)) {
-            return $usuario;
-        }
-        return false;
-    }
+
     public static function crea($nombre_usuario, $apellido, $email, $contrasena) {
         return self::creaUsuario(__CLASS__, $nombre_usuario, $apellido, $email, $contrasena);
     }

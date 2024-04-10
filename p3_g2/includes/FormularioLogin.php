@@ -70,17 +70,17 @@ class FormularioLogin extends Formulario {
                     }else{
                         $_SESSION['login'] = true;
                         $_SESSION['nombre'] = $nombre_usuario;
-                        $_SESSION['tipo_usuario'] = "Admin";
+                        $_SESSION['tipo_usuario'] = Usuario::ADMIN_ROLE;
                     }
                 }else{
                     $_SESSION['login'] = true;
                     $_SESSION['nombre'] = $nombre_usuario;
-                    $_SESSION['tipo_usuario'] = "Profesor";
+                    $_SESSION['tipo_usuario'] = Usuario::PROFESOR_ROLE;
                 }        
             }else {
                 $_SESSION['login'] = true;
                 $_SESSION['nombre'] = $nombre_usuario;
-                $_SESSION['tipo_usuario'] = "Estudiante";
+                $_SESSION['tipo_usuario'] = Usuario::ESTUDIANTE_ROLE;
             }
         }
     }
