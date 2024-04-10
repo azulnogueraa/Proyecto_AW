@@ -60,13 +60,27 @@ class FormularioLogin extends Formulario {
         }
 
         if (count($this->errores) === 0) {
-            $usuario = Usuario::login($nombre_usuario,$contrasena);
+            $usuario = Estudiante::login($nombre_usuario,$contrasena);
             if (!$usuario) {
-                $this->errores[] = "El usuario o el password no coinciden";
-            } else {
+                $usuario = Profesor::login($nombre_usuario,$contrasena);
+                if (!$usuario){
+                    $usuario = Admin::login($nombre_usuario,$contrasena);
+                    if (!$usuario){
+                        $this->errores[] = "El usuario o el password no coinciden";
+                    }else{
+                        $_SESSION['login'] = true;
+                        $_SESSION['nombre'] = $nombre_usuario;
+                        $_SESSION['tipo_usuario'] = "Admin";
+                    }
+                }else{
+                    $_SESSION['login'] = true;
+                    $_SESSION['nombre'] = $nombre_usuario;
+                    $_SESSION['tipo_usuario'] = "Profesor";
+                }        
+            }else {
                 $_SESSION['login'] = true;
-                $_SESSION['nombre'] = $usuario->getNombre();
-                $_SESSION['tipo_usuario'] = $usuario->getRol();
+                $_SESSION['nombre'] = $nombre_usuario;
+                $_SESSION['tipo_usuario'] = "Estudiante";
             }
         }
     }

@@ -13,7 +13,7 @@ class FormularioRegistro extends Formulario {
         $email = $datos['email'] ?? '';
 
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['nombre_usuario', 'apellido', 'email', 'password', 'password2'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['nombre_usuario', 'apellido', 'email', 'rol', 'password', 'password2'], $this->errores, 'span', array('class' => 'error'));
 
         $html = <<<EOF
         $htmlErroresGlobales
@@ -38,6 +38,12 @@ class FormularioRegistro extends Formulario {
                         <label for="email">Email:</label>
                         <input id="email" type="email" name="email" />
                         {$erroresCampos['email']}
+                    </div>
+                    <div>
+                        <select name="rol">
+                            <option value="Estudiante">Estudiante</option>
+                            <option value="Profesor">Profesor</option>
+                        </select>
                     </div>
                     <div>
                         <label for="password">Password:</label>
@@ -79,20 +85,7 @@ class FormularioRegistro extends Formulario {
         if ( ! $email || empty($email)) {
             $this->errores['email'] = 'Introduce una dirección de correo electrónico válida.';
         }
-        $domain = substr($email, strpos($email, '@') + 1);
-        // Verifica si el dominio del correo electrónico indica que es un administrador
-        if (strpos($domain, 'admin') !== false) {
-            $table = 'Administrador';
-            $role = ADMIN_ROLE;
-        } elseif (strpos($domain, 'estudiante') !== false) {
-            $table = 'Estudiante';
-            $role = ESTUDIANTE_ROLE;
-        } elseif (strpos($domain, 'profesor') !== false) {
-            $table = 'Profesor';
-            $role = PROFESOR_ROLE;
-        } else {
-            $erroresFormulario['email'] = 'Introduce una dirección de correo electrónico válida.';
-        }
+        
 
         $password = trim($datos['password'] ?? '');
         $password = filter_var($password, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -107,15 +100,26 @@ class FormularioRegistro extends Formulario {
         }
 
         if (count($this->errores) === 0) {
-            $usuario = Usuario::buscaUsuario($nombre_usuario);
+            
             if ($usuario) {
                 $this->errores[] = "El usuario ya existe";
-            } else {
-                $usuario = Usuario::crea($nombre_usuario, $apellido, $email, $password, $role);
-                $_SESSION['login'] = true;
-                $_SESSION['nombre'] = $nombre_usuario;
-                $_SESSION['tipo_usuario'] = $role;
+            } else{
+                if (strpos($datos['rol'], 'Profesor') !== false) {
+                    $role = $datos['rol'];
+                    $usuario = Profesor::buscaUsuario($nombre_usuario);
+                    $_SESSION['login'] = true;
+                    $_SESSION['nombre'] = $nombre_usuario;
+                    $_SESSION['tipo_usuario'] = $role;
+
+                }elseif (strpos($datos['rol'], 'Estudiante') !== false) {
+                    $role = $datos['rol'];
+                    $usuario = Estudiante::buscaUsuario($nombre_usuario);
+                    $_SESSION['login'] = true;
+                    $_SESSION['nombre'] = $nombre_usuario;
+                    $_SESSION['tipo_usuario'] = $role;
+                }   
             }
         }
     }
+    
 }

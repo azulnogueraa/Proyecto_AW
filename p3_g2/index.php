@@ -1,24 +1,11 @@
 <?php
 //Inicio del procesamiento
-session_start();
-?>
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="utf-8">
-    <title>Pagina Principal</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="img/logo.jpg" type="image/png">
-    <link rel="stylesheet" href="CSS/index.css">
-    <link rel="stylesheet" href="CSS/topBar.css">
-    
-    
-  </head>
-  <body>
-    <!-- topbar -->
-    <?php require "includes/vistas/comun/topbar.php"; ?>
+//session_start(); normalmente se hace en config.php
+include 'includes/config.php';
+$tituloPagina = 'Pagina Principal';
 
-    <div class="caja">
+$contenidoPrincipal = <<<EOS
+  <div class="caja">
       <div class="texto"> 
         <h1> Cursos Online para transformar tu realidad en tiempo récord</h1>
         <p>Clases en línea y en vivo dictadas por referentes de la industria, 
@@ -55,8 +42,7 @@ session_start();
     <h2> Más de 200.000 estudiantes nos recomiendan en todo Europa </h2>
     <img class="reco" src="img/recomendaciones.png" alt="">
 
-    </div>  
-
-
-  </body>
-</html>
+    </div>
+EOS;
+include 'includes/vistas/plantillas/plantilla.php';
+?>

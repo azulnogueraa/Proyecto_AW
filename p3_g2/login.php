@@ -9,4 +9,4 @@ $contenidoPrincipal = <<<EOS
 <h1>Log In</h1>
 $htmlFormLogin
 EOS;
-require __DIR__.'/includes/vistas/plantillas/plantillaFormulario.php';
+require __DIR__.'/includes/vistas/plantillas/plantilla.php';

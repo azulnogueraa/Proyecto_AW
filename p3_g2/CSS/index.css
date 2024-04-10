@@ -169,11 +169,10 @@ h2{
     text-align: center;
 }
 
-
 /*ex topbar.css file*/
 /* Introducción */
 
-.intro-topbar {
+/* .intro-topbar {
     display: grid;
     grid-template-columns: auto auto;
     gap: 20px;
@@ -197,12 +196,12 @@ h2{
 
 .saludo-topbar .salir-topbar {
     color: #1ab2a8;
-}
+} */
 
 
 /* ex cursos.css file*/
 
-.container-cursos {
+/* .container-cursos {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -243,4 +242,4 @@ h2{
 .button-cursos:hover {
     background-color: white;
     color: #123949;
-}
+} */
