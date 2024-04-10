@@ -17,9 +17,7 @@ abstract class Usuario {
         $user = new $class($nombre_usuario, $apellido, $email, self::hashPassword($contrasena));
         return $user->guarda();
     }
-
     abstract public static function busca($nombre_usuario);
-
     protected static function buscaUsuario($table, $nombre_usuario) {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM %s U WHERE U.nombre_usuario='%s'", 
@@ -48,9 +46,7 @@ abstract class Usuario {
     private static function hashPassword($contrasena) {
         return password_hash($contrasena, PASSWORD_DEFAULT);
     }
-
     abstract public static function inserta($usuario);
-
     protected static function insertaUsuario($table, $usuario) {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("INSERT INTO %s(nombre_usuario, apellido, email, contrasena) VALUES ('%s', '%s', '%s', '%s')",
@@ -69,9 +65,7 @@ abstract class Usuario {
         }
         return $usuario;
     }
-
     abstract protected static function actualiza($usuario);
-
     private static function actualizaUsuario($table, $usuario) {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query=sprintf("UPDATE %s U SET nombre_usuario = '%s', apellido = '%s', email='%s', password='%s' WHERE U.id=%d"

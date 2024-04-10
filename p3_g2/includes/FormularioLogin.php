@@ -17,29 +17,25 @@ class FormularioLogin extends Formulario {
         // Se genera el HTML asociado a los campos del formulario y los mensajes de error.
         $html = <<<EOF
         $htmlErroresGlobales
-        <main>
-            <article>
-                <h1>Log In</h1>
-                <fieldset>
-                    <div class="legenda">
-                        <legend>Datos para reingresar</legend>
-                    </div>
-                    <div class="form-element">
-                        <label for="nombre_usuario">Nombre de usuario:</label>
-                        <input type="text" name="nombre_usuario" pattern="[a-zA-Z0-9]+" required value="$nombre_usuario" />
-                        {$erroresCampos['nombre_usuario']}
-                    </div>
-                    <div class="form-element">
-                        <label for="contrasena">Contraseña:</label>
-                        <input type="password" name="contrasena" required />
-                        {$erroresCampos['contrasena']}
-                    </div>
-                    <div class="boton">
-                        <button type="submit" name="login" value="login">Log In</button>
-                    </div>
-                </fieldset>
-            </article>
-        </main>
+        <h1>Log In</h1>
+        <fieldset>
+            <div class="legenda">
+                Datos para reingresar
+            </div>
+            <div class="form-element">
+                <label for="nombre_usuario">Nombre de usuario:</label>
+                <input id="nombre_usuario" type="text" name="nombre_usuario" pattern="[a-zA-Z0-9]+" required value="$nombre_usuario">
+                {$erroresCampos['nombre_usuario']}
+            </div>
+            <div class="form-element">
+                <label for="contrasena">Contraseña:</label>
+                <input id="contrasena" type="password" name="contrasena" required>
+                {$erroresCampos['contrasena']}
+            </div>
+            <div class="boton">
+                <button type="submit" name="login" value="login">Log In</button>
+            </div>
+        </fieldset>
         EOF;
         return $html;
     }

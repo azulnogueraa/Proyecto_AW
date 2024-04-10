@@ -1,6 +1,5 @@
 <?php
-//Inicio del procesamiento
-session_start();
+require_once '../includes/config.php';
 ?>
 <!DOCTYPE html>
 <head> 
@@ -14,7 +13,7 @@ session_start();
 
 <body>
     <!-- topbar -->
-    <?php require "includes/vistas/comun/topbar.php"; ?>
+    <?php require RAIZ_APP."/vistas/comun/topbar.php"; ?>
 
     <div class="info_marketing">
         <h1>Carrera de Trading</h1>

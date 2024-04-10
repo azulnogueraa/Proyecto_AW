@@ -13,54 +13,50 @@ class FormularioRegistro extends Formulario {
         $email = $datos['email'] ?? '';
 
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['nombre_usuario', 'apellido', 'email', 'rol', 'password', 'password2'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['nombre_usuario', 'apellido', 'email', 'password', 'password2'], $this->errores, 'span', array('class' => 'error'));
 
         $html = <<<EOF
         $htmlErroresGlobales
-        <main>
-            <article>
-                <h1>Registro de usuario</h1>
-                <fieldset>
-                    <div class="legenda">
-                        <legend>Datos para el registro</legend>
-                    </div>
-                    <div>
-                        <label for="nombre_usuario">Nombre de usuario:</label>
-                        <input id="nombre_usuario" type="text" name="nombre_usuario" />
-                        {$erroresCampos['nombre_usuario']}
-                    </div>
-                    <div>
-                        <label for="apellido">Apellido:</label>
-                        <input id="apellido" type="text" name="apellido" />
-                        {$erroresCampos['apellido']}
-                    </div>
-                    <div>
-                        <label for="email">Email:</label>
-                        <input id="email" type="email" name="email" />
-                        {$erroresCampos['email']}
-                    </div>
-                    <div>
-                        <select name="rol">
-                            <option value="Estudiante">Estudiante</option>
-                            <option value="Profesor">Profesor</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="password">Password:</label>
-                        <input id="password" type="password" name="password" />
-                        {$erroresCampos['password']}
-                    </div>
-                    <div>
-                        <label for="password2">Reintroduce el password:</label>
-                        <input id="password2" type="password" name="password2" />
-                        {$erroresCampos['password2']}
-                    </div>
-                    <div class="boton">
-                        <button type="submit" name="registro">Registrar</button>
-                    </div>
-                </fieldset>
-            </article>
-        </main>
+        <h1>Registro de usuario</h1>
+        <fieldset>
+            <div class="legenda">
+                Datos para el registro
+            </div>
+            <div>
+                <label for="nombre_usuario">Nombre de usuario:</label>
+                <input id="nombre_usuario" type="text" name="nombre_usuario">
+                {$erroresCampos['nombre_usuario']}
+            </div>
+            <div>
+                <label for="apellido">Apellido:</label>
+                <input id="apellido" type="text" name="apellido">
+                {$erroresCampos['apellido']}
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input id="email" type="email" name="email">
+                {$erroresCampos['email']}
+            </div>
+            <div>
+                <select name="rol">
+                    <option value="Estudiante">Estudiante</option>
+                    <option value="Profesor">Profesor</option>
+                </select>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input id="password" type="password" name="password">
+                {$erroresCampos['password']}
+            </div>
+            <div>
+                <label for="password2">Reintroduce el password:</label>
+                <input id="password2" type="password" name="password2">
+                {$erroresCampos['password2']}
+            </div>
+            <div class="boton">
+                <button type="submit" name="registro">Registrar</button>
+            </div>
+        </fieldset>
         EOF;
         return $html;
     }
