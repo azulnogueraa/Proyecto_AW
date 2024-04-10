@@ -24,17 +24,17 @@ class FormularioRegistro extends Formulario {
             </div>
             <div>
                 <label for="nombre_usuario">Nombre de usuario:</label>
-                <input id="nombre_usuario" type="text" name="nombre_usuario">
+                <input id="nombre_usuario" type="text" name="nombre_usuario" required value="$nombre_usuario">
                 {$erroresCampos['nombre_usuario']}
             </div>
             <div>
                 <label for="apellido">Apellido:</label>
-                <input id="apellido" type="text" name="apellido">
+                <input id="apellido" type="text" name="apellido" required value="$apellido">
                 {$erroresCampos['apellido']}
             </div>
             <div>
                 <label for="email">Email:</label>
-                <input id="email" type="email" name="email">
+                <input id="email" type="email" name="email" required value="$email">
                 {$erroresCampos['email']}
             </div>
             <div>
@@ -45,12 +45,12 @@ class FormularioRegistro extends Formulario {
             </div>
             <div>
                 <label for="password">Password:</label>
-                <input id="password" type="password" name="password">
+                <input id="password" type="password" name="password" required>
                 {$erroresCampos['password']}
             </div>
             <div>
                 <label for="password2">Reintroduce el password:</label>
-                <input id="password2" type="password" name="password2">
+                <input id="password2" type="password" name="password2" required>
                 {$erroresCampos['password2']}
             </div>
             <div class="boton">

@@ -24,7 +24,7 @@ class FormularioLogin extends Formulario {
             </div>
             <div class="form-element">
                 <label for="nombre_usuario">Nombre de usuario:</label>
-                <input id="nombre_usuario" type="text" name="nombre_usuario" pattern="[a-zA-Z0-9]+" required value="$nombre_usuario">
+                <input id="nombre_usuario" type="text" name="nombre_usuario" required value="$nombre_usuario">
                 {$erroresCampos['nombre_usuario']}
             </div>
             <div class="form-element">
@@ -59,21 +59,21 @@ class FormularioLogin extends Formulario {
             $usuario = Estudiante::login($nombre_usuario,$contrasena);
             if (!$usuario) {
                 $usuario = Profesor::login($nombre_usuario,$contrasena);
-                if (!$usuario){
+                if (!$usuario) {
                     $usuario = Admin::login($nombre_usuario,$contrasena);
                     if (!$usuario){
                         $this->errores[] = "El usuario o el password no coinciden";
-                    }else{
+                    } else {
                         $_SESSION['login'] = true;
                         $_SESSION['nombre'] = $nombre_usuario;
                         $_SESSION['tipo_usuario'] = Usuario::ADMIN_ROLE;
                     }
-                }else{
+                } else {
                     $_SESSION['login'] = true;
                     $_SESSION['nombre'] = $nombre_usuario;
                     $_SESSION['tipo_usuario'] = Usuario::PROFESOR_ROLE;
                 }        
-            }else {
+            } else {
                 $_SESSION['login'] = true;
                 $_SESSION['nombre'] = $nombre_usuario;
                 $_SESSION['tipo_usuario'] = Usuario::ESTUDIANTE_ROLE;
