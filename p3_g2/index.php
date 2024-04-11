@@ -13,8 +13,6 @@ $contenidoPrincipal = <<<EOS
       </div>
   </div>
 
-  <hr>
-
   <div class="alumnos">
     <img class="alumni" src="img/chat_alumnos.png" alt="">
     <div class="info">

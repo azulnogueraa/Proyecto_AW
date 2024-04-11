@@ -1,26 +1,27 @@
 body{
     display: flex;
     flex-direction: column;
-    margin-top: 2%;
+    /* margin-top: 2%; */
     /* padding-top: 100%; */
 }
 .texto{
     text-align: center;
-    margin: 5% 20%;   
+    margin: 5% 20%;  
 }
 
 .caja{
     background-color: #B1C5C3;
     border-radius: 10px;
-    margin-left: 10%;
-    margin-right: 10%;
+    /* margin-left: 10%; */
+    /* margin-right: 10%; */
     margin-top: 5%;
     margin-bottom: 2%;
+    padding: 50px;
 }
 
 h1 {
     padding-bottom: 10px ;
-    font-size: 5em;
+    font-size: 10em;
 }
 
 p{
@@ -42,19 +43,10 @@ button:hover {
     background: #1ab2a8;
 }
 
-hr {
-    border: none; 
-    height: 1px; 
-    background-color: #123949; 
-    width: 80%;
-    margin: 30px auto; 
-}
-
 .alumnos{
     display: flex;
     flex-direction: row;
-    margin-right: 10%;
-    margin-left: 10%;
+    margin: 5% 0% 0% 0%;
 }
 
 .info{
@@ -66,9 +58,9 @@ hr {
 .profesores{
     display: flex;
     flex-direction: row;
-    margin-right: 10%;
-    margin-left: 10%;
-    margin: 5% 10% 5% 10%;
+    /* margin-right: 10%; */
+    /* margin-left: 10%; */
+    margin: 5% 0% 5% 0%;
     align-content: center;
 }
 
@@ -96,7 +88,7 @@ h2{
 .tutores{
     width: 95%;
     height: auto;
-    margin-top: 2%;
+    margin-top: 2.5%;
 } 
 
 .doble_caja{
@@ -107,14 +99,13 @@ h2{
 .recomendaciones{
     /* margin-right: 10%; */
     /* margin-left: 10%; */
-    margin: 0% 10% 2% 10%;
+    /* margin: 0% 10% 2% 10%; */
     align-content: center;
 }
 
 .reco{
     width: 100%;
     height: auto;
-    /* margin: 2% 10% 2% 10%; */
 }
 
 
