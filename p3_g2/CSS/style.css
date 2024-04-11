@@ -179,7 +179,7 @@ h2{
 }
 
 #img4_index{
-    width: 95%;
+    width: 100%;
     height: auto;
     margin-top: 2.5%;
 } 
@@ -200,14 +200,18 @@ h2{
 /*                                       LOGIN.PHP & REGISTRO.PHP                                           */
 
 
-/* #contendor_login_registro {
-    box-sizing: border-box;
+#contendor_login_registro {
+    /* box-sizing: border-box; */
     align-items: center;
     display: flex;
     justify-content: center;
-    margin: 2% 10% 2% 10%;
-} */
+    /* margin: 2% 10% 2% 10%; */
+} 
 
+article {
+    display: flex;
+    justify-content: center;
+}
 
 label {
     display: inline-block;
@@ -351,9 +355,42 @@ button:hover {
 
 /*                                          BUSCAR_CURSOS.PHP                                                */
 
-#contenedor_buscar_cursos{
-    align-items: center;
+#contenedor_buscar_cursos {
+    /* align-items: center; */
     display: flex;
     justify-content: center;
-    margin: 2% 10% 2% 10%;
+    margin: 5% 10% 5% 10%;
+}
+
+
+
+
+/*                                              CURSO_VISTA.PHP                                             */
+
+#contenedor_vista_cursos{
+    margin-right: 30%;
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+
+ul{
+    font-size: large;
+}
+
+button {
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    font-weight: 100;
+    background: #123949;
+    color: white;
+    border: none;
+    margin: 20px;
+}
+
+button:hover {
+    background: #1ab2a8;
 }

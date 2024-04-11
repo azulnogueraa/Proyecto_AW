@@ -36,6 +36,7 @@ class FormularioLogin extends Formulario {
                 <button type="submit" name="login" value="login">Log In</button>
             </div>
         </fieldset>
+
         EOF;
         return $html;
     }
