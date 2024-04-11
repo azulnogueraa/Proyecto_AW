@@ -1,12 +1,11 @@
 <?php
 require_once '../includes/config.php';
 ?>
-<!DOCTYPE html>
+
 <head> 
     <meta charset="utf-8">
-    <title>Marketing</title>
-    <link rel="stylesheet" href="../CSS/curso_vista.css">
-    <link rel="stylesheet" href="../CSS/topBar.css">
+    <title>Trading</title>
+    <link rel="stylesheet" href="../CSS/style.css">
     
 
 </head>
@@ -15,7 +14,7 @@ require_once '../includes/config.php';
     <!-- topbar -->
     <?php require RAIZ_APP."/vistas/comun/topbar.php"; ?>
 
-    <div class="info_marketing">
+    <div class="contenedor_vista_cursos">
         <h1>Carrera de Trading</h1>
         <!-- lista desorenada -->
         <ul>
@@ -26,11 +25,8 @@ require_once '../includes/config.php';
         </ul>
         <a href="inscripcion.php">
             <button type="submit" name="inscribirme" value="inscribirme">Inscribirme ahora</button>
-        </a>
-        
+        </a> 
     </div>
     
 </body>
-
-</html>
 
