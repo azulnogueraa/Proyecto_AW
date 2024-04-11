@@ -1,22 +1,20 @@
 <?php
-//Inicio del procesamiento
-session_start();
+require_once '../includes/config.php';
 ?>
-<!DOCTYPE html>
+
 <head> 
     <meta charset="utf-8">
-    <title>Marketing</title>
-    <link rel="stylesheet" href="../CSS/curso_vista.css">
-    <link rel="stylesheet" href="../CSS/topBar.css">
+    <title>Blockchain</title>
+    <link rel="stylesheet" href="../CSS/style.css">
     
 
 </head>
 
 <body>
     <!-- topbar -->
-    <?php require "../includes/vistas/comun/topbar.php"; ?>
+    <?php require RAIZ_APP."/vistas/comun/topbar.php"; ?>
 
-    <div class="info_marketing-cursos_vistas">
+    <div class="contenedor_vista_cursos">
         <h1>Carrera de Blockchain</h1>
         <!-- lista desorenada -->
         <ul>
@@ -25,13 +23,10 @@ session_start();
             <li> Certificado de finalización </li>
             <li> Acceso a la comunidad de estudiantes </li>
         </ul>
-        <a href="../inscripcion.php">
+        <a href="inscripcion.php">
             <button type="submit" name="inscribirme" value="inscribirme">Inscribirme ahora</button>
-        </a>
-        
+        </a> 
     </div>
     
 </body>
-
-</html>
 

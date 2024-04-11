@@ -47,7 +47,7 @@ if (isset($_GET['nombre_curso'])) {
     <!-- topbar -->
     <?php require_once "includes/vistas/comun/topbar.php"; ?>
 
-    <div class="container">
+    <div id="contenedor_editar_curso">
         <h2>Editar Curso</h2>
         <?php
         if ($mensaje) {
