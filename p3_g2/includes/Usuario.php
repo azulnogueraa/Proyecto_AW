@@ -5,7 +5,7 @@ abstract class Usuario {
     public const ESTUDIANTE_ROLE = 2;
     public const PROFESOR_ROLE = 3;
     public static function login($nombre_usuario, $contrasena) {
-        $result = static::busca($nombre_usuario);
+        $result = static::buscaUsuario($nombre_usuario);
         $usuario = $result;
         if ($usuario && $usuario->compruebaPassword($contrasena)) {
             return $usuario;
@@ -17,32 +17,39 @@ abstract class Usuario {
         $user = new $class($nombre_usuario, $apellido, $email, self::hashPassword($contrasena));
         return $user->guarda();
     }
-    abstract public static function busca($nombre_usuario);
-    protected static function buscaUsuario($table, $nombre_usuario) {
+    public static function buscaUsuario($nombre_usuario) {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM %s U WHERE U.nombre_usuario='%s'", 
-            $table,
-            $conn->real_escape_string($nombre_usuario)
-        );
-        $rs = $conn->query($query);
+        $tables = ['Estudiante', 'Profesor', 'Administrador'];
         $result = false;
-        if ($rs) {
-            $fila = $rs->fetch_assoc();
-            if ($fila) {
-                if ($table == 'Estudiante') {
-                    $result = new Estudiante($fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena'],  $fila['id']);
-                } elseif ($table == 'Profesor') {
-                    $result = new Profesor($fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena'],  $fila['id']);
-                } else {
-                    $result = new Admin($fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena'],  $fila['id']);
+        foreach ($tables as $table) {
+            $query = sprintf("SELECT * FROM %s WHERE nombre_usuario='%s'",
+                $table,
+                $conn->real_escape_string($nombre_usuario)
+            );
+            $rs = $conn->query($query);
+            
+            if ($rs && $rs->num_rows > 0) {
+                $fila = $rs->fetch_assoc();
+                switch ($table) {
+                    case 'Estudiante':
+                        $result = new Estudiante($fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena'],  $fila['id']);
+                        break;
+                    case 'Profesor':
+                        $result = new Profesor($fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena'],  $fila['id']);
+                        break;
+                    case 'Administrador':
+                        $result = new Admin($fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena'],  $fila['id']);
+                        break;
                 }
+                $rs->free();
+                break;
+            } else {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
             }
-            $rs->free();
-        } else {
-            error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
         return $result;
     }
+    
     private static function hashPassword($contrasena) {
         return password_hash($contrasena, PASSWORD_DEFAULT);
     }
@@ -82,11 +89,11 @@ abstract class Usuario {
         }
         return $usuario;
     }
-    abstract public function borra($usuario);
-    public function borraUsuario($table, $usuario) {
+    abstract public static function borra($usuario);
+    public static function borraUsuario($table, $usuario) {
         if ($usuario->id !== null) {
             $conn = Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("DELETE FROM %s U WHERE U.id = %d"
+            $query = sprintf("DELETE FROM %s WHERE id = %d"
                 , $table
                 , $usuario->id
             );
@@ -120,5 +127,8 @@ abstract class Usuario {
             return static::actualiza($this);
         }
         return static::inserta($this);
+    }
+    public function getNombreUsuario() {
+        return $this->nombre_usuario;
     }
 }

@@ -1,81 +1,67 @@
 <?php
-session_start();
-require_once "includes/utils.php"; // Incluye el archivo de utilidades
-$mysqli = conexionBD(); // Establece la conexión a la base de datos
+require_once __DIR__.'/includes/config.php';
 
-// Verifica si hay un mensaje almacenado en la sesión
-$mensaje = isset($_SESSION['mensaje']) ? $_SESSION['mensaje'] : null;
+$tituloPagina = 'Ajustes';
+$contenidoPrincipal = '';
+if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo_usuario'] !== es\ucm\fdi\aw\Usuario::ADMIN_ROLE) {
+    $contenidoPrincipal .= <<<EOS
+        <h1>No eres un administrador!</h1>
+        <p>No deberías estar ahí..</p>
+    EOS;
+} else {
+    $contenidoPrincipal .= '<h1>Panel de administracion</h1>';
 
-// Elimina el mensaje de la sesión para que no se muestre más de una vez
-unset($_SESSION['mensaje']);
-?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="utf-8">
-    <title>Ajustes</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="img/logo.jpg" type="image/png">
-    <link rel="stylesheet" href="CSS/index.css">
-    <link rel="stylesheet" href="CSS/topBar.css">
-</head>
-<body>
-    <!-- topbar -->
-    <?php 
-    require_once "includes/vistas/comun/box_curso.php";
-    require "includes/vistas/comun/topbar.php";
-
-    // Verifica si el usuario es un administrador
-    if (isset($_SESSION["esAdmin"]) && $_SESSION["esAdmin"] === true) {
-        // Consulta para obtener todos los usuarios
-        $sqlUsuarios = "SELECT nombre_usuario FROM Estudiante 
-                        UNION 
-                        SELECT nombre_usuario FROM Profesor 
-                        UNION 
-                        SELECT nombre_usuario FROM Administrador";
-        $resultUsuarios = $mysqli->query($sqlUsuarios);
-
-        // Consulta para obtener todos los cursos
-        $sqlCursos = "SELECT nombre_curso FROM Curso";
-        $resultCursos = $mysqli->query($sqlCursos);
-
-        if ($resultUsuarios->num_rows > 0) {
-            echo "<div class='container'>";
-            echo "<h2>Borrar usuario</h2>";
-            // Muestra el mensaje de confirmación si existe
-            if ($mensaje) {
-                echo "<p>$mensaje</p>";
-            }
-            echo "<form action='borrar_usuario.php' method='POST'>";
-            echo "<label for='usuario'>Selecciona el usuario:</label>";
-            echo "<select name='usuario' id='usuario'>";
-            // Imprime las opciones para seleccionar usuarios
-            while ($row = $resultUsuarios->fetch_assoc()) {
-                echo "<option value='" . $row["nombre_usuario"] . "'>" . $row["nombre_usuario"] . "</option>";
-            }
-            echo "</select>";
-            echo "<button type='submit' name='borrar'>Borrar usuario</button>";
-            echo "</form>";
-            echo "</div>";
-
-            echo "<h2>Administrar Cursos</h2>";
-            echo "<form action='editar_curso.php' method='GET'>";
-            echo "<label for='curso'>Selecciona el curso:</label>";
-            echo "<select name='nombre_curso' id='curso'>";
-            // Imprime las opciones para seleccionar cursos
-            while ($row = $resultCursos->fetch_assoc()) {
-                echo "<option value='" . $row["nombre_curso"] . "'>" . $row["nombre_curso"] . "</option>";
-            }
-            echo "</select>";
-            echo "<button type='submit'>Editar Curso</button>";
-            echo "</form>";
-
-        } else {
-            echo "No hay usuarios para mostrar.";
+    $mensaje = '';
+    if (isset($_GET['borrado'])) {
+        if ($_GET['borrado'] === 'exito') {
+            $nombre_usuario = isset($_GET['usuario']) ? $_GET['usuario'] : '';
+            $mensaje = "<p>El usuario <strong>{$nombre_usuario}</strong> ha sido borrado exitosamente.</p>";
+        } elseif ($_GET['borrado'] === 'error') {
+            $mensaje = '<p>Error al intentar borrar el usuario.</p>';
         }
-    } else {
-        echo "Acceso no autorizado. Debes ser administrador para acceder a esta página.";
     }
-    ?>
-</body>
-</html>
+    $contenidoPrincipal .= $mensaje;
+
+    $usuarios = es\ucm\fdi\aw\Admin::obtenerUsuarios();
+    if (!$usuarios) {
+        $contenidoPrincipal .= '<p>Un problema ha ocurrido..</p>';
+    } else {
+        $seleccionar_usuarios = '';
+        foreach($usuarios as $nombre_usuario) {
+            $seleccionar_usuarios .= "<option value='" . $nombre_usuario . "'>" . $nombre_usuario . "</option>";
+        }
+        $contenidoPrincipal .= <<<EOS
+            <div id="contenedor_ajustes" class='container'>
+                <h2>Borrar usuario</h2>
+                <form action="" method="POST">
+                    <label for='usuario'>Selecciona el usuario:</label>
+                    <select name='usuario' id='usuario'>
+                        $seleccionar_usuarios
+                    </select>
+                    <button type='submit' name='borrar'>Borrar usuario</button>
+                </form>
+            </div>
+        EOS;
+    }
+}
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['borrar'], $_POST['usuario'])) {
+    $usuario = es\ucm\fdi\aw\Usuario::buscaUsuario($_POST['usuario']);
+    $table = get_class($usuario);
+    $admin = es\ucm\fdi\aw\Admin::buscaUsuario($_SESSION['nombre']);
+    if ($table == 'es\ucm\fdi\aw\Admin') {
+        $resultado = $admin->borrarUsuario('Administrador',$usuario);
+    } elseif ($table == 'es\ucm\fdi\aw\Estudiante') {
+        $resultado = $admin->borrarUsuario('Estudiante',$usuario);
+    } elseif ($table == 'es\ucm\fdi\aw\Profesor') {
+        $resultado = $admin->borrarUsuario('Profesor',$usuario);
+    }
+
+    if ($resultado) {
+        header("Location: ajustes.php?borrado=exito&usuario={$_POST['usuario']}");
+        exit();
+    } else {
+        header("Location: ajustes.php?borrado=error");
+        exit();
+    }
+}
+require 'includes/vistas/plantillas/plantilla.php';

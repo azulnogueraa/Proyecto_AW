@@ -96,11 +96,7 @@ class FormularioRegistro extends Formulario {
         }
 
         if (count($this->errores) === 0) {
-            if ($datos['rol'] == 'Estudiante') {
-                $usuario = Estudiante::busca($nombre_usuario);
-            } else { // ($datos['rol'] = 'Profesor')
-                $usuario = Profesor::busca($nombre_usuario);
-            }
+            $usuario = Usuario::buscaUsuario($nombre_usuario);
             if ($usuario) {
                 $this->errores[] = "El usuario ya existe";
             } else {

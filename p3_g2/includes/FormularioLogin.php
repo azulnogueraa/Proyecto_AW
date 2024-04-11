@@ -56,27 +56,20 @@ class FormularioLogin extends Formulario {
         }
 
         if (count($this->errores) === 0) {
-            $usuario = Estudiante::login($nombre_usuario,$contrasena);
+            $usuario = Usuario::login($nombre_usuario,$contrasena);
             if (!$usuario) {
-                $usuario = Profesor::login($nombre_usuario,$contrasena);
-                if (!$usuario) {
-                    $usuario = Admin::login($nombre_usuario,$contrasena);
-                    if (!$usuario){
-                        $this->errores[] = "El usuario o el password no coinciden";
-                    } else {
-                        $_SESSION['login'] = true;
-                        $_SESSION['nombre'] = $nombre_usuario;
-                        $_SESSION['tipo_usuario'] = Usuario::ADMIN_ROLE;
-                    }
-                } else {
-                    $_SESSION['login'] = true;
-                    $_SESSION['nombre'] = $nombre_usuario;
-                    $_SESSION['tipo_usuario'] = Usuario::PROFESOR_ROLE;
-                }        
+                $this->errores[] = "El usuario o el password no coinciden";
             } else {
                 $_SESSION['login'] = true;
                 $_SESSION['nombre'] = $nombre_usuario;
-                $_SESSION['tipo_usuario'] = Usuario::ESTUDIANTE_ROLE;
+                $tipo = get_class($usuario);
+                if ($tipo == 'es\ucm\fdi\aw\Admin') {
+                    $_SESSION['tipo_usuario'] = Usuario::ADMIN_ROLE;
+                } elseif ($tipo == 'es\ucm\fdi\aw\Estudiante') {
+                    $_SESSION['tipo_usuario'] = Usuario::ESTUDIANTE_ROLE;
+                } elseif ($tipo == 'es\ucm\fdi\aw\Profesor') {
+                    $_SESSION['tipo_usuario'] = Usuario::PROFESOR_ROLE;
+                }
             }
         }
     }

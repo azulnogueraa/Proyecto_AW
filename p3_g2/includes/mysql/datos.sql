@@ -18,7 +18,7 @@ VALUES
 INSERT INTO Administrador (nombre_usuario, apellido, email, contrasena)
 VALUES 
 ('admin', 'admin', 'admin@admin.com','$2y$10$ZASX632WWFlPQmI6Xe1HjedIZGxeU4jEyxWEmuA5.nKAAHhHJ.Fr6');
-
+GRANT ALL PRIVILEGES ON `learnique`.* TO 'admin'@'%';
 
 INSERT INTO Curso (nombre_curso, descripcion, profesor_id, fecha_creacion, duracion, nivel_dificultad, categoria, requisitos_previos, precio, estado_curso)
 VALUES
