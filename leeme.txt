@@ -11,9 +11,6 @@ F1. Gestión de Roles: Estudiante, Profesor, Administrador
     funcionalidades disponibles para cada tipo de usuario.
     - Se han creado las clases FormularioRegristro, FormularioLogin, Formulario, Usuario y Profesor.
 
-F2. Gestión de Inscripciones y Matriculaciones
-    - La funcionalidad de inscripción a cursos se ha implementado a través del fichero inscripcion.php,
-     que permite a los estudiantes explorar, seleccionar y matricularse en cursos.
 
 F3. Gestión de Búsqueda con Filtros
     - Se ha habilitado la búsqueda avanzada de cursos mediante el fichero cursos.php.
@@ -29,3 +26,9 @@ F4. Panel de Administración
      destinada a la gestión integral de la plataforma por parte de los administradores. 
 
 -------------------------------------
+
+En esta entrega, se han implementado parcialmente las siguientes funcionalidades de la aplicación:
+
+F2. Gestión de Inscripciones y Matriculaciones
+    - La funcionalidad de inscripción a cursos se ha implementado a través del fichero inscripcion.php,
+     que permite a los estudiantes explorar, seleccionar y matricularse en cursos.
