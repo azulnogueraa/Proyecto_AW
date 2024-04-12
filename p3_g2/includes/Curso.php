@@ -75,5 +75,22 @@ class Curso {
         echo "</div>";
     }
     
+
+    static public function obtenerCursos() {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query=sprintf("SELECT nombre_curso FROM Curso");
+        $rs = $conn->query($query);
+        $result = false;
+        if ($rs) {
+            $result = [];
+            while ($row = $rs->fetch_assoc()) {
+                $result[] = $row["nombre_curso"];
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
     
 }

@@ -47,15 +47,15 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
         </div>
         EOS;
     }
-    $cursos = true;
-    //$cursos = es\ucm\fdi\aw\Curso::obtenerCursos(); //el nombre del metodo puede cambiar
+
+    $cursos = es\ucm\fdi\aw\Curso::obtenerCursos(); //el nombre del metodo puede cambiar
     if (!$cursos) {
         $contenidoPrincipal .= '<p>Un problema ha ocurrido..</p>';
     } else {
         $seleccionar_cursos = '';
-        // foreach($cursos as $nombre_curso) {
-        //     $seleccionar_cursos .= "<option value='" . $nombre_curso . "'>" . $nombre_curso . "</option>";
-        // }
+        foreach($cursos as $nombre_curso) {
+            $seleccionar_cursos .= "<option value='" . $nombre_curso . "'>" . $nombre_curso . "</option>";
+        }
         $contenidoPrincipal .= <<<EOS
             <h2>Administrar Cursos</h2>
             <form action='editar_curso.php' method='GET'>
