@@ -1,27 +1,36 @@
 <?php
-// Supongamos que estos son los cursos disponibles
-$cursos = [
-    ["nombre" => "Curso de Criptomonedas", "precio" => "50 EUR", "url" => "cripto.php"],
-    ["nombre" => "Curso de Trading", "precio" => "40 EUR", "url" => "trading.php"],
-    ["nombre" => "Curso de Blockchain", "precio" => "60 EUR", "url" => "blockchain.php"],
-    ["nombre" => "Curso de Marketing", "precio" => "70 EUR", "url" => "marketing.php"],
-    ["nombre" => "Curso de Marketing2", "precio" => "55 EUR", "url" => "curso.php?nombre_curso=Marketing"],
-];
+session_start();
+// Conexión a la base de datos
+require_once(dirname(__FILE__) . '/../../config.php');
+$conn = es\ucm\fdi\aw\Aplicacion::getInstance()->getConexionBd();
 
 // Obtener el término de búsqueda del parámetro de la solicitud
 $searchTerm = isset($_GET['q']) ? $_GET['q'] : '';
 
-// Filtrar los cursos que coincidan con el término de búsqueda
-$resultados = array_filter($cursos, function($curso) use ($searchTerm) {
-    // Convertir ambas cadenas a minúsculas para una comparación sin distinción entre mayúsculas y minúsculas
-    $searchTermLower = strtolower($searchTerm);
-    $cursoNameLower = strtolower($curso['nombre']);
-    
-    // Buscar el término de búsqueda en el nombre del curso
-    return strpos($cursoNameLower, $searchTermLower) !== false;
-});
+// Consulta SQL para obtener los cursos que coinciden con el término de búsqueda
+$query = "SELECT * FROM Curso WHERE nombre_curso LIKE '%$searchTerm%'";
+
+// Ejecutar la consulta
+$resultado = $conn->query($query);
+
+// Array para almacenar los resultados
+$resultados = [];
+
+// Verificar si la consulta fue exitosa
+if ($resultado) {
+    // Recorrer los resultados de la consulta
+    while ($row = $resultado->fetch_assoc()) {
+        // Agregar cada curso al array de resultados
+        $curso = [
+            "nombre" => $row["nombre_curso"],
+            "precio" => $row["precio"] . " EUR", // Añadir el símbolo de la moneda
+            "url" => "curso.php?nombre_curso=" . urlencode($row["nombre_curso"]) // Codificar el nombre del curso para la URL
+        ];
+        $resultados[] = $curso;
+    }
+}
 
 // Devolver los resultados como JSON
 header('Content-Type: application/json');
-echo json_encode(array_values($resultados)); // Convertir los resultados en un array indexado para asegurar la consistencia
+echo json_encode($resultados);
 ?>

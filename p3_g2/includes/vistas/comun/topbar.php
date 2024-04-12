@@ -24,20 +24,23 @@
         <a href="buscar_cursos.php" class="topbar-item">Buscar Curso</a>
     </div>
     <?php
-    // Función para mostrar el saludo dependiendo del estado de sesión del usuario
-    function mostrarSaludo() {
-        $saludos = [
-            es\ucm\fdi\aw\Usuario::ADMIN_ROLE => "Administrador",
-            es\ucm\fdi\aw\Usuario::ESTUDIANTE_ROLE => "Estudiante",
-            es\ucm\fdi\aw\Usuario::PROFESOR_ROLE => "Profesor"
-        ];
-        if (isset($_SESSION['login']) && ($_SESSION['login'] === true)) {
-            $tipo_usuario = $_SESSION['tipo_usuario'];
-            $nombre = $_SESSION['nombre'];
-            $saludo = $saludos[$tipo_usuario] ?? "Usuario desconocido";
-            return "Bienvenido, $saludo $nombre <a href='logout.php' class='salir-topbar'>(salir)</a>";   
-        } else {
-            return "Usuario desconocido.";
+    // Verificar si la función mostrarSaludo() no está definida
+    if (!function_exists('mostrarSaludo')) {
+        // Definir la función mostrarSaludo()
+        function mostrarSaludo() {
+            $saludos = [
+                es\ucm\fdi\aw\Usuario::ADMIN_ROLE => "Administrador",
+                es\ucm\fdi\aw\Usuario::ESTUDIANTE_ROLE => "Estudiante",
+                es\ucm\fdi\aw\Usuario::PROFESOR_ROLE => "Profesor"
+            ];
+            if (isset($_SESSION['login']) && ($_SESSION['login'] === true)) {
+                $tipo_usuario = $_SESSION['tipo_usuario'];
+                $nombre = $_SESSION['nombre'];
+                $saludo = $saludos[$tipo_usuario] ?? "Usuario desconocido";
+                return "Bienvenido, $saludo $nombre <a href='logout.php' class='salir-topbar'>(salir)</a>";   
+            } else {
+                return "Usuario desconocido.";
+            }
         }
     }
     ?>

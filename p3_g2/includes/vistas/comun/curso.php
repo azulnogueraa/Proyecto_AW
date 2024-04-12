@@ -2,9 +2,12 @@
     //Inicio del procesamiento
     session_start();
 
-    require_once __DIR__.'/includes/utils.php';
-    $conn = conexionBD();
+    require_once(dirname(__FILE__) . '/../../config.php');
+    $conn = es\ucm\fdi\aw\Aplicacion::getInstance()->getConexionBd();
 
+    $nombre_curso = "No especificado"; // Valor predeterminado significativo
+    $descripcion = ""; // Definir la variable con un valor predeterminado
+    
     if(isset($_GET['nombre_curso'])) {
         $nombre_curso = $_GET['nombre_curso'];
         
@@ -18,12 +21,12 @@
                     $descripcion = $row["descripcion"];
                 }
             } else {
-                echo "Ningun curso con este nombre";
+                echo "Ningún curso con este nombre";
             }
         } else {
             echo "Error SQL ({$conn->errno}):  {$conn->error}";
         }
-    } echo "Nombre de curso no especificado";
+    }
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +40,7 @@
     <body>
         <?php require "includes/vistas/comun/topbar.php"; ?>
 
-        <div class="info_curso"> <!-- do not exist in css -->
+        <div class="info_curso">
             <h1>Carrera de <?=$nombre_curso?></h1>
             <p><?=$descripcion?></p>
             <a href="inscripcion.php?nombre_curso=<?=$nombre_curso?>">
