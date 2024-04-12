@@ -20,6 +20,8 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
             $mensaje = '<p>Error al intentar borrar el usuario.</p>';
         } elseif ($_GET['borrado'] === 'errorAdmin') {
             $mensaje = '<p>No es una buena idea..</p>';
+        } elseif ($_GET['borrado'] === 'errorProfe') {
+            $mensaje = '<p>Este profesor propone cursos..</p>';
         }
     }
     $contenidoPrincipal .= $mensaje;
@@ -34,7 +36,7 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
         }
         $contenidoPrincipal .= <<<EOS
         <div id="contenedor_ajustes" class='container'>
-            <h2>Borrar usuario</h2>
+            <h2>Borrar usuarios</h2>
             <form method="POST">
                 <label for='usuario'>Selecciona el usuario:</label>
                 <select name='usuario' id='usuario'>
@@ -45,18 +47,45 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
         </div>
         EOS;
     }
+    $cursos = true;
+    //$cursos = es\ucm\fdi\aw\Curso::obtenerCursos(); //el nombre del metodo puede cambiar
+    if (!$cursos) {
+        $contenidoPrincipal .= '<p>Un problema ha ocurrido..</p>';
+    } else {
+        $seleccionar_cursos = '';
+        // foreach($cursos as $nombre_curso) {
+        //     $seleccionar_cursos .= "<option value='" . $nombre_curso . "'>" . $nombre_curso . "</option>";
+        // }
+        $contenidoPrincipal .= <<<EOS
+            <h2>Administrar Cursos</h2>
+            <form action='editar_curso.php' method='GET'>
+                <label for='curso'>Selecciona el curso:</label>
+                <select name='nombre_curso' id='curso'>
+                    $seleccionar_cursos
+                </select>
+                <button type='submit'>Editar Curso</button>
+            </form>
+        EOS;
+    }
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['borrar'], $_POST['usuario'])) {
     $usuario = es\ucm\fdi\aw\Usuario::buscaUsuario($_POST['usuario']);
-    $table = get_class($usuario);
+    $namespace = 'es\ucm\fdi\aw\\';
+    $table = substr(get_class($usuario), strrpos(get_class($usuario), $namespace) + strlen($namespace));
     $admin = es\ucm\fdi\aw\Admin::buscaUsuario($_SESSION['nombre']);
-    if ($table == 'es\ucm\fdi\aw\Admin') {
+    if ($table == 'Admin') {
         header("Location: ajustes.php?borrado=errorAdmin");
         exit();
-    } elseif ($table == 'es\ucm\fdi\aw\Estudiante') {
-        $resultado = $admin->borrarUsuario('Estudiante',$usuario);
-    } elseif ($table == 'es\ucm\fdi\aw\Profesor') {
-        $resultado = $admin->borrarUsuario('Profesor',$usuario);
+    } elseif ($table == 'Estudiante') {
+        $resultado = $admin->borrarUsuario($table,$usuario);
+    } elseif ($table == 'Profesor') {
+        $cursoDelProfe = $usuario->misCursos();
+        if (!$cursoDelProfe) { //El profe no esta en ningun curso : podemos eliminarlo
+            $resultado = $admin->borrarUsuario($table,$usuario);
+        } else { //De momento vamos a decir que no se puede borrar el profe si tiene cursos
+            header("Location: ajustes.php?borrado=errorProfe");
+            exit();
+        }  
     }
 
     if ($resultado) {

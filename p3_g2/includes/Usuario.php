@@ -131,4 +131,7 @@ abstract class Usuario {
     public function getNombreUsuario() {
         return $this->nombre_usuario;
     }
+    public function getId() {
+        return $this->id;
+    }
 }

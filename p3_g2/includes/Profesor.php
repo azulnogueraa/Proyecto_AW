@@ -17,4 +17,8 @@ class Profesor extends Usuario {
         $table = 'Profesor';
         return self::borraUsuario($table, $usuario);
     }
+    public function misCursos() {
+        $idProfe = $this->getId();
+        return true; //A cambiar por eso cuando tenemos la clase : Curso::cursosDelProfe($idProfe);
+    }
 }
