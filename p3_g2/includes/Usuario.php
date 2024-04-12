@@ -128,10 +128,16 @@ abstract class Usuario {
         }
         return static::inserta($this);
     }
+    public function getId() {
+        return $this->id;
+    }
     public function getNombreUsuario() {
         return $this->nombre_usuario;
     }
-    public function getId() {
-        return $this->id;
+    public function getApellido() {
+        return $this->apellido;
+    }
+    public function getEmail() {
+        return $this->email;
     }
 }
