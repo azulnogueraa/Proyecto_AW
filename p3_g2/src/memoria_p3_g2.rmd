@@ -245,6 +245,7 @@ URL al servicio de Guacamole:
 - Contribución a diagrama de estructura de base de datos
 - Contribución en carpeta mysql
 - Reorganización del codigo en clases
+- Contribución a la gestión de inscripciones y matriculación
 
 
 
