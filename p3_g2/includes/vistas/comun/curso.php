@@ -1,6 +1,6 @@
 <?php
     //Inicio del procesamiento
-    session_start();
+    //session_start();
 
     require_once __DIR__.'/includes/utils.php';
     $conn = conexionBD();
