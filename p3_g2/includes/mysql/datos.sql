@@ -21,5 +21,16 @@ VALUES
 GRANT ALL PRIVILEGES ON `learnique`.* TO 'admin'@'%';
 
 INSERT INTO Curso (nombre_curso, descripcion, profesor_id, fecha_creacion, duracion, nivel_dificultad, categoria, requisitos_previos, precio, estado_curso)
-VALUES
-('Marketing', 'descripcion del curso', '6','2024-01-01', '20h','Intermedio', 'Negocios', '', 60, 'Activo')
+VALUES ('Desarrollo Web', 'Aprende a crear aplicaciones web modernas utilizando tecnologías como HTML, CSS, JavaScript, y frameworks como React.', '1', '2023-12-01', '30h', 'Intermedio', 'Tecnología', 'Conocimientos básicos de HTML y CSS', 80, 'Activo');
+
+INSERT INTO Curso (nombre_curso, descripcion, profesor_id, fecha_creacion, duracion, nivel_dificultad, categoria, requisitos_previos, precio, estado_curso)
+VALUES ('Finanzas Personales', 'Aprende a gestionar tus finanzas personales de manera eficaz y planificar tu futuro financiero.', '2', '2024-02-15', '15h', 'Principiante', 'Finanzas', 'No se requieren conocimientos previos', 50, 'Activo');
+
+INSERT INTO Curso (nombre_curso, descripcion, profesor_id, fecha_creacion, duracion, nivel_dificultad, categoria, requisitos_previos, precio, estado_curso)
+VALUES ('Diseño Gráfico', 'Explora los principios fundamentales del diseño gráfico y domina herramientas como Adobe Illustrator y Photoshop.', '1', '2024-03-10', '25h', 'Intermedio', 'Arte y Diseño', 'Conocimientos básicos de diseño', 70, 'Activo');
+
+INSERT INTO Curso (nombre_curso, descripcion, profesor_id, fecha_creacion, duracion, nivel_dificultad, categoria, requisitos_previos, precio, estado_curso)
+VALUES ('Marketing Digital', 'Descubre estrategias avanzadas de marketing digital, incluyendo SEO, SEM, redes sociales y analítica web.', '2', '2024-04-15', '30h', 'Avanzado', 'Negocios', 'Conocimientos básicos de marketing', 80, 'Activo');
+
+INSERT INTO Curso (nombre_curso, descripcion, profesor_id, fecha_creacion, duracion, nivel_dificultad, categoria, requisitos_previos, precio, estado_curso)
+VALUES ('Desarrollo de Aplicaciones Blockchain', 'Aprende a desarrollar aplicaciones descentralizadas y contratos inteligentes utilizando tecnologías blockchain como Ethereum y Solidity.', '1', '2024-04-20', '40h', 'Avanzado', 'Tecnología', 'Conocimientos previos en programación', 90, 'Activo');
