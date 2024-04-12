@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__.'/includes/config.php';
-$tituloPagina = 'Pagina Principal';
 
+$tituloPagina = 'Pagina Principal';
 $contenidoPrincipal = <<<EOS
   <div id="contenedor_index">
     <div class="rec1_index">
@@ -39,6 +39,6 @@ $contenidoPrincipal = <<<EOS
       <img id="img5_index" src="img/recomendaciones.png" alt="">
     </div>
   </div>
-
 EOS;
-include 'includes/vistas/plantillas/plantilla.php';
+
+require __DIR__.'/includes/vistas/plantillas/plantilla.php';

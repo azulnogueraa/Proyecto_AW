@@ -67,4 +67,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['borrar'], $_POST['usua
         exit();
     }
 }
-require 'includes/vistas/plantillas/plantilla.php';
+
+require __DIR__.'/includes/vistas/plantillas/plantilla.php';
