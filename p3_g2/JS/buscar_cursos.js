@@ -1,14 +1,14 @@
 // Función para realizar la búsqueda de cursos mediante AJAX
+// Función para realizar la búsqueda de cursos mediante AJAX
 function searchCourses() {
     var searchTerm = document.getElementById('searchInput').value;
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            var resultados = JSON.parse(this.responseText);
-            displaySearchResults(resultados);
+            document.getElementById('searchResults').innerHTML = this.responseText;
         }
     };
-    xhttp.open("GET", "../includes/buscador.php?q=" + searchTerm, true);
+    xhttp.open("GET", "./buscador.php?q=" + searchTerm, true);
     xhttp.send();
 }
 
