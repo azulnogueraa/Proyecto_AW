@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once "includes/utils.php"; // Incluye el archivo de utilidades
-require_once "path_to_curso/Curso.php"; // Ajusta la ruta de inclusión según la ubicación de tu archivo Curso.php
+require_once "includes/Curso.php"; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Obtener los datos del formulario
