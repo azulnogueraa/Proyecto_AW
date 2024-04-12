@@ -1,7 +1,5 @@
 <?php
-session_start();
-require_once "includes/utils.php"; // Incluye el archivo de utilidades
-require_once "includes/Curso.php"; 
+require_once "includes/config.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Obtener los datos del formulario
