@@ -48,7 +48,7 @@ $tituloPagina = 'Cursos';
 // ];
 
 //no seguro que eso se debe llamar en este script, quizas se hace directamente en una clase 
-$conn = Aplicacion::getInstance()->getConexionBd();//quizas ya se hace en config.php
+$conn = es\ucm\fdi\aw\Aplicacion::getInstance()->getConexionBd();//quizas ya se hace en config.php
 $query = printf("SELECT * FROM Curso C");
 $cursos = $conn->query($query);
 

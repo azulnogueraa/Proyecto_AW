@@ -33,16 +33,16 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
             $seleccionar_usuarios .= "<option value='" . $nombre_usuario . "'>" . $nombre_usuario . "</option>";
         }
         $contenidoPrincipal .= <<<EOS
-            <div id="contenedor_ajustes" class='container'>
-                <h2>Borrar usuario</h2>
-                <form action="" method="POST">
-                    <label for='usuario'>Selecciona el usuario:</label>
-                    <select name='usuario' id='usuario'>
-                        $seleccionar_usuarios
-                    </select>
-                    <button type='submit' name='borrar'>Borrar usuario</button>
-                </form>
-            </div>
+        <div id="contenedor_ajustes" class='container'>
+            <h2>Borrar usuario</h2>
+            <form method="POST">
+                <label for='usuario'>Selecciona el usuario:</label>
+                <select name='usuario' id='usuario'>
+                    $seleccionar_usuarios
+                </select>
+                <button type='submit' name='borrar'>Borrar usuario</button>
+            </form>
+        </div>
         EOS;
     }
 }
