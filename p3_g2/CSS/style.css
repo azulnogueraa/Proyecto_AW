@@ -211,6 +211,7 @@ h2{
 article {
     display: flex;
     justify-content: center;
+    flex-direction: column;
 }
 
 label {
