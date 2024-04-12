@@ -4,6 +4,7 @@ class Curso {
     private $precio;
     private $contenido;
 
+
     public function __construct($nombre, $precio, $contenido) {
         $this->nombre = $nombre;
         $this->precio = $precio;
