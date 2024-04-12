@@ -4,18 +4,18 @@ class Curso {
 
     private $precio;
     private $nombre_curso;
-    private $contenido;
+    private $descripcion;
     //private $duracion;
     //private $lista_alumnos;
 
-    public function __construct($nombre, $precio) {
+    public function __construct($nombre, $precio, $descripcion) {
         $this->nombre_curso = $nombre;
         $this->precio = $precio;
-        //$this->contenido = $contenido;
+        $this->descripcion = $descripcion;
     }
 
-    public static function crea($nombre, $precio){
-        $curso = new Curso($nombre, $precio);
+    public static function crea($nombre, $precio, $descripcion){
+        $curso = new Curso($nombre, $precio, $descripcion);
         return self::inserta($curso);
 
     }
@@ -23,10 +23,10 @@ class Curso {
     private static function inserta($curso){
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query=sprintf("INSERT INTO Curso(nombre_curso, precio) VALUES ('%s', '%s')"
-            , $conn->real_escape_string($curso->nombre_curso)                  //, '%s'
+        $query=sprintf("INSERT INTO Curso(nombre_curso, precio, descripcion) VALUES ('%s', '%s', '%s')"
+            , $conn->real_escape_string($curso->nombre_curso)                  
             , $conn->real_escape_string($curso->precio)
-            //, $conn->real_escape_string($curso->contenido)
+            , $conn->real_escape_string($curso->descripcion)
         );
         $res = $conn->query($query);//ponerlo en un if para seguridad y exponer un mensaje
         return $result !== false;
@@ -38,14 +38,14 @@ class Curso {
     public function getPrecio() {
         return $this->precio;
     }
-    public function getContenido() {
-        return $this->contenido;
+    public function getDescripcion() {
+        return $this->descripcion;
     }
     public function toBox() {
         echo "<div class='box-cursos'>";
         echo "<h2 class='nombre-cursos'>" . $this->getNombre() . "</h2>";
         echo "<div class='precio-cursos'>Precio: " . $this->getPrecio() . " EUR" . "</div>";
-        //echo "<a href='" . $this->getContenido() . "' class='button-cursos'>Ver curso</a>";
+        echo "<a href='" . $this->getDescripcion() . "' class='button-cursos'>Ver curso</a>";
         echo "</div>";
     }
     
