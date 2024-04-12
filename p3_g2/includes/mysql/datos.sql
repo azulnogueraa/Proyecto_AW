@@ -2,8 +2,8 @@
 
 INSERT INTO Profesor (nombre_usuario, apellido, email, contrasena)
 VALUES 
-('javier', 'bravo', 'javier@learnique.edu','$2y$10$B6nmOuYfQaEGvluC7fM1TOf7iKrdlQIpbGDara42EHRvHY8gIkvfa'),
-('eva', 'ullan', 'eva@learnique.edu','$2y$10$uBKn8TZ4Puko.BSqtUWksO/DQgfMYq/l89B8GzksGA4y4i4mvag6C');
+('javier', 'bravo', 'javier@learnique.edu','$2y$10$B6nmOuYfQaEGvluC7fM1TOf7iKrdlQIpbGDara42EHRvHY8gIkvfa', 'alta'),
+('eva', 'ullan', 'eva@learnique.edu','$2y$10$uBKn8TZ4Puko.BSqtUWksO/DQgfMYq/l89B8GzksGA4y4i4mvag6C', 'alta');
 
 
 INSERT INTO Estudiante (nombre_usuario, apellido, email, contrasena) 
