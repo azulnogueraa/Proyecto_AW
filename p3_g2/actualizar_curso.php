@@ -1,34 +1,39 @@
 <?php
 session_start();
 require_once "includes/utils.php"; // Incluye el archivo de utilidades
-$mysqli = conexionBD(); // Establece la conexión a la base de datos
+require_once "path_to_curso/Curso.php"; // Ajusta la ruta de inclusión según la ubicación de tu archivo Curso.php
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Obtener los datos del formulario
     $nombreCurso = $_POST['nombre_curso'];
     $descripcion = $_POST['descripcion'];
-    $profesorId = $_POST['profesor_id'];
-    $fechaCreacion = $_POST['fecha_creacion'];
     $duracion = $_POST['duracion'];
     $nivelDificultad = $_POST['nivel_dificultad'];
     $categoria = $_POST['categoria'];
-    $requisitosPrevios = $_POST['requisitos_previos'];
     $precio = $_POST['precio'];
-    $estadoCurso = $_POST['estado_curso'];
 
-    // Preparar la consulta SQL para actualizar el curso
-    $sql = "UPDATE Curso SET descripcion=?, profesor_id=?, fecha_creacion=?, duracion=?, nivel_dificultad=?, categoria=?, requisitos_previos=?, precio=?, estado_curso=? WHERE nombre_curso=?";
-    $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param("sisssssdss", $descripcion, $profesorId, $fechaCreacion, $duracion, $nivelDificultad, $categoria, $requisitosPrevios, $precio, $estadoCurso, $nombreCurso);
+    // Intentar cargar el curso a editar
+    $curso = es\ucm\fdi\aw\Curso::editarCurso($nombreCurso);
 
-    if ($stmt->execute()) {
-        $_SESSION['mensaje'] = "Curso actualizado correctamente.";
+    if ($curso instanceof es\ucm\fdi\aw\Curso) {
+        // Actualizar los atributos del curso con los nuevos datos
+        $curso->setDescripcion($descripcion);
+        $curso->setDuracion($duracion);
+        $curso->setNivelDificultad($nivelDificultad);
+        $curso->setCategoria($categoria);
+        $curso->setPrecio($precio);
+
+        // Guardar los cambios en la base de datos utilizando el método actualizar()
+        $guardado = $curso->actualizar();
+
+        if ($guardado) {
+            $_SESSION['mensaje'] = "Curso actualizado correctamente.";
+        } else {
+            $_SESSION['mensaje'] = "Error al actualizar el curso.";
+        }
     } else {
-        $_SESSION['mensaje'] = "Error al actualizar el curso: " . $stmt->error;
+        $_SESSION['mensaje'] = "Curso no encontrado.";
     }
-
-    $stmt->close();
-    $mysqli->close();
 
     // Redirigir de vuelta a la página de ajustes
     header("Location: ajustes.php");

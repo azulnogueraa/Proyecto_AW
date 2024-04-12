@@ -92,5 +92,57 @@ class Curso {
         }
         return $result;
     }
-    
+
+    public static function editarCurso($nombreCurso) {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+
+        // Consulta para obtener la información del curso por su nombre
+        $query = "SELECT * FROM Curso WHERE nombre_curso = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("s", $nombreCurso);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        // Verificar si se encontró el curso
+        if ($result->num_rows > 0) {
+            // Obtener los datos del curso como un array asociativo
+            $curso = $result->fetch_assoc();
+            return $curso; // Devolver los datos del curso
+        } else {
+            // Curso no encontrado, lanzar una excepción o devolver null
+            return null;
+        }
+    }
+
+    public function setDescripcion($descripcion) {
+        $this->descripcion = $descripcion;
+    }
+
+    public function setDuracion($duracion) {
+        $this->duracion = $duracion;
+    }
+
+    public function setNivelDificultad($nivel_dificultad) {
+        $this->nivel_dificultad = $nivel_dificultad;
+    }
+
+    public function setCategoria($categoria) {
+        $this->categoria = $categoria;
+    }
+
+    public function setPrecio($precio) {
+        $this->precio = $precio;
+    }
+
+    public function actualizar() {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $sql = "UPDATE Curso SET descripcion=?, duracion=?, nivel_dificultad=?, categoria=?, precio=? WHERE nombre_curso=?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssssds", $this->descripcion, $this->duracion, $this->nivel_dificultad, $this->categoria, $this->precio, $this->nombre_curso);
+
+        $result = $stmt->execute();
+        $stmt->close();
+        return $result;
+    }
+
 }
