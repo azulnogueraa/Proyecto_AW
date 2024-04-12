@@ -16,7 +16,9 @@ $result = $conn->query($query);
 // Verifica si la consulta fue exitosa
 if ($result && $result->num_rows > 0) {
     // Comienza a generar el contenido principal
-    $contenidoPrincipal = '<div class="contenedor-cursos">';
+    $contenidoPrincipal = <<<EOS
+    <div id="contenedor-cursos">
+    EOS;
 
     // Itera sobre los resultados de la consulta
     while ($row = $result->fetch_assoc()) {
@@ -24,7 +26,10 @@ if ($result && $result->num_rows > 0) {
         $curso = new Curso(
             $row['nombre_curso'],
             $row['precio'],
-            $row['descripcion']
+            $row['descripcion'],
+            $row['duracion'],
+            $row['categoria'],
+            $row['nivel_dificultad']
         );
 
         // Agrega el curso al contenido principal utilizando el método toBox()
