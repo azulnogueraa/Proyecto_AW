@@ -63,6 +63,8 @@ class FormularioLogin extends Formulario {
             } else {
                 $_SESSION['login'] = true;
                 $_SESSION['nombre'] = $nombre_usuario;
+                $_SESSION['apellido'] = $usuario->getApellido();
+                $_SESSION['email'] = $usuario->getEmail();
                 $tipo = get_class($usuario);
                 if ($tipo == 'es\ucm\fdi\aw\Admin') {
                     $_SESSION['tipo_usuario'] = Usuario::ADMIN_ROLE;

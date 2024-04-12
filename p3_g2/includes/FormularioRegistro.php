@@ -109,6 +109,8 @@ class FormularioRegistro extends Formulario {
                 }
                 $_SESSION['login'] = true;
                 $_SESSION['nombre'] = $nombre_usuario;
+                $_SESSION['apellido'] = $apellido;
+                $_SESSION['email'] = $email;
                 $_SESSION['tipo_usuario'] = $rol;
             }
         }
