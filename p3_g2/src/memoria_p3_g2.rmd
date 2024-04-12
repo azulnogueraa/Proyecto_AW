@@ -41,17 +41,17 @@ Responsables de gestionar y supervisar la plataforma, asegurando que el contenid
 ## Listado de scripts para las vistas
 
 ### Pagina Principal
-- index.php : Pantalla principal de la pagina web. 
+- index.php : Pantalla principal de la página web. 
 
 ### Comun
 - topBar.php : Cabecera de la web
 
-- box_curso.php : ################################
+- box_curso.php : Estructura de los box de cursos.
 
-- curso.php : ################################
+- curso.php : Vista de un curso en particular. 
 
 ### Plantilla
-- plantilla.php : ################################
+- plantilla.php : Plantilla que será llamada por todas las vistas. 
 
 ### F1: Gestión de Roles: Estudiante, Profesor, Administrador
 - login.php : Pantalla de login
@@ -81,16 +81,11 @@ Responsables de gestionar y supervisar la plataforma, asegurando que el contenid
 
 - curso.php : vista para un curso en particular, va a reemplazar los 4 previos.
 
-- buscar_cursos.php : ################################
+- buscar_cursos.php : Buscador de cursos.
 
 ### F4: Panel de Administración
-- ajustes.php : ################################
+- ajustes.php : En ajustes se podrá borrar usuarios y administrar cursos.
 
-- actualizar_curso.php : ################################
-
-- anadirCurso.php : Pantalla de añadir curso
-- editarCurso.php : Pantalla de editar curso
-- eliminarCurso.php : Pantalla de eliminar curso
 
 ### F5: Gestión de Comunicación: Estudiantes y Profesores
 - chat.php : Pantalla de chat
@@ -98,24 +93,44 @@ Responsables de gestionar y supervisar la plataforma, asegurando que el contenid
 \vspace{12mm}
 
 ## Listado de scripts adicionales
-- boxCurso.php : vista de un curso que se utiliza en cursos.php.
 
-- procesarRegistro.php : script que procesa el registro de un usuario. Para definir el rol de un usuario, hemos optado por el momento de utilizar el nombre de dominio del correo electrónico.
+- Clase de identidad de las tablas de la base de datos:
 
-- procesarLogin.php : script que procesa el login de un usuario.
+  - Admin.php
 
-- procesarInscripcion.php : script que procesa la inscripcion de un estudiante a un curso.
+  - Estudiante.php
 
-- createdb.sql : script para crear la base de datos.
+  - Profesor.php
+  
+  - Registrado.php
+   
+  - Curso.php
+  
+  
+- Reorganización de la funcionalidad asociada a la gestión de los usuarios:
 
-- createuser.sql : script para crear el usuario de la base de datos.
+  - Usuario.php
 
-- datos.sql : script con datos que se insertan a la base de datos para pruebas.
+- Centralización de la gestión de conexiones a bases de datos y otras operaciones de la aplicación. 
 
-- tablas.sql : script que crea la estructura de las tablas de la base de datos.
+  - Aplicacion.php: 
+  
+- Reorganización de la gestión de formularios:
 
-- utils.php : script de conexion de la base de datos y de gestion de errores.
+  - Formulario.php
 
+  - FormurioInscripcion.php
+  
+  - FormularioLogin.php
+
+  - FormularioRegistro.php
+  
+
+- Configuración e inicialización de la aplicación:
+
+  - Config.php
+  
+- buscador.php
 
 \newpage
 
@@ -171,6 +186,26 @@ Por último, la tabla `comentarios` permite a los estudiantes y profesores inter
 
 ## VPS
 
+\vspace{5mm}
+
+URL al servicio de phpmyadmin: 
+
+[https://phpmyadmin.containers.fdi.ucm.es/index.php?route=/&route=%2F&server=13](https://phpmyadmin.containers.fdi.ucm.es/index.php?route=/&route=%2F&server=13)
+
+- Usuario: root
+
+- Contraseña: UEp7y90WZsGqKUtAG_J8
+
+- Identificador del VPS asociado: vm013
+
+\vspace{5mm}
+
+URL al servicio de Guacamole:
+
+
+- Usuario: vm013
+
+- Contraseña: UEp7y90WZsGqKUtAG_J8
 
 
 \newpage
