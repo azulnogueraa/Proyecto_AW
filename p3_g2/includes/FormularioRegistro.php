@@ -16,8 +16,8 @@ class FormularioRegistro extends Formulario {
         $erroresCampos = self::generaErroresCampos(['nombre_usuario', 'apellido', 'email', 'password', 'password2'], $this->errores, 'span', array('class' => 'error'));
 
         $html = <<<EOF
-        $htmlErroresGlobales
         <h1>Registro de usuario</h1>
+        $htmlErroresGlobales
         <fieldset>
             <div class="legenda">
                 Datos para el registro
