@@ -46,8 +46,6 @@ Responsables de gestionar y supervisar la plataforma, asegurando que el contenid
 ### Comun
 - topBar.php : Cabecera de la web
 
-- box_curso.php : Estructura de los box de cursos.
-
 - curso.php : Vista de un curso en particular. 
 
 ### Plantilla
@@ -188,20 +186,9 @@ Por último, la tabla `comentarios` permite a los estudiantes y profesores inter
 
 \vspace{5mm}
 
-URL al servicio de phpmyadmin: 
-
-[https://phpmyadmin.containers.fdi.ucm.es/index.php?route=/&route=%2F&server=13](https://phpmyadmin.containers.fdi.ucm.es/index.php?route=/&route=%2F&server=13)
-
-- Usuario: root
-
-- Contraseña: UEp7y90WZsGqKUtAG_J8
-
-- Identificador del VPS asociado: vm013
-
-\vspace{5mm}
-
 URL al servicio de Guacamole:
 
+[https://vm013.containers.fdi.ucm.es/Learnique/](https://vm013.containers.fdi.ucm.es/Learnique/)
 
 - Usuario: vm013
 
@@ -233,6 +220,7 @@ URL al servicio de Guacamole:
 - Contribución a gestión de busqueda de cursos 
 - Contribución a panel de administración
 - Contribución al style.css
+- Contribución en la carpeta mysql 
 
 ### Vincent Jasou
 - Validación de ficheros php
