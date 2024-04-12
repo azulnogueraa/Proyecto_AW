@@ -2,10 +2,6 @@
 
 namespace es\ucm\fdi\aw;
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 // Incluye la clase Curso y la configuración necesaria
 require_once __DIR__.'/includes/Curso.php';
 require_once __DIR__.'/includes/config.php';
@@ -20,7 +16,7 @@ $result = $conn->query($query);
 // Verifica si la consulta fue exitosa
 if ($result && $result->num_rows > 0) {
     // Comienza a generar el contenido principal
-    $contenidoPrincipal = '<div class="container-cursos">';
+    $contenidoPrincipal = '<div class="contenedor-cursos">';
 
     // Itera sobre los resultados de la consulta
     while ($row = $result->fetch_assoc()) {
