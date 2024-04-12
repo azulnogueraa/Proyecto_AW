@@ -42,6 +42,6 @@ $contenidoPrincipal = <<<EOS
         <div id="searchResults"></div>
     </div>
 </div>
-<script src="buscar_cursos.js"></script>
+<script src="JS/buscar_cursos.js"></script>
 EOS;
 include 'includes/vistas/plantillas/plantilla.php';

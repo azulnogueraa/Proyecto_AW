@@ -1,6 +1,6 @@
 <?php
     //Inicio del procesamiento
-    session_start();
+    //session_start();
 
     require_once(dirname(__FILE__) . '/../../config.php');
     $conn = es\ucm\fdi\aw\Aplicacion::getInstance()->getConexionBd();

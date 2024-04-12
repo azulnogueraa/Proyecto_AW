@@ -8,7 +8,7 @@ function searchCourses() {
             displaySearchResults(resultados);
         }
     };
-    xhttp.open("GET", "buscador.php?q=" + searchTerm, true);
+    xhttp.open("GET", "../includes/buscador.php?q=" + searchTerm, true);
     xhttp.send();
 }
 

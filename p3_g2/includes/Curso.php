@@ -45,6 +45,7 @@ class Curso {
         echo "<div class='box-cursos'>";
         echo "<h2 class='nombre-cursos'>" . $this->getNombre() . "</h2>";
         echo "<div class='precio-cursos'>Precio: " . $this->getPrecio() . " EUR" . "</div>";
+        echo "<p class='descripcion-cursos'>" . $this->getDescripcion() . "</p>";
         echo "<a href='" . $this->getDescripcion() . "' class='button-cursos'>Ver curso</a>";
         echo "</div>";
     }

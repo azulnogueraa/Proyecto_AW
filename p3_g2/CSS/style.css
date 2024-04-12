@@ -211,6 +211,7 @@ h2{
 article {
     display: flex;
     justify-content: center;
+    flex-direction: column;
 }
 
 label {
@@ -299,6 +300,11 @@ fieldset label {
 .precio-cursos {
     text-align: left;
 }
+.descripcion-cursos {
+    font-size: 1rem;
+    text-align: center;
+}
+
 .button-cursos {
     color: white;
     margin-top: auto;
