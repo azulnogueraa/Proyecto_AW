@@ -18,6 +18,8 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
             $mensaje = "<p>El usuario <strong>{$nombre_usuario}</strong> ha sido borrado exitosamente.</p>";
         } elseif ($_GET['borrado'] === 'error') {
             $mensaje = '<p>Error al intentar borrar el usuario.</p>';
+        } elseif ($_GET['borrado'] === 'errorAdmin') {
+            $mensaje = '<p>No es una buena idea..</p>';
         }
     }
     $contenidoPrincipal .= $mensaje;
@@ -49,7 +51,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['borrar'], $_POST['usua
     $table = get_class($usuario);
     $admin = es\ucm\fdi\aw\Admin::buscaUsuario($_SESSION['nombre']);
     if ($table == 'es\ucm\fdi\aw\Admin') {
-        $resultado = $admin->borrarUsuario('Administrador',$usuario);
+        header("Location: ajustes.php?borrado=errorAdmin");
+        exit();
     } elseif ($table == 'es\ucm\fdi\aw\Estudiante') {
         $resultado = $admin->borrarUsuario('Estudiante',$usuario);
     } elseif ($table == 'es\ucm\fdi\aw\Profesor') {
