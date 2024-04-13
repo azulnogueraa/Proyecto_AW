@@ -102,6 +102,55 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
         EOS;
     }
 
+    // Lógica para cambiar el rol de usuario
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cambiar_rol'], $_POST['usuario'], $_POST['nuevo_rol'])) {
+        $nombreUsuario = $_POST['usuario'];
+        $nuevoRol = $_POST['nuevo_rol'];
+
+        // Validar que el nuevo rol sea un rol válido (Estudiante, Profesor, Administrador)
+        if ($nuevoRol === 'Estudiante' || $nuevoRol === 'Profesor' || $nuevoRol === 'Administrador') {
+            $resultado = es\ucm\fdi\aw\Usuario::cambiarRol($nombreUsuario, $nuevoRol);
+            if ($resultado) {
+                $mensaje = "<p>El rol de <strong>{$nombreUsuario}</strong> ha sido cambiado a <strong>{$nuevoRol}</strong> exitosamente.</p>";
+            } else {
+                $mensaje = '<p>Error al intentar cambiar el rol del usuario.</p>';
+            }
+        } else {
+            $mensaje = '<p>Rol inválido. Por favor seleccione un rol válido (Estudiante, Profesor, Administrador).</p>';
+        }
+
+        $contenidoPrincipal .= $mensaje;
+    }
+
+    // Formulario para cambiar el rol de usuario
+    $usuarios = es\ucm\fdi\aw\Admin::obtenerUsuarios();
+    if ($usuarios) {
+        $seleccionar_usuarios = '';
+        foreach($usuarios as $nombre_usuario) {
+            $seleccionar_usuarios .= "<option value='" . $nombre_usuario . "'>" . $nombre_usuario . "</option>";
+        }
+        $contenidoPrincipal .= <<<EOS
+            <div id="contenedor_cambiar_rol" class='container'>
+                <h2>Cambiar Rol de Usuario</h2>
+                <form method="POST">
+                    <label for='usuario'>Selecciona el usuario:</label>
+                    <select name='usuario' id='usuario'>
+                        $seleccionar_usuarios
+                    </select>
+                    <label for='nuevo_rol'>Nuevo Rol:</label>
+                    <select name='nuevo_rol' id='nuevo_rol'>
+                        <option value='Estudiante'>Estudiante</option>
+                        <option value='Profesor'>Profesor</option>
+                        <option value='Administrador'>Administrador</option>
+                    </select>
+                    <button type='submit' name='cambiar_rol'>Cambiar Rol</button>
+                </form>
+            </div>
+        EOS;
+    } else {
+        $contenidoPrincipal .= '<p>No se encontraron usuarios.</p>';
+    }
+
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['borrar'], $_POST['usuario'])) {
     $usuario = es\ucm\fdi\aw\Usuario::buscaUsuario($_POST['usuario']);
