@@ -60,7 +60,8 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
 
     $cursos = es\ucm\fdi\aw\Curso::obtenerCursos(); //el nombre del metodo puede cambiar
     if (!$cursos) {
-        $contenidoPrincipal .= '<p>Un problema ha ocurrido..</p>';
+        $contenidoPrincipal .= '<h2>Administrar Cursos</h2>';
+        $contenidoPrincipal .= '<p>No hay cursos disponibles para editar.</p>';
     } else {
         $seleccionar_cursos = '';
         foreach($cursos as $nombre_curso) {
@@ -80,7 +81,8 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
     $cursos = es\ucm\fdi\aw\Curso::obtenerCursos(); // Obtener cursos disponibles
 
     if (!$cursos) {
-        $contenidoPrincipal .= '<p>Un problema ha ocurrido al obtener los cursos.</p>';
+        $contenidoPrincipal .= '<h2>Borrar Cursos</h2>';
+        $contenidoPrincipal .= '<p>No hay cursos disponibles para borrar.</p>';
     } else {
         $seleccionar_cursos = '';
         foreach ($cursos as $nombre_curso) {
