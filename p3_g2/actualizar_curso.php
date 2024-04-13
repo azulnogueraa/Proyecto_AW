@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $curso->setPrecio($precio);
 
         // Guardar los cambios en la base de datos utilizando el método actualizar()
-        $guardado = $curso->actualizar();
+        $guardado = $curso->actualizarCurso();
 
         if ($guardado) {
             $_SESSION['mensaje'] = "Curso actualizado correctamente.";

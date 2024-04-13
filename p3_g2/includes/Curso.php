@@ -134,7 +134,7 @@ class Curso {
         $this->precio = $precio;
     }
 
-    public function actualizar() {
+    public function actualizarCurso() {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $sql = "UPDATE Curso SET descripcion=?, duracion=?, nivel_dificultad=?, categoria=?, precio=? WHERE nombre_curso=?";
         $stmt = $conn->prepare($sql);
