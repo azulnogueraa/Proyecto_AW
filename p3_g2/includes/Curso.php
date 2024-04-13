@@ -145,4 +145,19 @@ class Curso {
         return $result;
     }
 
+    public static function borrarCurso($nombreCurso) {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+
+        // Consulta SQL para eliminar el curso por su nombre
+        $query = "DELETE FROM Curso WHERE nombre_curso = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("s", $nombreCurso);
+
+        // Ejecutar la consulta y verificar el resultado
+        $result = $stmt->execute();
+        $stmt->close();
+
+        return $result;
+    }
+
 }
