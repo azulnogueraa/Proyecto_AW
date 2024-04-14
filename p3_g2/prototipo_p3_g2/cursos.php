@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__.'/includes/config.php';
 
+$tituloPagina = 'Pagina Principal';
 //función para generar la visualización de cursos
 function toBox($nombre, $precio, $descripcion) {
     $contenido = "<div class='box-cursos'>";
