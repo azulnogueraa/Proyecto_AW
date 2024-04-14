@@ -2,7 +2,7 @@
 Estado de Implementación de Funcionalidades
 -------------------------------------
 
-En esta entrega, se han implementado completamente las siguientes funcionalidades de la aplicación:
+En esta entrega, se han implementado COMPLETAMENTE las siguientes funcionalidades de la aplicación:
 
 F1. Gestión de Roles: Estudiante, Profesor, Administrador
     - Se ha desarrollado la capacidad de registro, inicio de sesión y cierre de sesión a través de los ficheros
@@ -10,7 +10,6 @@ F1. Gestión de Roles: Estudiante, Profesor, Administrador
     - Se han establecido roles de Estudiante, Profesor y Administrador para diferenciar las acciones y 
     funcionalidades disponibles para cada tipo de usuario.
     - Se han creado las clases FormularioRegristro, FormularioLogin, Formulario, Usuario y Profesor.
-
 
 F3. Gestión de Búsqueda con Filtros
     - Se ha habilitado la búsqueda avanzada de cursos mediante el fichero cursos.php.
@@ -20,15 +19,17 @@ F3. Gestión de Búsqueda con Filtros
     - Se ha creado la clase Curso.
 
 F4. Panel de Administración
-    - Se ha creado la funcionalidad para eliminar usuarios registrados en la base de datos en la nueva clase 
-    Admin, destinada a la gestión integral de la plataforma por parte de los administradores.
-     - Se ha creado la funcionalidad de editar cursos registrados en la base de datos en la nueva clase Admin,
-     destinada a la gestión integral de la plataforma por parte de los administradores. 
+     - Se ha creado la funcionalidad para eliminar usuario, editar curso, borrar curso y cambiar rol de los usuarios 
+     registrados en la base de datos. 
+     - Se ha creado la clase Admin destinada a la gestión integral de la plataforma por parte de los administradores. 
 
 -------------------------------------
 
-En esta entrega, se han implementado parcialmente las siguientes funcionalidades de la aplicación:
+En esta entrega, se han implementado PARCIALMENTE las siguientes funcionalidades de la aplicación:
 
 F2. Gestión de Inscripciones y Matriculaciones
     - La funcionalidad de inscripción a cursos se ha implementado a través del fichero inscripcion.php,
      que permite a los estudiantes explorar, seleccionar y matricularse en cursos.
+
+
+-------------------------------------
