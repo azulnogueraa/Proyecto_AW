@@ -188,7 +188,7 @@ Por último, la tabla `comentarios` permite a los estudiantes y profesores inter
 
 URL al servicio de Guacamole:
 
-[https://vm013.containers.fdi.ucm.es/Learnique/](https://vm013.containers.fdi.ucm.es/Learnique/)
+[https://vm013.containers.fdi.ucm.es/p3_g2/](https://vm013.containers.fdi.ucm.es/p3_g2/)
 
 - Usuario: vm013
 
