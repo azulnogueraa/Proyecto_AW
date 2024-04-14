@@ -188,7 +188,7 @@ Por último, la tabla `comentarios` permite a los estudiantes y profesores inter
 
 URL al servicio de Guacamole:
 
-[https://vm013.containers.fdi.ucm.es/p3_g2/](https://vm013.containers.fdi.ucm.es/p3_g2/)
+[https://vm013.containers.fdi.ucm.es/](https://vm013.containers.fdi.ucm.es/)
 
 - Usuario: vm013
 
@@ -207,6 +207,7 @@ URL al servicio de Guacamole:
 - Ordenamiento de las carpetas y los ficheros
 - Contribución en carpeta mysql
 - Contribución a diagrama de estructura de base de datos
+- Contribución a la configuración del VPS
 
 ### Rocio Gonzalez
 - leeme.txt
@@ -228,12 +229,14 @@ URL al servicio de Guacamole:
 - Reorganización del codigo en clases
 - Contribución a gestión de busqueda de cursos
 - Contribución a panel de administración
+- Contribución a la configuración del VPS
 
 ### Gabriel Zamy
 - Contribución a diagrama de estructura de base de datos
 - Contribución en carpeta mysql
 - Reorganización del codigo en clases
 - Contribución a la gestión de inscripciones y matriculación
+- Contribución a la configuración del VPS
 
 
 
