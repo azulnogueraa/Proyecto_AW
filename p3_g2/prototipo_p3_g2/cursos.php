@@ -1,48 +1,29 @@
 <?php
-
-namespace es\ucm\fdi\aw;
-
-// Incluye la clase Curso y la configuración necesaria
-require_once __DIR__.'/includes/Curso.php';
 require_once __DIR__.'/includes/config.php';
 
-// Obtiene la conexión a la base de datos
-$conn = Aplicacion::getInstance()->getConexionBd();
-
-// Consulta SQL para seleccionar todos los cursos
-$query = "SELECT * FROM Curso";
-$result = $conn->query($query);
-
-// Verifica si la consulta fue exitosa
-if ($result && $result->num_rows > 0) {
-    // Comienza a generar el contenido principal
-    $contenidoPrincipal = <<<EOS
-    <div id="contenedor-cursos">
-    EOS;
-
-    // Itera sobre los resultados de la consulta
-    while ($row = $result->fetch_assoc()) {
-        // Crea un objeto Curso con los datos de la fila actual
-        $curso = new Curso(
-            $row['nombre_curso'],
-            $row['precio'],
-            $row['descripcion'],
-            $row['duracion'],
-            $row['categoria'],
-            $row['nivel_dificultad']
-        );
-
-        // Agrega el curso al contenido principal utilizando el método toBox()
-        $contenidoPrincipal .= $curso->toBox();
-    }
-
-    // Finaliza el contenedor de cursos
-    $contenidoPrincipal .= '</div>';
-} else {
-    // Si no hay cursos en la base de datos
-    $contenidoPrincipal = '<p>No hay cursos disponibles en este momento.</p>';
+//función para generar la visualización de cursos
+function toBox($nombre, $precio, $descripcion) {
+    $contenido = "<div class='box-cursos'>";
+    $contenido .= "<h2 class='nombre-cursos'>$nombre</h2>";
+    $contenido .= "<div class='precio-cursos'>Precio: $precio EUR</div>";
+    $contenido .= "<p class='descripcion-cursos'>$descripcion</p>";
+    $contenido .= "<a href='curso.php?nombre_curso=$nombre' class='button-cursos'>Ver curso</a>";
+    $contenido .= "</div>";
+    return $contenido;
 }
 
+$contenidoPrincipal = "<div id='contenedor-cursos'>";
+
+$cursos = es\ucm\fdi\aw\Curso::obtenerCursos();
+if ($cursos) {
+    foreach($cursos as $curso) {
+        $contenidoPrincipal .= toBox($curso->getNombre(), $curso->getPrecio(), $curso->getDescripcion());
+    }
+} else {
+    $contenidoPrincipal .= '<p>No hay cursos disponibles en este momento.</p>';
+}
+
+// Finaliza el contenedor de cursos
+$contenidoPrincipal .= '</div>';
 // Incluye la plantilla HTML que muestra el contenido principal
 include 'includes/vistas/plantillas/plantilla.php';
-?>

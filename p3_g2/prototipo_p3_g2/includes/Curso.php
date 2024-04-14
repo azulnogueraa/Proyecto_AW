@@ -60,23 +60,32 @@ class Curso {
 
     public function getNivelDificultad() {
         return $this->nivel_dificultad;
-    }
-
-    public function toBox() {
-        $nombre = htmlspecialchars($this->getNombre());
-        $precio = htmlspecialchars($this->getPrecio());
-        $descripcion = htmlspecialchars($this->getDescripcion());
-    
-        echo "<div class='box-cursos'>";
-        echo "<h2 class='nombre-cursos'>$nombre</h2>";
-        echo "<div class='precio-cursos'>Precio: $precio EUR</div>";
-        echo "<p class='descripcion-cursos'>$descripcion</p>";
-        echo "<a href='curso.php?nombre_curso=$nombre' class='button-cursos'>Ver curso</a>";
-        echo "</div>";
-    }
-    
-
+    }    
     static public function obtenerCursos() {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Curso");
+        $rs = $conn->query($query);
+        $result = false;
+        if ($rs) {
+            $result = [];
+            while ($row = $rs->fetch_assoc()) {
+                $curso = new Curso(
+                    $row['nombre_curso'],
+                    $row['precio'],
+                    $row['descripcion'],
+                    $row['duracion'],
+                    $row['categoria'],
+                    $row['nivel_dificultad']);
+                $result[] = $curso;
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
+    static public function obtenerNombreCursos() {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query=sprintf("SELECT nombre_curso FROM Curso");
         $rs = $conn->query($query);

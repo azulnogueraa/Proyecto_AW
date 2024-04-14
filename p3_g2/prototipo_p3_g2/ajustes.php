@@ -58,7 +58,7 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
         EOS;
     }
 
-    $cursos = es\ucm\fdi\aw\Curso::obtenerCursos(); //el nombre del metodo puede cambiar
+    $cursos = es\ucm\fdi\aw\Curso::obtenerNombreCursos(); //el nombre del metodo puede cambiar
     if (!$cursos) {
         $contenidoPrincipal .= '<h2>Administrar Cursos</h2>';
         $contenidoPrincipal .= '<p>No hay cursos disponibles para editar.</p>';
@@ -78,7 +78,7 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
             </form>
         EOS;
     }
-    $cursos = es\ucm\fdi\aw\Curso::obtenerCursos(); // Obtener cursos disponibles
+    $cursos = es\ucm\fdi\aw\Curso::obtenerNombreCursos(); // Obtener cursos disponibles
 
     if (!$cursos) {
         $contenidoPrincipal .= '<h2>Borrar Cursos</h2>';
