@@ -14,6 +14,7 @@ if (isset($_GET['nombre_curso'])) {
     $result = $conn->query($query);
 
     if ($result && $result->num_rows > 0) {
+        
         // Obtener la primera fila (debería ser única si se busca por nombre de curso)
         $row = $result->fetch_assoc();
 

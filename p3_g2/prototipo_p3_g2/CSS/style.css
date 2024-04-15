@@ -279,7 +279,10 @@ fieldset label {
     justify-content: space-between;
     align-items: center;
     overflow-x: auto;
+    margin: 15% 15% 0% 15%;
 }
+
+
 .box-cursos {
     background-color: #123949;
     color: white;
