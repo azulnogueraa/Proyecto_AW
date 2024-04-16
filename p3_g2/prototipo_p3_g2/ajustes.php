@@ -36,6 +36,11 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
 
     $contenidoPrincipal .= $mensaje;
 
+    if (isset($_SESSION['mensaje'])) {
+        $contenidoPrincipal .= "<div class='mensaje'>{$_SESSION['mensaje']}</div>";
+        unset($_SESSION['mensaje']); 
+    }
+
     $usuarios = es\ucm\fdi\aw\Admin::obtenerUsuarios();
     if (!$usuarios) {
         $contenidoPrincipal .= '<p>Un problema ha ocurrido..</p>';

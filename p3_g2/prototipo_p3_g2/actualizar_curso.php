@@ -11,17 +11,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $precio = $_POST['precio'];
 
     // Intentar cargar el curso a editar
-    $curso = es\ucm\fdi\aw\Curso::editarCurso($nombreCurso);
+    $datosCurso = es\ucm\fdi\aw\Curso::editarCurso($nombreCurso);
 
-    if ($curso instanceof es\ucm\fdi\aw\Curso) {
-        // Actualizar los atributos del curso con los nuevos datos
+    if ($datosCurso) {
+        // Crear una nueva instancia de Curso con los datos y nuevos valores
+        $curso = new es\ucm\fdi\aw\Curso(
+            $datosCurso['nombre_curso'],
+            $datosCurso['descripcion'],
+            $datosCurso['duracion'],
+            $datosCurso['nivel_dificultad'],
+            $datosCurso['categoria'],
+            $datosCurso['precio']
+        );
+
+        // Actualizar los atributos del curso con los nuevos datos del formulario
         $curso->setDescripcion($descripcion);
         $curso->setDuracion($duracion);
         $curso->setNivelDificultad($nivelDificultad);
         $curso->setCategoria($categoria);
         $curso->setPrecio($precio);
 
-        // Guardar los cambios en la base de datos utilizando el método actualizar()
+        // Guardar los cambios en la base de datos utilizando el método actualizarCurso()
         $guardado = $curso->actualizarCurso();
 
         if ($guardado) {
