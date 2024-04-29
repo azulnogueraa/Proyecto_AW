@@ -1,0 +1,404 @@
+/*                                         TOPBAR Y GENERAL                                                  */
+
+html{
+    font-family: 'Inter', Arial, sans-serif;
+    background-color: white;
+    padding: 0;
+    color: #123949;
+}
+
+
+/* Barra Superior de contenido */
+
+.topbar {
+    background-color: #123949;
+    overflow: hidden;
+    display: flex;
+    width: 100vw; 
+    left: 0;
+    right: 0;
+    top: 0;
+    position:fixed;
+}
+
+.topbar-item {
+    display:inline-grid;
+    color: white;
+    text-align: center;
+    padding: 24px 40px; 
+    text-decoration: none;
+      
+}
+
+.topbar-item:hover {
+    background-color: rgba(255, 255, 255, 0.215);
+    color: black;
+    border-radius: 10px;
+
+}
+
+
+@media screen and (max-width: 600px) {
+    .topbar-item {
+        float: none;
+        text-align: left;
+    }
+}
+
+.topbar-name {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 10px 16px;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-weight: bolder;
+    font-size:larger;
+    text-align: center;
+}
+
+
+/* Introducción */
+
+.intro-topbar {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 20px;
+    padding: 20px;
+}
+
+.logo-topbar img {
+    max-width: 100%;
+    max-width: 300px; 
+    height: auto; 
+    margin: 0 auto; 
+}
+
+.saludo-topbar {
+    color: white;
+    margin-left: auto;
+    margin-right: 20px;
+    text-align: right;
+    margin-top: 25px;
+}
+
+.saludo-topbar .salir-topbar {
+    color: #1ab2a8;
+}
+
+
+h1 {
+    font-size: 4em;
+}
+
+
+/*                                                 INDEX.PHP                                                 */
+
+
+#contenedor_index{
+    display: flex;
+    flex-direction: column;
+    margin: 2% 10% 2% 10%;
+}
+
+.rec1_index{
+    background-color: #B1C5C3;
+    border-radius: 10px;
+    margin-top: 5%;
+    margin-bottom: 2%;
+    padding: 50px;
+}
+
+.texto_rec1_index{
+    text-align: center;
+    margin: 5% 20%;  
+}
+
+p{
+    font-size: large;
+}
+
+button {
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    font-weight: 100;
+    background: #123949;
+    color: white;
+    border: none;
+    margin: 20px;
+}
+
+button:hover {
+    background: #1ab2a8;
+}
+
+.rec2_index{
+    display: flex;
+    flex-direction: row;
+    margin: 5% 0% 0% 0%;
+}
+
+.info_rec2_index{
+    margin:50px;
+    align-content: center;
+    padding-bottom: 20px;
+}
+
+#img1_index{
+    width: 50%;
+    height: auto;
+}
+
+.rec3_index{
+    display: flex;
+    flex-direction: row;
+    margin: 5% 0% 5% 0%;
+    align-content: center;
+}
+
+h2{
+    font-size: 3em;
+}
+
+#img2_index{
+    width: 95%;
+    height: auto;
+    align-self: right;
+}
+
+.doble_caja{
+    display: flex;
+    flex-direction: column;
+}
+
+#img3_index{
+    width: 95%;
+    height: auto;
+}
+
+#img4_index{
+    width: 100%;
+    height: auto;
+    margin-top: 2.5%;
+} 
+
+
+.rec4_index{
+    align-content: center;
+}
+
+#img5_index{
+    width: 100%;
+    height: auto;
+}
+
+
+
+
+/*                                       LOGIN.PHP & REGISTRO.PHP                                           */
+
+
+#contendor_login_registro {
+    /* box-sizing: border-box; */
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    /* margin: 2% 10% 2% 10%; */
+} 
+
+article {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+label {
+    display: inline-block;
+    width: 150px;
+    text-align: left;
+    font-size: 1.5rem;
+}
+
+input, button {
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    padding: 10px;
+}
+
+
+form {
+    margin: 25px auto;
+    width: 500px;
+}
+
+div.form-element {
+    margin: 20px 0;
+}
+
+
+.boton{
+    justify-content: center;
+    padding: 10px;
+}
+
+legend, fieldset {
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+fieldset div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+fieldset label {
+    text-align: right;
+    margin-right: 10px;
+}
+
+.legenda{
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+/*                                               CURSOS.PHP                                                  */
+
+
+#contenedor-cursos {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    overflow-x: auto;
+    margin: 15% 15% 0% 15%;
+}
+
+
+.box-cursos {
+    background-color: #123949;
+    color: white;
+    width: 200px;
+    height: 250px;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 15px;
+    flex: 0 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.nombre-cursos {
+    font-size: 1.5rem; 
+}
+.precio-cursos {
+    text-align: left;
+}
+.descripcion-cursos {
+    font-size: 1rem;
+    text-align: center;
+}
+
+.button-cursos {
+    color: white;
+    margin-top: auto;
+    display: inline-block;
+    padding: 10px;
+    border: 2px solid white;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.button-cursos:hover {
+    background-color: white;
+    color: #123949;
+}
+
+
+
+/*                                            LISTA_CURSOS                                                   */
+
+#contenedor_vista_cursos{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-right: 30%;
+    margin-top: 50px;
+}
+
+
+/* h1 {
+    padding-bottom: 10px ;
+    font-size: 5em;
+} */
+
+ul{
+    font-size: large;
+}
+
+button {
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    font-weight: 100;
+    background: #123949;
+    color: white;
+    border: none;
+    margin: 20px;
+}
+
+button:hover {
+    background: #1ab2a8;
+}
+
+
+
+/*                                          BUSCAR_CURSOS.PHP                                                */
+
+#contenedor_buscar_cursos {
+    /* align-items: center; */
+    display: flex;
+    justify-content: center;
+    margin: 5% 10% 5% 10%;
+}
+
+
+
+
+/*                                              CURSO_VISTA.PHP                                             */
+
+#contenedor_vista_curso{
+    margin-right: 15%;
+    margin-left: 15%;
+    margin-top: 50px;
+    display: column;
+    justify-content: center;
+    align-content: center;
+}
+
+ul{
+    font-size: large;
+}
+
+.button-curso {
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    font-weight: 100;
+    background: #123949;
+    color: white;
+    border: none;
+}
+
+.button-curso:hover {
+    background: #1ab2a8;
+}
