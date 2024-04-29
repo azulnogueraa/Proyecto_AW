@@ -38,3 +38,4 @@ function displaySearchResults(resultados) {
 
 // Vincula el evento de búsqueda al campo de entrada
 document.getElementById('searchInput').addEventListener('input', searchCourses);
+

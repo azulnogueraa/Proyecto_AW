@@ -123,10 +123,6 @@ class Curso {
         }
     }
 
-    public function setNombreCurso($nombre_curso) {
-        $this->nombre_curso = $nombre_curso;
-    }
-
     public function setDescripcion($descripcion) {
         $this->descripcion = $descripcion;
     }
