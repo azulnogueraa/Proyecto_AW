@@ -40,4 +40,7 @@ class Admin extends Usuario {
     public function borrarUsuario($table, $usuario) {
         return Usuario::borraUsuario($table,$usuario);
     }
+
+    
+    
 }

@@ -140,4 +140,32 @@ abstract class Usuario {
     public function getEmail() {
         return $this->email;
     }
+
+    public static function cambiarRol($nombreUsuario, $nuevoRol) {
+
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $usuario = self::buscaUsuario($nombreUsuario);
+    
+        // Si es un estudiante y queremos cambiarlo a profesor, o viceversa
+        if (($usuario instanceof Estudiante && $nuevoRol === 'Profesor') || 
+            ($usuario instanceof Profesor && $nuevoRol === 'Estudiante')) {
+
+            // Primero lo borramos de la tabla actual
+            $borrado = self::borraUsuario(get_class($usuario), $usuario);
+            if ($borrado) {
+                // Luego lo insertamos en la nueva tabla
+                if ($nuevoRol === 'Profesor') {
+                    return Profesor::inserta($usuario);
+                } else {
+                    return Estudiante::inserta($usuario);
+                }
+            } else {
+                return false;
+            }
+        } else {
+            // Si no es un cambio permitido, devolvemos false
+            return "El cambio de rol no está permitido.";
+        }
+}
+
 }
