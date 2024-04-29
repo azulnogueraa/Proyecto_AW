@@ -154,7 +154,7 @@ abstract class Usuario {
     
         // Verificar si se intenta cambiar a un rol que ya tiene el usuario
         if ($rolActual === $nuevoRol) {
-            return "El usuario <strong>$nombreUsuario</strong> ya tiene asignado el rol {$nuevoRol}.";
+            return "error_mismo_rol";
         }
     
         // Verificar si se puede realizar el cambio de rol
@@ -167,14 +167,14 @@ abstract class Usuario {
                 $tieneCursos = Curso::cursosDelProfe($idProfe);
     
                 if ($tieneCursos) {
-                    return "No se puede cambiar el rol del profesor <strong>$nombreUsuario</strong> porque tiene cursos asignados.";
+                    return "error_profesor_con_cursos";
                 }
             }
     
             // Eliminar al usuario de la tabla del rol anterior
             $eliminado = self::borraUsuario($rolActual, $usuario);
             if (!$eliminado) {
-                return "Error al eliminar al usuario <strong>n$nombreUsuario</strong> del rol anterior.";
+                return "error_eliminar_usuario_anterior";
             }
     
             // Insertar al usuario en la tabla del nuevo rol
@@ -185,7 +185,7 @@ abstract class Usuario {
             }
     
             if ($insertado) {
-                return true; // Indica que el cambio de rol fue exitoso
+                return "exito"; // Indica que el cambio de rol fue exitoso
             } else {
                 return "Error al cambiar el rol del usuario <strong>$nombreUsuario</strong>.";
             }

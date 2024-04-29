@@ -38,6 +38,25 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
         }
     }
 
+    if (isset($_GET['resultado'])) {
+        if ($_GET['resultado'] === 'exito') {
+            $nombreUsuario = isset($_GET['usuario']) ? $_GET['usuario'] : '';
+            $nuevoRol = isset($_GET['nuevo_rol']) ? $_GET['nuevo_rol'] : '';
+            $mensaje = "<p>El rol de <strong>{$nombreUsuario}</strong> ha sido cambiado a <strong>{$nuevoRol}</strong> exitosamente.</p>";
+        } elseif ($_GET['resultado'] === 'error_mismo_rol') {
+            $nombreUsuario = isset($_GET['usuario']) ? $_GET['usuario'] : '';
+            $nuevoRol = isset($_GET['nuevo_rol']) ? $_GET['nuevo_rol'] : '';
+            $mensaje = "<p>El usuario <strong>{$nombreUsuario}</strong> ya tiene asignado el rol {$nuevoRol}.</p>";
+        } elseif ($_GET['resultado'] === 'error_profesor_con_cursos') {
+            $nombreUsuario = isset($_GET['usuario']) ? $_GET['usuario'] : '';
+            $mensaje = "<p>No se puede cambiar el rol del profesor <strong>{$nombreUsuario}</strong> porque tiene cursos asignados.</p>";
+        } elseif ($_GET['resultado'] === 'error_eliminar_usuario_anterior') {
+            $nombreUsuario = isset($_GET['usuario']) ? $_GET['usuario'] : '';
+            $mensaje = "<p>Error al eliminar al usuario <strong>{$nombreUsuario}</strong> del rol anterior.</p>";
+        }
+    }
+    
+
     $contenidoPrincipal .= $mensaje;
 
     if (isset($_SESSION['mensaje'])) {
@@ -198,20 +217,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cambiar_rol'], $_POST[
     if ($nuevoRol === 'Estudiante' || $nuevoRol === 'Profesor' || $nuevoRol === 'Administrador') {
         $resultado = es\ucm\fdi\aw\Usuario::cambiarRol($nombreUsuario, $nuevoRol);
     
-        if (is_string($resultado)) {
-            // En caso de que $resultado sea un string, es un mensaje de error personalizado
-            $mensaje = "<p>{$resultado}</p>";
-        } else {
+        if ($resultado === 'error_mismo_rol') {
+            header("Location: ajustes.php?resultado=error_mismo_rol&usuario={$nombreUsuario}&nuevo_rol={$nuevoRol}");
+            exit();
+        } elseif ($resultado === 'error_profesor_con_cursos') {
+            header("Location: ajustes.php?resultado=error_profesor_con_cursos&usuario={$nombreUsuario}");
+            exit();
+        } elseif ($resultado === 'error_eliminar_usuario_anterior') {
+            header("Location: ajustes.php?resultado=error_eliminar_usuario_anterior");
+            exit();
+        } elseif ($resultado === 'exito') {
             // Si $resultado es true, significa que el rol se cambió correctamente
-            $mensaje = "<p>El rol de <strong>{$nombreUsuario}</strong> ha sido cambiado a <strong>{$nuevoRol}</strong> exitosamente.</p>";
+            header("Location: ajustes.php?resultado=exito&usuario={$nombreUsuario}&nuevo_rol={$nuevoRol}");
+            exit();
         }
+    
     } else {
         $mensaje = '<p>Rol inválido. Por favor seleccione un rol válido (Estudiante, Profesor, Administrador).</p>';
     }
-    
-    $contenidoPrincipal .= $mensaje;
 }
-
-
 
 require __DIR__.'/includes/vistas/plantillas/plantilla.php';
