@@ -1,13 +1,9 @@
 <?php
 require_once __DIR__.'/includes/config.php';
 
-// Borrar
-ini_set('log_errors',1);
-ini_set('error_log','error.log');
-
 ini_set('display_errors', 1);
-
-
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 $tituloPagina = 'Ajustes';
 $contenidoPrincipal = '';
@@ -49,6 +45,7 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
         unset($_SESSION['mensaje']); 
     }
 
+    //Formulario para borrar usuarios
     $usuarios = es\ucm\fdi\aw\Admin::obtenerUsuarios();
     if (!$usuarios) {
         $contenidoPrincipal .= '<p>Un problema ha ocurrido..</p>';
@@ -71,6 +68,7 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
         EOS;
     }
 
+    //Formulario para editar cursos
     $cursos = es\ucm\fdi\aw\Curso::obtenerNombreCursos(); //el nombre del metodo puede cambiar
     if (!$cursos) {
         $contenidoPrincipal .= '<h2>Administrar Cursos</h2>';
@@ -91,8 +89,9 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
             </form>
         EOS;
     }
-    $cursos = es\ucm\fdi\aw\Curso::obtenerNombreCursos(); // Obtener cursos disponibles
 
+    //Formulario para borrar cursos
+    $cursos = es\ucm\fdi\aw\Curso::obtenerNombreCursos(); // Obtener cursos disponibles
     if (!$cursos) {
         $contenidoPrincipal .= '<h2>Borrar Cursos</h2>';
         $contenidoPrincipal .= '<p>No hay cursos disponibles para borrar.</p>';
@@ -115,27 +114,7 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
         EOS;
     }
 
-    // // Lógica para cambiar el rol de usuario
-    // if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cambiar_rol'], $_POST['usuario'], $_POST['nuevo_rol'])) {
-    //     $nombreUsuario = $_POST['usuario'];
-    //     $nuevoRol = $_POST['nuevo_rol'];
-
-    //     // Validar que el nuevo rol sea un rol válido (Estudiante, Profesor, Administrador)
-    //     if ($nuevoRol === 'Estudiante' || $nuevoRol === 'Profesor' || $nuevoRol === 'Administrador') {
-    //         $resultado = es\ucm\fdi\aw\Usuario::cambiarRol($nombreUsuario, $nuevoRol);
-    //         if ($resultado) {
-    //             $mensaje = "<p>El rol de <strong>{$nombreUsuario}</strong> ha sido cambiado a <strong>{$nuevoRol}</strong> exitosamente.</p>";
-    //         } else {
-    //             $mensaje = '<p>Error al intentar cambiar el rol del usuario.</p>';
-    //         }
-    //     } else {
-    //         $mensaje = '<p>Rol inválido. Por favor seleccione un rol válido (Estudiante, Profesor, Administrador).</p>';
-    //     }
-
-    //     $contenidoPrincipal .= $mensaje;
-    // }
-
-    Formulario para cambiar el rol de usuario
+    //Formulario para cambiar el rol de usuario
     $usuarios = es\ucm\fdi\aw\Admin::obtenerUsuarios();
     if ($usuarios) {
         $seleccionar_usuarios = '';
@@ -165,6 +144,8 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
     }
 
 }
+
+// Procesar el borrado del usuario
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['borrar'], $_POST['usuario'])) {
     $usuario = es\ucm\fdi\aw\Usuario::buscaUsuario($_POST['usuario']);
     $namespace = 'es\ucm\fdi\aw\\';
@@ -209,17 +190,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['borrar_curso'], $_POST
     }
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cambiar_rol'])) {
-    // Asumiendo que 'usuario' y 'nuevo_rol' son enviados a través del formulario POST
+// // Lógica para cambiar el rol de usuario
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cambiar_rol'], $_POST['usuario'], $_POST['nuevo_rol'])) {
     $nombreUsuario = $_POST['usuario'];
     $nuevoRol = $_POST['nuevo_rol'];
-    $mensaje = es\ucm\fdi\aw\Usuario::cambiarRol($nombreUsuario, $nuevoRol);
+
+    if ($nuevoRol === 'Estudiante' || $nuevoRol === 'Profesor' || $nuevoRol === 'Administrador') {
+        $resultado = es\ucm\fdi\aw\Usuario::cambiarRol($nombreUsuario, $nuevoRol);
     
-    // Muestra el mensaje al usuario
-    // Puedes almacenarlo en la sesión y redirigir o mostrarlo directamente si estás manejando la petición de forma síncrona
-    $_SESSION['mensaje'] = $mensaje;
-    header("Location: ruta_donde_se_muestra_el_mensaje.php");
-    exit();
+        if (is_string($resultado)) {
+            // En caso de que $resultado sea un string, es un mensaje de error personalizado
+            $mensaje = "<p>{$resultado}</p>";
+        } else {
+            // Si $resultado es true, significa que el rol se cambió correctamente
+            $mensaje = "<p>El rol de <strong>{$nombreUsuario}</strong> ha sido cambiado a <strong>{$nuevoRol}</strong> exitosamente.</p>";
+        }
+    } else {
+        $mensaje = '<p>Rol inválido. Por favor seleccione un rol válido (Estudiante, Profesor, Administrador).</p>';
+    }
+    
+    $contenidoPrincipal .= $mensaje;
 }
 
 

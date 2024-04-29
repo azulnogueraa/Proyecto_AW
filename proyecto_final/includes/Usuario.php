@@ -142,30 +142,80 @@ abstract class Usuario {
     }
 
     public static function cambiarRol($nombreUsuario, $nuevoRol) {
-
         $conn = Aplicacion::getInstance()->getConexionBd();
         $usuario = self::buscaUsuario($nombreUsuario);
     
-        // Si es un estudiante y queremos cambiarlo a profesor, o viceversa
-        if (($usuario instanceof Estudiante && $nuevoRol === 'Profesor') || 
-            ($usuario instanceof Profesor && $nuevoRol === 'Estudiante')) {
-
-            // Primero lo borramos de la tabla actual
-            $borrado = self::borraUsuario(get_class($usuario), $usuario);
-            if ($borrado) {
-                // Luego lo insertamos en la nueva tabla
-                if ($nuevoRol === 'Profesor') {
-                    return Profesor::inserta($usuario);
-                } else {
-                    return Estudiante::inserta($usuario);
+        if (!$usuario) {
+            return "Usuario no encontrado.";
+        }
+    
+        // Determinar el rol actual del usuario
+        $rolActual = $usuario->getRol();
+    
+        // Verificar si se intenta cambiar a un rol que ya tiene el usuario
+        if ($rolActual === $nuevoRol) {
+            return "El usuario <strong>$nombreUsuario</strong> ya tiene asignado el rol {$nuevoRol}.";
+        }
+    
+        // Verificar si se puede realizar el cambio de rol
+        if (($rolActual === 'Estudiante' && $nuevoRol === 'Profesor') ||
+            ($rolActual === 'Profesor' && $nuevoRol === 'Estudiante')) {
+    
+            // Verificar si el cambio de profesor a estudiante está permitido
+            if ($rolActual === 'Profesor' && $nuevoRol === 'Estudiante') {
+                $idProfe = $usuario->getId();
+                $tieneCursos = Curso::cursosDelProfe($idProfe);
+    
+                if ($tieneCursos) {
+                    return "No se puede cambiar el rol del profesor <strong>$nombreUsuario</strong> porque tiene cursos asignados.";
                 }
+            }
+    
+            // Eliminar al usuario de la tabla del rol anterior
+            $eliminado = self::borraUsuario($rolActual, $usuario);
+            if (!$eliminado) {
+                return "Error al eliminar al usuario <strong>n$nombreUsuario</strong> del rol anterior.";
+            }
+    
+            // Insertar al usuario en la tabla del nuevo rol
+            if ($nuevoRol === 'Profesor') {
+                $insertado = Profesor::inserta($usuario);
             } else {
-                return false;
+                $insertado = Estudiante::inserta($usuario);
+            }
+    
+            if ($insertado) {
+                return true; // Indica que el cambio de rol fue exitoso
+            } else {
+                return "Error al cambiar el rol del usuario <strong>$nombreUsuario</strong>.";
             }
         } else {
-            // Si no es un cambio permitido, devolvemos false
             return "El cambio de rol no está permitido.";
         }
-}
+    }    
 
+    public function getRol() {
+        // Determinar el rol del usuario basado en el nombre de la tabla
+        $tableName = $this->getTableName(); // Método para obtener el nombre de la tabla
+        switch ($tableName) {
+            case 'Estudiante':
+                return 'Estudiante';
+            case 'Profesor':
+                return 'Profesor';
+            // Agrega más casos según los nombres de tus tablas y sus correspondientes roles
+            default:
+                return 'Desconocido';
+        }
+    }
+
+    private function getTableName() {
+        // Implementa lógica para obtener el nombre de la tabla según la instancia actual
+        if ($this instanceof Estudiante) {
+            return 'Estudiante';
+        } elseif ($this instanceof Profesor) {
+            return 'Profesor';
+        }
+        // Agrega más condiciones según las subclases que tengas
+        return 'Desconocido';
+    }
 }

@@ -1,5 +1,6 @@
 <?php
 namespace es\ucm\fdi\aw;
+use mysqli_sql_exception;
 class Curso {
 
     private $precio;
@@ -167,6 +168,25 @@ class Curso {
         $stmt->close();
 
         return $result;
+    }
+
+    public static function cursosDelProfe($idProfe) {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+    
+        try {
+            $query = "SELECT COUNT(*) FROM Curso WHERE profesor_id = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("i", $idProfe);
+            $stmt->execute();
+    
+            $stmt->bind_result($numCursos);
+            $stmt->fetch();
+    
+            return $numCursos > 0;
+        } catch (mysqli_sql_exception $e) {
+            error_log("Error al contar cursos del profesor: " . $e->getMessage());
+            return false;
+        }
     }
 
 }
