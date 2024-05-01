@@ -55,6 +55,15 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
             $mensaje = "<p>Error al eliminar al usuario <strong>{$nombreUsuario}</strong> del rol anterior.</p>";
         }
     }
+
+    if (isset($_GET['agregar_curso'])) {
+        if ($_GET['agregar_curso'] === 'exito') {
+            $nombreCursoAgregado = isset($_GET['nombre_curso']) ? $_GET['nombre_curso'] : '';
+            $mensaje .= "<p>El curso <strong>{$nombreCursoAgregado}</strong> se ha agregado correctamente.</p>";
+        } elseif ($_GET['agregar_curso'] === 'error') {
+            $mensaje .= '<p>Error al agregar el curso. Por favor, inténtalo de nuevo.</p>';
+        }
+    }
     
 
     $contenidoPrincipal .= $mensaje;
@@ -63,6 +72,10 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
         $contenidoPrincipal .= "<div class='mensaje'>{$_SESSION['mensaje']}</div>";
         unset($_SESSION['mensaje']); 
     }
+
+    /*                                          ADMINISTRAR USUARIOS                                        */
+
+    $contenidoPrincipal .= '<h1>1. Administrar Usuarios</h1>';
 
     //Formulario para borrar usuarios
     $usuarios = es\ucm\fdi\aw\Admin::obtenerUsuarios();
@@ -87,10 +100,55 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
         EOS;
     }
 
+    //Formulario para cambiar el rol de usuario
+    $usuarios = es\ucm\fdi\aw\Admin::obtenerUsuarios();
+    if ($usuarios) {
+        $seleccionar_usuarios = '';
+        foreach($usuarios as $nombre_usuario) {
+            $seleccionar_usuarios .= "<option value='" . $nombre_usuario . "'>" . $nombre_usuario . "</option>";
+        }
+        $contenidoPrincipal .= <<<EOS
+            <div id="contenedor_cambiar_rol" class='container'>
+                <h2>Cambiar Rol de Usuario</h2>
+                <form method="POST">
+                    <label for='usuario'>Selecciona el usuario:</label>
+                    <select name='usuario' id='usuario'>
+                        $seleccionar_usuarios
+                    </select>
+                    <label for='nuevo_rol'>Nuevo Rol:</label>
+                    <select name='nuevo_rol' id='nuevo_rol'>
+                        <option value='Estudiante'>Estudiante</option>
+                        <option value='Profesor'>Profesor</option>
+                        <option value='Administrador'>Administrador</option>
+                    </select>
+                    <button type='submit' name='cambiar_rol'>Cambiar Rol</button>
+                </form>
+            </div>
+        EOS;
+    } else {
+        $contenidoPrincipal .= '<p>No se encontraron usuarios.</p>';
+    }
+
+    /*                                          ADMINISTRAR CURSOS                                        */
+
+    $contenidoPrincipal .= '<h1>2. Administrar Cursos</h2>';
+
+    //Formulario para agregar cursos
+    $contenidoPrincipal .= <<<EOS
+        <div id="contenedor_agregar_cursos" class='container'>
+            <h2>Agregar Cursos</h2>
+            <form action='agregar_curso.php' method='GET'>
+                <label for='nombre_curso'>Nombre del curso:</label>
+                <input type='text' name='nombre_curso' id='nombre_curso' required>
+                <button type='submit'>Agregar Curso</button>
+            </form>
+        </div>
+    EOS;
+
     //Formulario para editar cursos
     $cursos = es\ucm\fdi\aw\Curso::obtenerNombreCursos(); //el nombre del metodo puede cambiar
     if (!$cursos) {
-        $contenidoPrincipal .= '<h2>Administrar Cursos</h2>';
+        $contenidoPrincipal .= '<h2>Editar Cursos</h2>';
         $contenidoPrincipal .= '<p>No hay cursos disponibles para editar.</p>';
     } else {
         $seleccionar_cursos = '';
@@ -98,7 +156,7 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
             $seleccionar_cursos .= "<option value='" . $nombre_curso . "'>" . $nombre_curso . "</option>";
         }
         $contenidoPrincipal .= <<<EOS
-            <h2>Administrar Cursos</h2>
+            <h2>Editar Cursos</h2>
             <form action='editar_curso.php' method='GET'>
                 <label for='curso'>Selecciona el curso:</label>
                 <select name='nombre_curso' id='curso'>
@@ -131,35 +189,6 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
                 </form>
             </div>
         EOS;
-    }
-
-    //Formulario para cambiar el rol de usuario
-    $usuarios = es\ucm\fdi\aw\Admin::obtenerUsuarios();
-    if ($usuarios) {
-        $seleccionar_usuarios = '';
-        foreach($usuarios as $nombre_usuario) {
-            $seleccionar_usuarios .= "<option value='" . $nombre_usuario . "'>" . $nombre_usuario . "</option>";
-        }
-        $contenidoPrincipal .= <<<EOS
-            <div id="contenedor_cambiar_rol" class='container'>
-                <h2>Cambiar Rol de Usuario</h2>
-                <form method="POST">
-                    <label for='usuario'>Selecciona el usuario:</label>
-                    <select name='usuario' id='usuario'>
-                        $seleccionar_usuarios
-                    </select>
-                    <label for='nuevo_rol'>Nuevo Rol:</label>
-                    <select name='nuevo_rol' id='nuevo_rol'>
-                        <option value='Estudiante'>Estudiante</option>
-                        <option value='Profesor'>Profesor</option>
-                        <option value='Administrador'>Administrador</option>
-                    </select>
-                    <button type='submit' name='cambiar_rol'>Cambiar Rol</button>
-                </form>
-            </div>
-        EOS;
-    } else {
-        $contenidoPrincipal .= '<p>No se encontraron usuarios.</p>';
     }
 
 }
@@ -209,7 +238,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['borrar_curso'], $_POST
     }
 }
 
-// // Lógica para cambiar el rol de usuario
+// Lógica para cambiar el rol de usuario
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cambiar_rol'], $_POST['usuario'], $_POST['nuevo_rol'])) {
     $nombreUsuario = $_POST['usuario'];
     $nuevoRol = $_POST['nuevo_rol'];

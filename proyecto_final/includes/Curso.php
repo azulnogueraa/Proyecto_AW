@@ -41,6 +41,28 @@ class Curso {
         return $result !== false;
     }
 
+    public static function crearCurso($nombre, $descripcion, $profesorId, $duracion, $nivelDificultad, $categoria, $precio) {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+    
+        $query = "INSERT INTO Curso (nombre_curso, descripcion, profesor_id, duracion, nivel_dificultad, categoria, precio, fecha_creacion) 
+                  VALUES (?, ?, ?, ?, ?, ?, ?, current_timestamp())";
+    
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("ssissss", $nombre, $descripcion, $profesorId, $duracion, $nivelDificultad, $categoria, $precio);
+
+        $result = $stmt->execute();
+    
+        if ($result === false) {
+            error_log("Error al insertar curso: " . $stmt->error);
+            return false;
+        }
+    
+        $stmt->close();
+    
+        return true;
+    }
+    
+
     public function getNombre() {
         return $this->nombre_curso;
     }
