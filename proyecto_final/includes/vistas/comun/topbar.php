@@ -14,6 +14,12 @@
         }
         ?>
         <a href="cursos.php" class="topbar-item">Cursos</a>
+        <?php 
+        // Si esta logueado y es estudiante que muestre la pestaña de perfil de usuario 
+        if (isset($_SESSION["tipo_usuario"]) && $_SESSION["tipo_usuario"] === es\ucm\fdi\aw\Usuario::ESTUDIANTE_ROLE && isset($_SESSION["login"]) && $_SESSION["login"] === true) {
+            echo "<a href='perfil.php' class='topbar-item'>Perfil</a>";
+        }
+        ?>
         <?php
         // Verificar si el usuario es un administrador y está autenticado
         if (isset($_SESSION["tipo_usuario"]) && $_SESSION["tipo_usuario"] === es\ucm\fdi\aw\Usuario::ADMIN_ROLE && isset($_SESSION["login"]) && $_SESSION["login"] === true) {

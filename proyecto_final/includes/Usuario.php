@@ -32,13 +32,13 @@ abstract class Usuario {
                 $fila = $rs->fetch_assoc();
                 switch ($table) {
                     case 'Estudiante':
-                        $result = new Estudiante($fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena'],  $fila['id']);
+                        $result = new Estudiante($fila['id'], $fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena']);
                         break;
                     case 'Profesor':
-                        $result = new Profesor($fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena'],  $fila['id']);
+                        $result = new Profesor($fila['id'], $fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena']);
                         break;
                     case 'Administrador':
-                        $result = new Admin($fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena'],  $fila['id']);
+                        $result = new Admin($fila['id'], $fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena']);
                         break;
                 }
                 $rs->free();
@@ -112,7 +112,7 @@ abstract class Usuario {
     private $apellido;
     private $email;
     private $contrasena;
-    private function __construct($nombre_usuario, $apellido, $email, $contrasena, $id = null) {
+    private function __construct($id, $nombre_usuario, $apellido, $email, $contrasena) {
         $this->id = $id;
         $this->nombre_usuario = $nombre_usuario;
         $this->apellido = $apellido;
@@ -218,4 +218,31 @@ abstract class Usuario {
         // Agrega más condiciones según las subclases que tengas
         return 'Desconocido';
     }
+
+    public static function getCursosAsignados($nombre_usuario) {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $cursos = [];
+    
+        // Consulta SQL para obtener los cursos asignados al usuario
+        $query = sprintf("SELECT c.* FROM Curso c 
+                          INNER JOIN Registrado r ON c.nombre_curso = r.curso_id
+                          INNER JOIN Estudiante e ON r.u_id = e.id
+                          WHERE e.nombre_usuario = '%s'",
+                          $conn->real_escape_string($nombre_usuario));
+    
+        $rs = $conn->query($query);
+    
+        if ($rs && $rs->num_rows > 0) {
+            // Recorrer los resultados y crear objetos Curso
+            while ($fila = $rs->fetch_assoc()) {
+                // Crear un objeto Curso con los datos recuperados
+                $curso = new Curso($fila['nombre_curso'], $fila['descripcion'], $fila['duracion'], $fila['nivel_dificultad'], $fila['categoria'], $fila['precio']);                $cursos[] = $curso; // Agregar el curso al array de cursos
+            }
+    
+            $rs->free(); // Liberar los resultados
+        }
+    
+        return $cursos;
+    }
+    
 }
