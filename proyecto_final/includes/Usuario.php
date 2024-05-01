@@ -244,5 +244,30 @@ abstract class Usuario {
     
         return $cursos;
     }
+
+    public function setNombre($nombre) {
+        $this->nombre_usuario = $nombre;
+    }
+    public function setApellido($apellido) {
+        $this->apellido = $apellido;
+    }
+    public function setEmail($email) {
+        $this->email = $email;
+    }
+    public function setContrasena($contrasena) {
+        $this->contrasena = self::hashPassword($contrasena);
+    }
+
+    public function actualizarUsuario() {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $sql = "UPDATE Estudiante SET nombre_usuario=?, apellido=?, email=? WHERE id=?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sssi", $this->nombre_usuario, $this->apellido, $this->email, $this->id);
+    
+        $result = $stmt->execute();
+        $stmt->close();
+        return $result;
+    }
+    
     
 }
