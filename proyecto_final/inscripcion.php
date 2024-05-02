@@ -6,8 +6,11 @@ error_reporting(E_ALL);
 
 require_once __DIR__.'/includes/config.php';
 
-// Crear instancia del formulario de inscripción
-$form = new es\ucm\fdi\aw\FormularioInscripcion();
+// Obtener el nombre del curso de la URL
+$nombre_curso = $_GET['nombre_curso'] ?? '';
+
+// Crear instancia del formulario de inscripción y pasar el nombre del curso
+$form = new es\ucm\fdi\aw\FormularioInscripcion($nombre_curso);
 $htmlFormInscripcion = $form->gestiona();
 
 // Configurar el contenido principal

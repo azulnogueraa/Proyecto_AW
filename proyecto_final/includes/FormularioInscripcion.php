@@ -3,15 +3,26 @@ namespace es\ucm\fdi\aw;
 
 class FormularioInscripcion extends Formulario {
 
-    public function __construct() {
+    private $nombre_curso;
+
+    public function __construct($nombre_curso) {
         parent::__construct('formInscripcion', ['urlRedireccion' => 'index.php']);
-    }
+        $this->nombre_curso = $nombre_curso;
+    }    
 
     protected function generaCamposFormulario(&$datos) {
-        $nombre_curso = $datos['nombre_curso'] ?? '';
-        $nombre_usuario = $datos['nombre_usuario'] ?? '';
-        $apellido = $datos['apellido'] ?? '';
-        $email = $datos['email'] ?? '';
+        // Obtener datos del usuario actual si está autenticado
+        $nombre_usuario = '';
+        $apellido = '';
+        $email = '';
+        if (isset($_SESSION['login']) && $_SESSION['login']) {
+            $usuarioActual = Usuario::buscaUsuario($_SESSION['nombre']);
+            $nombre_usuario = $usuarioActual->getNombreUsuario();
+            $apellido = $usuarioActual->getApellido();
+            $email = $usuarioActual->getEmail();
+        }
+
+        $nombre_curso = $this->nombre_curso;
 
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
 
@@ -24,15 +35,19 @@ class FormularioInscripcion extends Formulario {
                 </div>
                 <div>
                     <label for="nombre_usuario">Nombre de usuario:</label>
-                    <input id="nombre_usuario" type="text" name="nombre_usuario" required value="{$nombre_usuario}"/>
+                    <input id="nombre_usuario" type="text" name="nombre_usuario" required value="{$nombre_usuario}" readonly/>
+                </div>
+                <div>
+                    <label for="nombre_curso">Nombre del curso:</label>
+                    <input id="nombre_curso" type="text" name="nombre_curso" value="$nombre_curso" readonly/>
                 </div>
                 <div>
                     <label for="apellido">Apellido:</label>
-                    <input id="apellido" type="text" name="apellido" required value="{$apellido}"/>
+                    <input id="apellido" type="text" name="apellido" required value="{$apellido}" readonly/>
                 </div>
                 <div>
                     <label for="email">Email:</label>
-                    <input id="email" type="email" name="email" required value="{$email}" />
+                    <input id="email" type="email" name="email" required value="{$email}" readonly/>
                 </div>
                 <div>
                     <input type="checkbox" id="terminos" name="terminos" required>
@@ -96,8 +111,17 @@ class FormularioInscripcion extends Formulario {
             $curso = $resultadoCurso->fetch_assoc();
             $usuario = $resultadoUsuario->fetch_assoc();
 
-            // Crear registro
-            $registrado = Registrado::crea($usuario, $curso);
+            // Crear el registro directamente en la base de datos
+            $queryInsert = sprintf("INSERT INTO Registrado (u_id, curso_id) VALUES (%d, '%s')",
+                $usuario['id'],
+                $conn->real_escape_string($nombre_curso)
+            );
+
+            if ($conn->query($queryInsert)) {
+                echo "¡Inscripción exitosa!";
+            } else {
+                echo "Error al registrar la inscripción.";
+            }
         }
     }
 }

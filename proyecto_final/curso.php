@@ -38,7 +38,7 @@ if (isset($_GET['nombre_curso'])) {
         <li><p> Nivel de dificultad: {$curso->getNivelDificultad()} </p></li>
         </ul><br>
         <h3> {$curso->getPrecio()} EUR </h3><br>
-        <a href='inscripcion.php?nombre_curso={$curso->getNombre()}' class='button-curso'>Incribirse</a>
+        <a href='inscripcion.php?nombre_curso={$curso->getNombre()}' class='button-curso'>Inscribirse</a>
         </div>
         EOS;
     } else {

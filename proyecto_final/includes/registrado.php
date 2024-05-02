@@ -1,5 +1,8 @@
 <?php
 namespace es\ucm\fdi\aw;
+
+require_once __DIR__.'/Usuario.php'; // Asegúrate de incluir el archivo de la clase Usuario si aún no está incluido
+
 class Registrado {
 
     private $u_id;
@@ -11,9 +14,10 @@ class Registrado {
     }
 
     public static function crea($usuario, $curso){
-        $registrado = new Registrado($usuario.getNombreUsuario(), $curso.getNombre());
+        $nombre_usuario = $usuario->getNombreUsuario(); // Utiliza la flecha ->
+        $nombre_curso = $curso->getNombre(); // Utiliza la flecha ->
+        $registrado = new Registrado($nombre_usuario, $nombre_curso);
         return self::inserta($registrado);
-
     }
 
     private static function inserta($registrado){
@@ -30,7 +34,7 @@ class Registrado {
     if ($row['count'] == 0) { // If the pair does not exist, proceed with insertion
         $query = sprintf("INSERT INTO Registrado(u_id, curso_id) VALUES ('%s', '%s')",
             $conn->real_escape_string($registrado->u_id),
-            $conn->real_escape_string($regitrado->curso_id)
+            $conn->real_escape_string($registrado->curso_id)
         );
 
         $res = $conn->query($query);
@@ -50,3 +54,4 @@ class Registrado {
         return $this->curso_id;
     }
 }
+?>
