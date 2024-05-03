@@ -8,9 +8,6 @@
         <a href="index.php" class="topbar-item">Inicio</a>
         <?php
         // Verificar si el usuario no está autenticado
-
-use es\ucm\fdi\aw\Usuario;
-
         if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true) {
             echo "<a href='login.php' class='topbar-item'>Log In</a>";
             echo "<a href='registro.php' class='topbar-item'>Registro</a>";
@@ -44,7 +41,7 @@ use es\ucm\fdi\aw\Usuario;
             ];
             if (isset($_SESSION['login']) && ($_SESSION['login'] === true)) {
                 $tipo_usuario = $_SESSION['tipo_usuario'];
-                $nombre = es\ucm\fdi\aw\Usuario::buscaUsuarioPorId($_SESSION['id'])->getNombreUsuario();
+                $nombre = $_SESSION['nombre'];
                 $saludo = $saludos[$tipo_usuario] ?? "Usuario desconocido";
                 return "Bienvenido, $saludo $nombre <a href='logout.php' class='salir-topbar'>(salir)</a>";   
             } else {
