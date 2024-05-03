@@ -4,6 +4,8 @@ namespace es\ucm\fdi\aw;
 require_once __DIR__.'/includes/config.php';
 require_once __DIR__.'/includes/Curso.php';
 
+$tituloPagina = 'Curso';
+
 // Verificar si se ha proporcionado el nombre del curso en los parámetros GET
 if (isset($_GET['nombre_curso'])) {
     $nombre_curso = $_GET['nombre_curso'];
