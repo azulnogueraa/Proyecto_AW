@@ -49,6 +49,43 @@ abstract class Usuario {
         }
         return $result;
     }
+
+    public static function buscaUsuarioPorId($id) {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $tables = ['Estudiante', 'Profesor', 'Administrador'];
+        $result = false;
+    
+        foreach ($tables as $table) {
+            $query = sprintf("SELECT * FROM %s WHERE id = %d",
+                $table,
+                $id
+            );
+    
+            $rs = $conn->query($query);
+    
+            if ($rs && $rs->num_rows > 0) {
+                $fila = $rs->fetch_assoc();
+                switch ($table) {
+                    case 'Estudiante':
+                        $result = new Estudiante($fila['id'], $fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena']);
+                        break;
+                    case 'Profesor':
+                        $result = new Profesor($fila['id'], $fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena']);
+                        break;
+                    case 'Administrador':
+                        $result = new Admin($fila['id'], $fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena']);
+                        break;
+                }
+                $rs->free();
+                break;
+            } else {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+            }
+        }
+    
+        return $result;
+    }
+    
     
     private static function hashPassword($contrasena) {
         return password_hash($contrasena, PASSWORD_DEFAULT);

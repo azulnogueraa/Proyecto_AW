@@ -16,7 +16,7 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
 }
 
 // Obtener datos del usuario actual
-$usuarioActual = es\ucm\fdi\aw\Usuario::buscaUsuario($_SESSION['nombre']);
+$usuarioActual = es\ucm\fdi\aw\Usuario::buscaUsuarioPorId($_SESSION['id']);
 
 // Obtener cursos asignados al usuario actual
 $cursosAsignados = $usuarioActual->getCursosAsignados($usuarioActual->getNombreUsuario());

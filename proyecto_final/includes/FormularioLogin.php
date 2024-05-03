@@ -62,6 +62,7 @@ class FormularioLogin extends Formulario {
                 $this->errores[] = "El usuario o el password no coinciden";
             } else {
                 $_SESSION['login'] = true;
+                $_SESSION['id'] = $usuario->getId();
                 $_SESSION['nombre'] = $nombre_usuario;
                 $_SESSION['apellido'] = $usuario->getApellido();
                 $_SESSION['email'] = $usuario->getEmail();

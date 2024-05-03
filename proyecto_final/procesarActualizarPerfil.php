@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     $email = $_POST['email'];
 
     // Obtener usuario actual
-    $usuarioActual = es\ucm\fdi\aw\Usuario::buscaUsuario($_SESSION['nombre']);
+    $usuarioActual = es\ucm\fdi\aw\Usuario::buscaUsuarioPorId($_SESSION['id']);
 
     // Actualizar datos del usuario
     $usuarioActual->setNombre($nombre);
