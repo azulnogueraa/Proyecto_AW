@@ -165,7 +165,6 @@ h2{
 #img2_index{
     width: 95%;
     height: auto;
-    align-self: right;
 }
 
 .doble_caja{
@@ -380,7 +379,6 @@ button:hover {
     margin-right: 15%;
     margin-left: 15%;
     margin-top: 50px;
-    display: column;
     justify-content: center;
     align-content: center;
 }
