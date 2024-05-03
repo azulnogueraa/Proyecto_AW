@@ -54,6 +54,10 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
             $nombreUsuario = isset($_GET['usuario']) ? $_GET['usuario'] : '';
             $mensaje = "<p>Error al eliminar al usuario <strong>{$nombreUsuario}</strong> del rol anterior.</p>";
         }
+        elseif ($_GET['resultado'] === 'error_estudiante_con_cursos') {
+            $nombreUsuario = isset($_GET['usuario']) ? $_GET['usuario'] : '';
+            $mensaje = "<p>No se puede cambiar el rol del estudiante <strong>{$nombreUsuario}</strong> porque esta inscripto en cursos.</p>";
+        }
     }
 
     if (isset($_GET['agregar_curso'])) {
@@ -258,6 +262,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cambiar_rol'], $_POST[
         } elseif ($resultado === 'exito') {
             // Si $resultado es true, significa que el rol se cambió correctamente
             header("Location: ajustes.php?resultado=exito&usuario={$nombreUsuario}&nuevo_rol={$nuevoRol}");
+            exit();
+        } elseif ($resultado === 'error_estudiante_con_cursos') {
+            header("Location: ajustes.php?resultado=error_estudiante_con_cursos&usuario={$nombreUsuario}");
             exit();
         }
     

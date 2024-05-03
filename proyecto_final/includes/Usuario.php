@@ -207,6 +207,15 @@ abstract class Usuario {
                     return "error_profesor_con_cursos";
                 }
             }
+
+            // Verificar si el cambio de estudiante a profesor está permitido
+            if ($rolActual === 'Estudiante' && $nuevoRol === 'Profesor') {
+                $cursosAsignados = self::getCursosAsignados($nombreUsuario);
+    
+                if ($cursosAsignados) {
+                    return "error_estudiante_con_cursos";
+                }
+            }
     
             // Eliminar al usuario de la tabla del rol anterior
             $eliminado = self::borraUsuario($rolActual, $usuario);
