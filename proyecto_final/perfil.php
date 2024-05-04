@@ -43,7 +43,8 @@ $contenidoPrincipal .= <<<EOS
 EOS;
 
 foreach ($cursosAsignados as $curso) {
-    $contenidoPrincipal .= "<li>{$curso->getNombre()}</li>";
+    $nbcurso = $curso->getNombre();
+    $contenidoPrincipal .= "<a href='chat.php?nombre_curso=$nbcurso' class='salir-topbar'>{$curso->getNombre()}</a>";
 }
 
 $contenidoPrincipal .= '</ul>';

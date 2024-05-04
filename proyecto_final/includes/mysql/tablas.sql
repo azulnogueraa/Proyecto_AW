@@ -42,15 +42,15 @@ CREATE TABLE IF NOT EXISTS Curso (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
-CREATE TABLE IF NOT EXISTS Comentarios (
-    num INT,
+CREATE TABLE IF NOT EXISTS Mensaje (
+    id INT AUTO_INCREMENT,
     u_id INT,
-    curso_id VARCHAR(100),
+    curso_nombre VARCHAR(100),
     created_at TIMESTAMP,
     contenido VARCHAR(250),
-    PRIMARY KEY (num),
+    PRIMARY KEY (id),
     FOREIGN KEY (u_id) REFERENCES Estudiante(id),
-    FOREIGN KEY (curso_id) REFERENCES Curso(nombre_curso)
+    FOREIGN KEY (curso_nombre) REFERENCES Curso(nombre_curso)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 create table if not exists Registrado (
