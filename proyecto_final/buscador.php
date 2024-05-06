@@ -5,9 +5,14 @@ $conn = es\ucm\fdi\aw\Aplicacion::getInstance()->getConexionBd();
 
 // Obtener el término de búsqueda del parámetro de la solicitud
 $searchTerm = isset($_GET['q']) ? $_GET['q'] : '';
-
+$searchTermPrecio = isset($_GET['precio']) ? $_GET['precio'] : '';
 // Consulta SQL para obtener los cursos que coinciden con el término de búsqueda
-$query = "SELECT * FROM Curso WHERE nombre_curso LIKE '%$searchTerm%'";
+if( $searchTermPrecio !== ''){
+    $query = "SELECT * FROM Curso WHERE nombre_curso LIKE '%$searchTerm%' and precio <= $searchTermPrecio";
+}else{
+    $query = "SELECT * FROM Curso WHERE nombre_curso LIKE '%$searchTerm%'";
+}
+
 
 // Ejecutar la consulta
 $resultado = $conn->query($query);

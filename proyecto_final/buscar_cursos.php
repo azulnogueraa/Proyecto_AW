@@ -39,9 +39,13 @@ $contenidoPrincipal = <<<EOS
     <div class="content"> 
         <h1>Buscar Curso</h1>
         <input type="text" id="searchInput" placeholder="Buscar curso...">
+        <input type="number" id="searchPrecio"  placeholder="precio max (en pesos)">
+        <button id="buscPrecio" type="button">&#x1F50D</button>
         <div id="searchResults"></div>
     </div>
 </div>
 <script src="JS/buscar_cursos.js"></script>
+
 EOS;
 include 'includes/vistas/plantillas/plantilla.php';
+// <script src="JS/buscarPrecio.js"></script>
