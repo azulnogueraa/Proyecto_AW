@@ -1,6 +1,6 @@
 <?php
 // Conexión a la base de datos
-require_once(dirname(__FILE__) . '/includes/config.php');
+require_once(dirname(__FILE__) . '/includes/src/config.php');
 $conn = es\ucm\fdi\aw\Aplicacion::getInstance()->getConexionBd();
 
 $curso = $_GET['curso'];

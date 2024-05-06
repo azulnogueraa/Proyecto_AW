@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/includes/config.php';
+require_once __DIR__ . '/includes/src/config.php';
 
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
