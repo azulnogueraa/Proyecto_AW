@@ -1,8 +1,8 @@
 <?php
 namespace es\ucm\fdi\aw;
 
-require_once __DIR__.'/includes/config.php';
-require_once __DIR__.'/includes/Curso.php';
+require_once __DIR__.'/includes/src/config.php';
+require_once __DIR__.'/includes/src/Curso.php';
 
 // Verificar si se ha proporcionado el nombre del curso en los parámetros GET
 if (isset($_GET['nombre_curso'])) {
