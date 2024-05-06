@@ -1,7 +1,17 @@
 <?php
 require_once __DIR__.'/includes/src/config.php';
 
+// Definir el título de la página
 $tituloPagina = 'Pagina Principal';
+
+// Usar rutas absolutas para las imágenes
+$rutaImg1 = htmlspecialchars('img/chat_alumnos.png', ENT_QUOTES, 'UTF-8');
+$rutaImg2 = htmlspecialchars('img/chat_profe.png', ENT_QUOTES, 'UTF-8');
+$rutaImg3 = htmlspecialchars('img/profesionales.png', ENT_QUOTES, 'UTF-8');
+$rutaImg4 = htmlspecialchars('img/tutores.png', ENT_QUOTES, 'UTF-8');
+$rutaImg5 = htmlspecialchars('img/recomendaciones.png', ENT_QUOTES, 'UTF-8');
+
+// Crear el contenido principal de la página
 $contenidoPrincipal = <<<EOS
   <div id="contenedor_index">
     <div class="rec1_index">
@@ -15,7 +25,7 @@ $contenidoPrincipal = <<<EOS
     </div>
 
     <div class="rec2_index">
-      <img id="img1_index" src="img/chat_alumnos.png" alt="">
+      <img id="img1_index" src="$rutaImg1" alt="Chat con Alumnos">
       <div class="info_rec2_index">
         <h2> Aprende junto a tus compañeros </h2>
         <p>Está demostrado que aprender en grupo es más eficiente y motivador. 
@@ -26,17 +36,17 @@ $contenidoPrincipal = <<<EOS
 
     <div class="rec3_index">
       <div>
-        <img id="img2_index" src="img/chat_profe.png" alt="">
+        <img id="img2_index" src="$rutaImg2" alt="Chat con Profesores">
       </div>
       <div class="doble_caja">
-        <img id="img3_index" src="img/profesionales.png" alt="">
-        <img id="img4_index" src="img/tutores.png" alt="">
+        <img id="img3_index" src="$rutaImg3" alt="Profesionales">
+        <img id="img4_index" src="$rutaImg4" alt="Tutores">
       </div>
     </div>
 
     <div class="rec4_index">
-      <h2> Más de 200.000 estudiantes nos recomiendan en todo Europa </h2>
-      <img id="img5_index" src="img/recomendaciones.png" alt="">
+      <h2> Más de 200.000 estudiantes nos recomiendan en toda Europa </h2>
+      <img id="img5_index" src="$rutaImg5" alt="Recomendaciones">
     </div>
   </div>
 EOS;

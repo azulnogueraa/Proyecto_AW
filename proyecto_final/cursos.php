@@ -2,14 +2,21 @@
 require_once __DIR__.'/includes/src/config.php';
 
 $tituloPagina = 'Cursos';
-//función para generar la visualización de cursos
+
+// Función para generar la visualización de cursos
 function toBox($nombre, $precio, $descripcion) {
+    $nombreEscapado = htmlspecialchars($nombre, ENT_QUOTES, 'UTF-8');
+    $descripcionEscapada = htmlspecialchars($descripcion, ENT_QUOTES, 'UTF-8');
+    $precioEscapado = htmlspecialchars($precio, ENT_QUOTES, 'UTF-8');
+    $urlCurso = 'curso.php?nombre_curso=' . urlencode($nombre);
+
     $contenido = "<div class='box-cursos'>";
-    $contenido .= "<h2 class='nombre-cursos'>$nombre</h2>";
-    $contenido .= "<div class='precio-cursos'>Precio: $precio EUR</div>";
-    $contenido .= "<p class='descripcion-cursos'>$descripcion</p>";
-    $contenido .= "<a href='curso.php?nombre_curso=$nombre' class='button-cursos'>Ver curso</a>";
+    $contenido .= "<h2 class='nombre-cursos'>$nombreEscapado</h2>";
+    $contenido .= "<div class='precio-cursos'>Precio: $precioEscapado EUR</div>";
+    $contenido .= "<p class='descripcion-cursos'>$descripcionEscapada</p>";
+    $contenido .= "<a href='$urlCurso' class='button-cursos'>Ver curso</a>";
     $contenido .= "</div>";
+
     return $contenido;
 }
 
@@ -26,5 +33,6 @@ if ($cursos) {
 
 // Finaliza el contenedor de cursos
 $contenidoPrincipal .= '</div>';
+
 // Incluye la plantilla HTML que muestra el contenido principal
 include 'includes/vistas/plantillas/plantilla.php';
