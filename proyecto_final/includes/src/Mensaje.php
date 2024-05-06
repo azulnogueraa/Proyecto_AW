@@ -84,14 +84,14 @@ class Mensaje {
     
     static public function obtenerMensajes($id_curso) {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Mensaje Where curso_nombre = '%s'", $conn->real_escape_string($id_curso));
+        $query = sprintf("SELECT * FROM Mensaje Where nombre_curso = '%s'", $conn->real_escape_string($id_curso));
         $rs = $conn->query($query);
         $result = false;
         if ($rs) {
             $result = [];
             while ($row = $rs->fetch_assoc()) {
                 $msg = new Mensaje(
-                    $row['curso_nombre'],
+                    $row['nombre_curso'],
                     $row['u_id'],
                     $row['contenido'],);
                 $result[] = $msg;

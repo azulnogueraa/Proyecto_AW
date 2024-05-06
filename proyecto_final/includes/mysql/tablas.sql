@@ -42,16 +42,16 @@ CREATE TABLE IF NOT EXISTS Curso (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
-CREATE TABLE IF NOT EXISTS Mensaje (
-    id INT AUTO_INCREMENT,
-    u_id INT,
-    curso_nombre VARCHAR(100),
-    created_at TIMESTAMP,
-    contenido VARCHAR(250),
+create table if not exists Mensaje (
+    id int AUTO_INCREMENT,
+    mensaje text NOT NULL,
+    created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    user_id int NOT NULL,
+    tipo_usuario ENUM('Estudiante', 'Profesor', 'Administrador') NOT NULL,
+    nombre_curso VARCHAR(100) NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (u_id) REFERENCES Estudiante(id),
-    FOREIGN KEY (curso_nombre) REFERENCES Curso(nombre_curso)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+    FOREIGN KEY (nombre_curso) REFERENCES Curso(nombre_curso)
+)ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 create table if not exists Registrado (
     u_id int,

@@ -61,6 +61,26 @@ class Curso {
     
         return true;
     }
+
+    public static function buscaCursoPorNombre($nombreCurso) {
+        // Obtener la conexión a la base de datos desde la aplicación
+        $conn = Aplicacion::getInstance()->getConexionBd();
+
+        // Preparar la consulta SQL para buscar un curso por su nombre
+        $query = "SELECT * FROM Curso WHERE nombre_curso = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("s", $nombreCurso);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result && $result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $curso = new Curso($row['nombre_curso'], $row['descripcion'], $row['duracion'], $row['nivel_dificultad'], $row['categoria'], $row['precio']);
+            return $curso;
+        }
+
+        return null; // Si no se encuentra ningún curso con ese nombre
+    }
     
 
     public function getNombre() {
@@ -209,6 +229,25 @@ class Curso {
             error_log("Error al contar cursos del profesor: " . $e->getMessage());
             return false;
         }
+    }
+
+    public function tieneAlumnosInscritos() {
+        // Obtener la conexión a la base de datos desde la aplicación
+        $conn = Aplicacion::getInstance()->getConexionBd();
+
+        // Preparar la consulta SQL para contar los registros de alumnos inscritos en este curso
+        $query = "SELECT COUNT(*) as total FROM Registrado WHERE curso_id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("s", $this->nombre_curso);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result && $row = $result->fetch_assoc()) {
+            $total_alumnos_inscritos = $row['total'];
+            return $total_alumnos_inscritos > 0; // Devuelve true si hay alumnos inscritos, false si no
+        }
+
+        return false; 
     }
 
 }
