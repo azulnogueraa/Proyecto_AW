@@ -30,7 +30,7 @@
 </html> -->
 
 <?php
-require_once __DIR__.'/includes/src/config.php';
+require_once __DIR__.'/includes/config.php';
 //require_once "includes/vistas/comun/curso.php";// no estoy seguro
 $tituloPagina = 'Buscar cursos';
 

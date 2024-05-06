@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__.'/includes/src/config.php';
+require_once __DIR__.'/includes/config.php';
 
 $form = new es\ucm\fdi\aw\FormularioLogin();
 $htmlFormLogin = $form->gestiona();
