@@ -4,8 +4,6 @@ namespace es\ucm\fdi\aw;
 require_once __DIR__.'/includes/src/config.php';
 require_once __DIR__.'/includes/src/Curso.php';
 
-$tituloPagina = 'Curso';
-
 // Verificar si se ha proporcionado el nombre del curso en los parámetros GET
 if (isset($_GET['nombre_curso'])) {
     $nombre_curso = $_GET['nombre_curso'];
@@ -29,22 +27,34 @@ if (isset($_GET['nombre_curso'])) {
             $row['categoria'],
             $row['nivel_dificultad']
         );
-
+        $tituloPagina = $curso->getNombre();
         $contenidoPrincipal = <<<EOS
         <div id=contenedor_vista_curso> 
-        <h1> {$curso->getNombre()} </h1>
-        <ul>
-        <li><p> Categoría: {$curso->getCategoria()} </p></li>
-        <li><p> {$curso->getDescripcion()} </p></li>
-        <li><p> Duración: {$curso->getDuracion()} </p></li>
-        <li><p> Nivel de dificultad: {$curso->getNivelDificultad()} </p></li>
-        </ul><br>
-        <h3> {$curso->getPrecio()} EUR </h3><br>
-        <a href='inscripcion.php?nombre_curso={$curso->getNombre()}' class='button-curso'>Inscribirse</a>
+            <div id=main_curso>
+                <h1> {$curso->getNombre()} </h1>
+                <ul>
+                    <li><p> Categoría: {$curso->getCategoria()} </p></li>
+                    <li><p> {$curso->getDescripcion()} </p></li>
+                    <li><p> Duración: {$curso->getDuracion()} </p></li>
+                    <li><p> Nivel de dificultad: {$curso->getNivelDificultad()} </p></li>
+                </ul><br>
+                <h3> {$curso->getPrecio()} EUR </h3><br>
+                <a href='inscripcion.php?nombre_curso={$curso->getNombre()}' class='button-curso'>Inscribirse</a>
+            </div>
+            <div id="chat-container">
+                <div id="chat">
+                </div>
+                <div id="chat-input">
+                    <input type="text" id="mensaje" placeholder="Escribe un mensaje...">
+                    <button id="validar">&#x2714;</button>
+                </div>
+            </div>
         </div>
+        <script src="JS/chat.js"></script>
         EOS;
     } else {
         // Si no se encuentra el curso en la base de datos
+        $tituloPagina = 'Error';
         $contenidoPrincipal = '<p>Curso no encontrado.</p>';
     }
 } else {
@@ -55,4 +65,3 @@ if (isset($_GET['nombre_curso'])) {
 
 // Incluir la plantilla HTML que mostrará el contenido principal
 include 'includes/vistas/plantillas/plantilla.php';
-?>
