@@ -1,72 +1,20 @@
 <?php
 namespace es\ucm\fdi\aw;
+class Estudiante extends Usuario {
 
-abstract class Usuario {
-    private $id;
-    private $nombre_usuario;
-    private $apellido;
-    private $email;
-    private $contrasena;
-
-    public function __construct($id, $nombre_usuario, $apellido, $email, $contrasena) {
-        $this->id = $id;
-        $this->nombre_usuario = $nombre_usuario;
-        $this->apellido = $apellido;
-        $this->email = $email;
-        $this->contrasena = $contrasena;
+    public static function crea($nombre_usuario, $apellido, $email, $contrasena) {
+        return self::creaUsuario(__CLASS__, $nombre_usuario, $apellido, $email, $contrasena);
     }
-
-    public static function creaUsuario($tipo, $nombre_usuario, $apellido, $email, $contrasena) {
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf(
-            "INSERT INTO %s (nombre_usuario, apellido, email, contrasena) VALUES (?, ?, ?, ?)",
-            $tipo
-        );
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param('ssss', $nombre_usuario, $apellido, $email, password_hash($contrasena, PASSWORD_DEFAULT));
-        $result = $stmt->execute();
-        if ($result) {
-            $id = $stmt->insert_id;
-            return new static($id, $nombre_usuario, $apellido, $email, $contrasena);
-        } else {
-            return false;
-        }
+    public static function inserta($usuario) {
+        $table = 'Estudiante';
+        return self::insertaUsuario($table, $usuario);
     }
-
-    protected static function insertaUsuario($table, $usuario) {
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf(
-            "INSERT INTO %s (nombre_usuario, apellido, email, contrasena) VALUES (?, ?, ?, ?)",
-            $table
-        );
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param('ssss', $usuario->nombre_usuario, $usuario->apellido, $usuario->email, $usuario->contrasena);
-        return $stmt->execute();
+    protected static function actualiza($usuario) {
+        $table = 'Estudiante';
+        return self::actualizaUsuario($table, $usuario);
     }
-
-    protected static function actualizaUsuario($table, $usuario) {
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf(
-            "UPDATE %s SET nombre_usuario=?, apellido=?, email=?, contrasena=? WHERE id=?",
-            $table
-        );
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param(
-            'ssssi',
-            $usuario->nombre_usuario,
-            $usuario->apellido,
-            $usuario->email,
-            $usuario->contrasena,
-            $usuario->id
-        );
-        return $stmt->execute();
-    }
-
-    protected static function borraUsuario($table, $usuario) {
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM %s WHERE id=?", $table);
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param('i', $usuario->id);
-        return $stmt->execute();
+    public static function borra($usuario) {
+        $table = 'Estudiante';
+        return self::borraUsuario($table, $usuario);
     }
 }

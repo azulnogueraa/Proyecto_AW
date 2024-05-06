@@ -21,15 +21,13 @@ spl_autoload_register(function ($class_name) {
     // Si el archivo de clase existe, cárgalo
     if (file_exists($file)) {
         require $file;
-    } else {
-        error_log("Archivo de clase no encontrado: $file");
     }
 });
 
 /**
  * Parámetros de conexión a la BD
  */
-define('BD_HOST', 'localhost'); // Cambiarlo cuando esté en el servidor
+define('BD_HOST', 'localhost'); // necesitar cambiar eso cuando estaremos en el servidor
 define('BD_NAME', 'learnique');
 define('BD_USER', 'learnique');
 define('BD_PASS', 'learnique');
@@ -51,10 +49,8 @@ setLocale(LC_ALL, 'es_ES.UTF.8');
 date_default_timezone_set('Europe/Madrid');
 
 // Inicializa la aplicación
-use es\ucm\fdi\aw\Aplicacion;
-
-$app = Aplicacion::getInstance();
-$app->init(['host' => BD_HOST, 'bd' => BD_NAME, 'user' => BD_USER, 'pass' => BD_PASS]);
+$app = es\ucm\fdi\aw\Aplicacion::getInstance();
+$app->init(['host'=>BD_HOST, 'bd'=>BD_NAME, 'user'=>BD_USER, 'pass'=>BD_PASS]);
 
 /**
  * @see http://php.net/manual/en/function.register-shutdown-function.php
