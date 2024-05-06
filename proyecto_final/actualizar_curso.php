@@ -2,13 +2,13 @@
 require_once "includes/src/config.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Obtener los datos del formulario
-    $nombreCurso = $_POST['nombre_curso'];
-    $descripcion = $_POST['descripcion'];
-    $duracion = $_POST['duracion'];
-    $nivelDificultad = $_POST['nivel_dificultad'];
-    $categoria = $_POST['categoria'];
-    $precio = $_POST['precio'];
+    // Obtener los datos del formulario y aplicar sanitización
+    $nombreCurso = htmlspecialchars($_POST['nombre_curso'] ?? '', ENT_QUOTES, 'UTF-8');
+    $descripcion = htmlspecialchars($_POST['descripcion'] ?? '', ENT_QUOTES, 'UTF-8');
+    $duracion = htmlspecialchars($_POST['duracion'] ?? '', ENT_QUOTES, 'UTF-8');
+    $nivelDificultad = htmlspecialchars($_POST['nivel_dificultad'] ?? '', ENT_QUOTES, 'UTF-8');
+    $categoria = htmlspecialchars($_POST['categoria'] ?? '', ENT_QUOTES, 'UTF-8');
+    $precio = floatval($_POST['precio'] ?? 0); // Asegurarse de que sea un número
 
     // Intentar cargar el curso a editar
     $datosCurso = es\ucm\fdi\aw\Curso::editarCurso($nombreCurso);
@@ -17,11 +17,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Crear una nueva instancia de Curso con los datos y nuevos valores
         $curso = new es\ucm\fdi\aw\Curso(
             $datosCurso['nombre_curso'],
+            $datosCurso['precio'],
             $datosCurso['descripcion'],
             $datosCurso['duracion'],
-            $datosCurso['nivel_dificultad'],
             $datosCurso['categoria'],
-            $datosCurso['precio']
+            $datosCurso['nivel_dificultad']
         );
 
         // Actualizar los atributos del curso con los nuevos datos del formulario
