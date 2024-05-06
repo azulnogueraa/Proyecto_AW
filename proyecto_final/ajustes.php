@@ -25,7 +25,11 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
         } elseif ($_GET['borrado'] === 'errorAdmin') {
             $mensaje = '<p>No es una buena idea..</p>';
         } elseif ($_GET['borrado'] === 'errorProfe') {
-            $mensaje = '<p>Este profesor propone cursos..</p>';
+            $nombre_usuario = isset($_GET['usuario']) ? $_GET['usuario'] : '';
+            $mensaje = "<p>El profesor <strong>{$nombre_usuario}</strong> tiene cursos asignados..</p>";
+        } elseif ($_GET['borrado'] === 'errorEstudiante') {
+            $nombre_usuario = isset($_GET['usuario']) ? $_GET['usuario'] : '';
+            $mensaje = "<p>El estudiante <strong>{$nombre_usuario}</strong> esta inscrito en cursos...</p>";
         }
     }
     // Verificar si hay mensaje específico para borrado de curso
@@ -203,19 +207,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['borrar'], $_POST['usua
     $namespace = 'es\ucm\fdi\aw\\';
     $table = substr(get_class($usuario), strrpos(get_class($usuario), $namespace) + strlen($namespace));
     $admin = es\ucm\fdi\aw\Admin::buscaUsuario($_SESSION['nombre']);
+
     if ($table == 'Admin') {
         header("Location: ajustes.php?borrado=errorAdmin");
         exit();
     } elseif ($table == 'Estudiante') {
-        $resultado = $admin->borrarUsuario($table,$usuario);
-    } elseif ($table == 'Profesor') {
-        $cursoDelProfe = $usuario->misCursos();
-        if (!$cursoDelProfe) { //El profe no esta en ningun curso : podemos eliminarlo
-            $resultado = $admin->borrarUsuario($table,$usuario);
-        } else { //De momento vamos a decir que no se puede borrar el profe si tiene cursos
-            header("Location: ajustes.php?borrado=errorProfe");
+        // Verificar si el estudiante está inscrito en cursos
+        $cursosAsignados = $usuario->getCursosAsignados($usuario->getNombreUsuario());
+        if (!empty($cursosAsignados)) {
+            header("Location: ajustes.php?borrado=errorEstudiante&usuario={$_POST['usuario']}");
             exit();
-        }  
+        }
+        
+        // Intentar borrar el usuario
+        $resultado = $admin->borrarUsuario($table, $usuario);
+    } elseif ($table == 'Profesor') {
+        // Verificar si el profesor está asociado a cursos
+        $cursoDelProfe = $usuario->misCursos();
+        if (!empty($cursoDelProfe)) {
+            // El profesor tiene cursos asociados
+            header("Location: ajustes.php?borrado=errorProfe&usuario={$_POST['usuario']}");
+            exit();
+        }
+
+        // Intentar borrar el usuario
+        $resultado = $admin->borrarUsuario($table, $usuario);
     }
 
     if ($resultado) {
@@ -226,6 +242,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['borrar'], $_POST['usua
         exit();
     }
 }
+
 
 // Procesar el borrado del curso
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['borrar_curso'], $_POST['curso'])) {
