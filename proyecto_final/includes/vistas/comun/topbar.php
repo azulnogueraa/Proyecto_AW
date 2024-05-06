@@ -13,21 +13,30 @@
             echo "<a href='registro.php' class='topbar-item'>Registro</a>";
         }
         ?>
-        <a href="cursos.php" class="topbar-item">Cursos</a>
+        
         <?php 
         // Si esta logueado y es estudiante que muestre la pestaña de perfil de usuario 
         if (isset($_SESSION["tipo_usuario"]) && $_SESSION["tipo_usuario"] === es\ucm\fdi\aw\Usuario::ESTUDIANTE_ROLE && isset($_SESSION["login"]) && $_SESSION["login"] === true) {
+            echo "<a href='cursos.php' class='topbar-item'>Cursos</a>";
             echo "<a href='perfil.php' class='topbar-item'>Perfil</a>";
+            echo "<a href='buscar_cursos.php' class='topbar-item'>Buscar Curso</a>";
         }
+        ?>
+        <?php
+        if (isset($_SESSION["tipo_usuario"]) && $_SESSION["tipo_usuario"] === es\ucm\fdi\aw\Usuario::PROFESOR_ROLE && isset($_SESSION["login"]) && $_SESSION["login"] === true) {
+                echo "<a href='mis_cursos.php' class='topbar-item'>Mis Cursos</a>";
+                echo "<a href='mis_alumnos.php' class='topbar-item'>Mis Alumnos</a>";
+            }
         ?>
         <?php
         // Verificar si el usuario es un administrador y está autenticado
         if (isset($_SESSION["tipo_usuario"]) && $_SESSION["tipo_usuario"] === es\ucm\fdi\aw\Usuario::ADMIN_ROLE && isset($_SESSION["login"]) && $_SESSION["login"] === true) {
+            echo "<a href='cursos.php' class='topbar-item'>Cursos</a>";
             echo "<a href='ajustes.php' class='topbar-item'>Ajustes</a>";
+            echo "<a href='buscar_cursos.php' class='topbar-item'>Buscar Curso</a>";
         }
         ?>
-        <!-- Enlace al buscador -->
-        <a href="buscar_cursos.php" class="topbar-item">Buscar Curso</a>
+    
     </div>
     <?php
     // Verificar si la función mostrarSaludo() no está definida

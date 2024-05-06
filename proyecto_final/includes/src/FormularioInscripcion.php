@@ -24,6 +24,15 @@ class FormularioInscripcion extends Formulario {
 
         $nombre_curso = $this->nombre_curso;
 
+        // Obtener profesores disponibles
+        $profesores = $this->obtenerProfesoresDisponibles();
+
+        // Construir opciones de selección de profesores
+        $optionsProfesores = '';
+        foreach ($profesores as $profesor) {
+            $optionsProfesores .= "<option value=\"{$profesor['id']}\">{$profesor['nombre_usuario']} {$profesor['apellido']}</option>";
+        }
+
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
 
         $html = <<<EOF
@@ -48,6 +57,12 @@ class FormularioInscripcion extends Formulario {
                 <div>
                     <label for="email">Email:</label>
                     <input id="email" type="email" name="email" required value="{$email}" readonly/>
+                </div>
+                <div>
+                    <label for="profesor">Profesor:</label>
+                    <select id="profesor" name="profesor" required>
+                        $optionsProfesores
+                    </select>
                 </div>
                 <div>
                     <input type="checkbox" id="terminos" name="terminos" required>
@@ -112,9 +127,10 @@ class FormularioInscripcion extends Formulario {
             $usuario = $resultadoUsuario->fetch_assoc();
 
             // Crear el registro directamente en la base de datos
-            $queryInsert = sprintf("INSERT INTO Registrado (u_id, curso_id) VALUES (%d, '%s')",
+            $queryInsert = sprintf("INSERT INTO Registrado (u_id, curso_id, p_id) VALUES (%d, '%s', %d)",
                 $usuario['id'],
-                $conn->real_escape_string($nombre_curso)
+                $conn->real_escape_string($nombre_curso),
+                $datos['profesor']
             );
 
             if ($conn->query($queryInsert)) {
@@ -123,6 +139,22 @@ class FormularioInscripcion extends Formulario {
                 echo "Error al registrar la inscripción.";
             }
         }
+    }
+
+    private function obtenerProfesoresDisponibles() {
+        // Obtener profesores de la tabla Profesor
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $queryProfesores = "SELECT * FROM Profesor";
+        $resultadoProfesores = $conn->query($queryProfesores);
+
+        $profesores = [];
+        if ($resultadoProfesores && $resultadoProfesores->num_rows > 0) {
+            while ($fila = $resultadoProfesores->fetch_assoc()) {
+                $profesores[] = $fila;
+            }
+        }
+
+        return $profesores;
     }
 }
 ?>
