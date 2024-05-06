@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__.'/includes/srcconfig.php';
+require_once __DIR__.'/includes/src/config.php';
 
 $tituloPagina = 'Cursos';
 //función para generar la visualización de cursos
