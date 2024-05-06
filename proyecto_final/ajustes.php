@@ -193,7 +193,7 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
         $contenidoPrincipal .= '<p>No hay cursos disponibles para borrar.</p>';
     } else {
         $seleccionar_cursos = '';
-        foreach ($cursos como $nombre_curso) {
+        foreach ($cursos as $nombre_curso) {
             $nombre_curso = htmlspecialchars($nombre_curso, ENT_QUOTES, 'UTF-8');
             $seleccionar_cursos .= "<option value='{$nombre_curso}'>{$nombre_curso}</option>";
         }
