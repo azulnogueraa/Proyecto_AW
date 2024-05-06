@@ -12,26 +12,35 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
-    $nombre = $_POST['nombre'];
-    $apellido = $_POST['apellido'];
-    $email = $_POST['email'];
+    // Sanitizar y validar los datos del formulario
+    $nombre = htmlspecialchars($_POST['nombre'], ENT_QUOTES, 'UTF-8');
+    $apellido = htmlspecialchars($_POST['apellido'], ENT_QUOTES, 'UTF-8');
+    $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
 
-    // Obtener usuario actual
-    $usuarioActual = es\ucm\fdi\aw\Usuario::buscaUsuarioPorId($_SESSION['id']);
+    // Verificar si los datos son válidos
+    if ($nombre && $apellido && $email) {
+        // Obtener el usuario actual
+        $usuarioActual = es\ucm\fdi\aw\Usuario::buscaUsuarioPorId($_SESSION['id']);
 
-    // Actualizar datos del usuario
-    $usuarioActual->setNombre($nombre);
-    $usuarioActual->setApellido($apellido);
-    $usuarioActual->setEmail($email);
+        // Actualizar datos del usuario
+        $usuarioActual->setNombreUsuario($nombre);
+        $usuarioActual->setApellido($apellido);
+        $usuarioActual->setEmail($email);
 
-    // Guardar cambios en la base de datos
-    $usuarioActual->actualizarUsuario();
-
-    // Redirigir de vuelta al perfil con un mensaje de éxito
-    header('Location: perfil.php?actualizado=true');
-    exit();
+        // Guardar cambios en la base de datos
+        if ($usuarioActual->actualizaUsuario()) {
+            header('Location: perfil.php?actualizado=true');
+            exit();
+        } else {
+            header('Location: perfil.php?error=actualizacion');
+            exit();
+        }
+    } else {
+        // Error en la validación de los datos
+        header('Location: perfil.php?error=datos_invalidos');
+        exit();
+    }
 } else {
-    header('Location: perfil.php?error=true');
+    header('Location: perfil.php?error=solicitud_invalida');
     exit();
 }
-?>
