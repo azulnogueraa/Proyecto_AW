@@ -39,6 +39,9 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
             $mensaje = "<p>El curso <strong>{$nombre_curso}</strong> ha sido borrado exitosamente.</p>";
         } elseif ($_GET['borrado-curso'] === 'error') {
             $mensaje = '<p>Error al intentar borrar el curso.</p>';
+        } elseif ($_GET['borrado-curso'] === 'error-alumnos') {
+            $nombre_curso = isset($_GET['nombre_curso']) ? $_GET['nombre_curso'] : '';
+            $mensaje = "<p>El curso <strong>{$nombre_curso}</strong> tiene alumnos inscritos, por lo tanto, no se puede borrar.</p>";
         }
     }
 
@@ -248,7 +251,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['borrar'], $_POST['usua
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['borrar_curso'], $_POST['curso'])) {
     $curso_a_borrar = $_POST['curso'];
 
-    // Lógica para borrar el curso
+    // Verificar si el curso tiene alumnos inscritos
+    $curso = es\ucm\fdi\aw\Curso::buscaCursoPorNombre($curso_a_borrar);
+    if ($curso && $curso->tieneAlumnosInscritos()) {
+        // El curso tiene alumnos inscritos, redirigir con mensaje de error
+        header("Location: ajustes.php?borrado-curso=error-alumnos&nombre_curso={$curso_a_borrar}");
+        exit();
+    }
+
+    // Si no tiene alumnos inscritos, proceder con el borrado
     $resultado = es\ucm\fdi\aw\Curso::borrarCurso($curso_a_borrar);
     if ($resultado) {
         header("Location: ajustes.php?borrado-curso=exito&nombre_curso={$curso_a_borrar}");
@@ -258,6 +269,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['borrar_curso'], $_POST
         exit();
     }
 }
+
 
 // Lógica para cambiar el rol de usuario
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cambiar_rol'], $_POST['usuario'], $_POST['nuevo_rol'])) {
