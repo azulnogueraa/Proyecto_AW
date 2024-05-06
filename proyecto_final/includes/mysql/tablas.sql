@@ -47,7 +47,7 @@ create table if not exists Mensaje (
     mensaje text NOT NULL,
     created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
     user_id int NOT NULL,
-    tipo_usuario ENUM('Estudiante', 'Profesor', 'Administrador') NOT NULL,
+    tipo_usuario ENUM('Administrador', 'Estudiante', 'Profesor') NOT NULL,
     nombre_curso VARCHAR(100) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (nombre_curso) REFERENCES Curso(nombre_curso)

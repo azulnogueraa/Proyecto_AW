@@ -65,7 +65,15 @@ function cargarMensajes() {
                 let chat = document.querySelector("#chat")
                 for(let mensaje of mensajes) {
                     let fechaMensaje = new Date(mensaje.created_at)
-                    chat.insertAdjacentHTML("beforeend", `<p>${mensaje.nombre_usuario} ha escrito el ${fechaMensaje.toLocaleString()} : ${mensaje.mensaje}</p>`)
+
+                    // Determina el estilo a aplicar segun el tipo_usuario
+                    const estiloMensaje = mensaje.tipo_usuario === 'Profesor' ? 'font-weight: bold;' :
+                                        mensaje.tipo_usuario === 'Administrador' ? 'color: red;' : '';
+
+                    const mensajeHTML = `<p style="${estiloMensaje}">${mensaje.nombre_usuario} ha escrito el ${fechaMensaje.toLocaleString()} : 
+                        <span >${mensaje.mensaje}</span></p>`;
+
+                    chat.insertAdjacentHTML("beforeend", mensajeHTML);
                     
                     // Hacemos scroll para que se vea el ultimo mensaje
                     let objDiv = document.getElementById("chat")

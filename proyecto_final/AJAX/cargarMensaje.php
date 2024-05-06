@@ -11,18 +11,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET'){
             $filtro = ($lastId > 0) ? " AND Mensaje.id > $lastId" : '';
 
             // Recuperamos el tipo de usuario conectado para acceder a la tabla correspondiente
-            $tipo = $_SESSION['tipo_usuario'];
-            $tablas = [
-                es\ucm\fdi\aw\Usuario::ADMIN_ROLE => "Administrador",
-                es\ucm\fdi\aw\Usuario::ESTUDIANTE_ROLE => "Estudiante",
-                es\ucm\fdi\aw\Usuario::PROFESOR_ROLE => "Profesor"
-            ];
-            $tabla = $tablas[$tipo] ?? "";
 
             $conn = es\ucm\fdi\aw\Aplicacion::getInstance()->getConexionBd();
-            $query = sprintf("SELECT Mensaje.id, Mensaje.mensaje, Mensaje.created_at, $tabla.nombre_usuario FROM Mensaje LEFT JOIN $tabla ON Mensaje.user_id = $tabla.id WHERE Mensaje.nombre_curso = '%s' $filtro ORDER BY Mensaje.id ASC LIMIT 5"
-                , $conn->real_escape_string($nombre_curso)
-            );
+            $query = sprintf("SELECT Mensaje.id, Mensaje.mensaje, Mensaje.created_at, Mensaje.tipo_usuario,
+                            COALESCE(
+                                Estudiante.nombre_usuario,
+                                Profesor.nombre_usuario,
+                                Administrador.nombre_usuario
+                            ) AS nombre_usuario
+                            FROM Mensaje
+                            LEFT JOIN Estudiante ON Mensaje.user_id = Estudiante.id AND Mensaje.tipo_usuario = 'Estudiante'
+                            LEFT JOIN Profesor ON Mensaje.user_id = Profesor.id AND Mensaje.tipo_usuario = 'Profesor'
+                            LEFT JOIN Administrador ON Mensaje.user_id = Administrador.id AND Mensaje.tipo_usuario = 'Administrador'
+                            WHERE Mensaje.nombre_curso = '%s'
+                            $filtro
+                            ORDER BY Mensaje.id ASC
+                            LIMIT 5"
+                            , $conn->real_escape_string($nombre_curso));
+            // $query = sprintf("SELECT Mensaje.id, Mensaje.mensaje, Mensaje.created_at, $tabla.nombre_usuario FROM Mensaje LEFT JOIN $tabla ON Mensaje.user_id = $tabla.id WHERE Mensaje.nombre_curso = '%s' $filtro ORDER BY Mensaje.id ASC LIMIT 5"
+            //     , $conn->real_escape_string($nombre_curso)
+            // );
             $rs = $conn->query($query);
             if ($rs) {
                 // Creamos un array con los mensajes
@@ -32,7 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET'){
                         'id' => $row['id'],
                         'mensaje' => $row['mensaje'],
                         'created_at' => $row['created_at'],
-                        'nombre_usuario' => $row['nombre_usuario']
+                        'nombre_usuario' => $row['nombre_usuario'],
+                        'tipo_usuario' => $row['tipo_usuario']
                     ];
                 }
                 // Enviamos los mensajes en formato JSON
