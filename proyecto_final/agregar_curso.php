@@ -16,9 +16,6 @@ if (class_exists('es\ucm\fdi\aw\FormularioAgregarCurso')) {
     $htmlFormInscripcion = '<p>Error: no se puede encontrar el formulario de inscripción.</p>';
 }
 
-// Escapar contenido para prevenir XSS
-$htmlFormInscripcion = htmlspecialchars($htmlFormInscripcion, ENT_QUOTES, 'UTF-8');
-
 // Configurar el contenido principal
 $tituloPagina = 'Inscripción';
 $contenidoPrincipal = <<<EOS
