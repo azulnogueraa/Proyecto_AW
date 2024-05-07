@@ -32,19 +32,18 @@ abstract class Usuario {
                 $fila = $rs->fetch_assoc();
                 switch ($table) {
                     case 'Estudiante':
-                        $result = new Estudiante($fila['id'], $fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena']);
+                        $result = new Estudiante($fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena'], $fila['id'], );
                         break;
                     case 'Profesor':
-                        $result = new Profesor($fila['id'], $fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena']);
+                        $result = new Profesor($fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena'], $fila['id']);
                         break;
                     case 'Administrador':
-                        $result = new Admin($fila['id'], $fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena']);
+                        $result = new Admin($fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena'], $fila['id']);
                         break;
                 }
                 $rs->free();
                 break;
             } else {
-                return null;
                 error_log("Error BD ({$conn->errno}): {$conn->error}");
             }
         }
@@ -150,7 +149,7 @@ abstract class Usuario {
     private $apellido;
     private $email;
     private $contrasena;
-    private function __construct($id, $nombre_usuario, $apellido, $email, $contrasena) {
+    private function __construct($nombre_usuario, $apellido, $email, $contrasena, $id = null) {
         $this->id = $id;
         $this->nombre_usuario = $nombre_usuario;
         $this->apellido = $apellido;
