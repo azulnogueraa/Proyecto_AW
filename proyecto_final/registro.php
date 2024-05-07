@@ -1,11 +1,11 @@
 <?php
-require_once __DIR__.'/includes/src/config.php';
+require_once __DIR__ . '/includes/src/config.php';
 
 $form = new es\ucm\fdi\aw\FormularioRegistro();
-$htmlFormLogin = $form->gestiona();
+$htmlFormRegistro = $form->gestiona();
 $tituloPagina = 'Registro';
 $contenidoPrincipal = <<<EOS
-$htmlFormLogin
+$htmlFormRegistro
 EOS;
 
-require __DIR__.'/includes/vistas/plantillas/plantilla.php';
+require __DIR__ . '/includes/vistas/plantillas/plantilla.php';

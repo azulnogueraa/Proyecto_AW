@@ -26,7 +26,7 @@ class Mensaje {
     private static function inserta($mensaje){
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query=sprintf("INSERT INTO Mensaje(curso_nombre, u_id, contenido, created_at) VALUES ('%s', '%s', '%s', current_timestamp())"
+        $query=sprintf("INSERT INTO Mensaje(nombre_curso, u_id, contenido, created_at) VALUES ('%s', '%s', '%s', current_timestamp())"
             , $conn->real_escape_string($mensaje->curso_nombre)                  
             , $conn->real_escape_string($mensaje->u_id)
             , $conn->real_escape_string($mensaje->contenido)
@@ -82,9 +82,9 @@ class Mensaje {
     }
 
     
-    static public function obtenerMensajes($id_curso) {
+    static public function obtenerMensajes($n_curso) {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Mensaje Where nombre_curso = '%s'", $conn->real_escape_string($id_curso));
+        $query = sprintf("SELECT * FROM MENSAJE Where nombre_curso = '%s'", $conn->real_escape_string($n_curso));
         $rs = $conn->query($query);
         $result = false;
         if ($rs) {

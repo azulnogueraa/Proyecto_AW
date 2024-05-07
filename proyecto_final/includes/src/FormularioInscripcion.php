@@ -90,34 +90,35 @@ class FormularioInscripcion extends Formulario {
         $nombre_curso = $datos['nombre_curso'] ?? '';
 
         // Verificar existencia de curso y usuario
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $queryCurso = sprintf("SELECT * FROM Curso WHERE nombre_curso = '%s'", $conn->real_escape_string($nombre_curso));
-        $queryUsuario = sprintf("SELECT * FROM Estudiante WHERE nombre_usuario = '%s'", $conn->real_escape_string($nombre_usuario));
+        // $conn = Aplicacion::getInstance()->getConexionBd();
+        // $queryCurso = sprintf("SELECT * FROM Curso WHERE nombre_curso = '%s'", $conn->real_escape_string($nombre_curso));
+        // $queryUsuario = sprintf("SELECT * FROM Estudiante WHERE nombre_usuario = '%s'", $conn->real_escape_string($nombre_usuario));
+        $curso = Curso::buscaCursoPorNombre($nombre_curso);
+        $usuario = Usuario::buscaUsuario($nombre_usuario);
+        // $resultadoCurso = $conn->query($queryCurso);
+        // $resultadoUsuario = $conn->query($queryUsuario);
 
-        $resultadoCurso = $conn->query($queryCurso);
-        $resultadoUsuario = $conn->query($queryUsuario);
-
-        if (!$resultadoCurso || $resultadoCurso->num_rows === 0) {
+        if ($curso == null) {
             $this->errores['nombre_curso'] = "Curso no existente";
         }
-
-        if (!$resultadoUsuario || $resultadoUsuario->num_rows === 0) {
+        if ($usuario == null) {
             $this->errores['nombre_usuario'] = "Usuario no existente";
         }
 
         // Si no hay errores, crear la inscripción
         if (empty($this->errores)) {
             // Obtener curso y usuario
-            $curso = $resultadoCurso->fetch_assoc();
-            $usuario = $resultadoUsuario->fetch_assoc();
+            // $curso = $resultadoCurso->fetch_assoc();
+            // $usuario = $resultadoUsuario->fetch_assoc();
+            $newRegistrado = Registrado::crea($usuario, $curso);
 
             // Crear el registro directamente en la base de datos
-            $queryInsert = sprintf("INSERT INTO Registrado (u_id, curso_id) VALUES (%d, '%s')",
-                $usuario['id'],
-                $conn->real_escape_string($nombre_curso)
-            );
+            // $queryInsert = sprintf("INSERT INTO Registrado (u_id, curso_id) VALUES (%d, '%s')",
+            //     $usuario['id'],
+            //     $conn->real_escape_string($nombre_curso)
+            // );
 
-            if ($conn->query($queryInsert)) {
+            if ($newRegistrado/*$conn->query($queryInsert)*/) {
                 echo "¡Inscripción exitosa!";
             } else {
                 echo "Error al registrar la inscripción.";
