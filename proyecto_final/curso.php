@@ -28,6 +28,8 @@ if (isset($_GET['nombre_curso'])) {
             $row['nivel_dificultad']
         );
         $tituloPagina = $curso->getNombre();
+         //TODO changer la vue suivant que l'utilisateur soit inscrit au cours (afficher chat et enlever inscribirse) ou non (enlever chat)
+         //TODO dans Perfil : Que le lien envoie vers curso en etant connecté et plus a chat.php
         $contenidoPrincipal = <<<EOS
         <div id=contenedor_vista_curso> 
             <div id=main_curso>
