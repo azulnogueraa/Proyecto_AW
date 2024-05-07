@@ -24,15 +24,6 @@ class FormularioInscripcion extends Formulario {
 
         $nombre_curso = $this->nombre_curso;
 
-        // Obtener profesores disponibles
-        $profesores = $this->obtenerProfesoresDisponibles();
-
-        // Construir opciones de selección de profesores
-        $optionsProfesores = '';
-        foreach ($profesores as $profesor) {
-            $optionsProfesores .= "<option value=\"{$profesor['id']}\">{$profesor['nombre_usuario']} {$profesor['apellido']}</option>";
-        }
-
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
 
         $html = <<<EOF
@@ -57,12 +48,6 @@ class FormularioInscripcion extends Formulario {
                 <div>
                     <label for="email">Email:</label>
                     <input id="email" type="email" name="email" required value="{$email}" readonly/>
-                </div>
-                <div>
-                    <label for="profesor">Profesor:</label>
-                    <select id="profesor" name="profesor" required>
-                        $optionsProfesores
-                    </select>
                 </div>
                 <div>
                     <input type="checkbox" id="terminos" name="terminos" required>
@@ -105,56 +90,40 @@ class FormularioInscripcion extends Formulario {
         $nombre_curso = $datos['nombre_curso'] ?? '';
 
         // Verificar existencia de curso y usuario
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $queryCurso = sprintf("SELECT * FROM Curso WHERE nombre_curso = '%s'", $conn->real_escape_string($nombre_curso));
-        $queryUsuario = sprintf("SELECT * FROM Estudiante WHERE nombre_usuario = '%s'", $conn->real_escape_string($nombre_usuario));
+        // $conn = Aplicacion::getInstance()->getConexionBd();
+        // $queryCurso = sprintf("SELECT * FROM Curso WHERE nombre_curso = '%s'", $conn->real_escape_string($nombre_curso));
+        // $queryUsuario = sprintf("SELECT * FROM Estudiante WHERE nombre_usuario = '%s'", $conn->real_escape_string($nombre_usuario));
+        $curso = Curso::buscaCursoPorNombre($nombre_curso);
+        $usuario = Usuario::buscaUsuario($nombre_usuario);
+        // $resultadoCurso = $conn->query($queryCurso);
+        // $resultadoUsuario = $conn->query($queryUsuario);
 
-        $resultadoCurso = $conn->query($queryCurso);
-        $resultadoUsuario = $conn->query($queryUsuario);
-
-        if (!$resultadoCurso || $resultadoCurso->num_rows === 0) {
+        if ($curso == null) {
             $this->errores['nombre_curso'] = "Curso no existente";
         }
-
-        if (!$resultadoUsuario || $resultadoUsuario->num_rows === 0) {
+        if ($usuario == null) {
             $this->errores['nombre_usuario'] = "Usuario no existente";
         }
 
         // Si no hay errores, crear la inscripción
         if (empty($this->errores)) {
             // Obtener curso y usuario
-            $curso = $resultadoCurso->fetch_assoc();
-            $usuario = $resultadoUsuario->fetch_assoc();
+            // $curso = $resultadoCurso->fetch_assoc();
+            // $usuario = $resultadoUsuario->fetch_assoc();
+            $newRegistrado = Registrado::crea($usuario, $curso);
 
             // Crear el registro directamente en la base de datos
-            $queryInsert = sprintf("INSERT INTO Registrado (u_id, curso_id, p_id) VALUES (%d, '%s', %d)",
-                $usuario['id'],
-                $conn->real_escape_string($nombre_curso),
-                $datos['profesor']
-            );
+            // $queryInsert = sprintf("INSERT INTO Registrado (u_id, curso_id) VALUES (%d, '%s')",
+            //     $usuario['id'],
+            //     $conn->real_escape_string($nombre_curso)
+            // );
 
-            if ($conn->query($queryInsert)) {
+            if ($newRegistrado/*$conn->query($queryInsert)*/) {
                 echo "¡Inscripción exitosa!";
             } else {
                 echo "Error al registrar la inscripción.";
             }
         }
-    }
-
-    private function obtenerProfesoresDisponibles() {
-        // Obtener profesores de la tabla Profesor
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $queryProfesores = "SELECT * FROM Profesor";
-        $resultadoProfesores = $conn->query($queryProfesores);
-
-        $profesores = [];
-        if ($resultadoProfesores && $resultadoProfesores->num_rows > 0) {
-            while ($fila = $resultadoProfesores->fetch_assoc()) {
-                $profesores[] = $fila;
-            }
-        }
-
-        return $profesores;
     }
 }
 ?>

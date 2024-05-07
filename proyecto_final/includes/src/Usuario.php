@@ -44,6 +44,7 @@ abstract class Usuario {
                 $rs->free();
                 break;
             } else {
+                return null;
                 error_log("Error BD ({$conn->errno}): {$conn->error}");
             }
         }
