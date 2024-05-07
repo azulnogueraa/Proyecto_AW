@@ -1,37 +1,13 @@
 <?php
-namespace es\ucm\fdi\aw;
-
 require_once __DIR__.'/includes/src/config.php';
-require_once __DIR__.'/includes/src/Curso.php';
-
-$tituloPagina = 'Error';
-$contenidoPrincipal = '<p>Curso no encontrado.</p>';
 
 // Verificar si se ha proporcionado el nombre del curso en los parámetros GET
 if (isset($_GET['nombre_curso'])) {
     $nombre_curso = htmlspecialchars($_GET['nombre_curso'], ENT_QUOTES, 'UTF-8');
 
-    // Obtener los datos del curso desde la base de datos usando consultas preparadas
-    $conn = Aplicacion::getInstance()->getConexionBd();
-    $query = "SELECT * FROM Curso WHERE nombre_curso = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("s", $nombre_curso);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result && $result->num_rows > 0) {
-        // Obtener la primera fila (debería ser única si se busca por nombre de curso)
-        $row = $result->fetch_assoc();
-
-        // Crear un objeto Curso con los datos obtenidos de la base de datos
-        $curso = new Curso(
-            htmlspecialchars($row['nombre_curso'], ENT_QUOTES, 'UTF-8'),
-            htmlspecialchars($row['precio'], ENT_QUOTES, 'UTF-8'),
-            htmlspecialchars($row['descripcion'], ENT_QUOTES, 'UTF-8'),
-            htmlspecialchars($row['duracion'], ENT_QUOTES, 'UTF-8'),
-            htmlspecialchars($row['categoria'], ENT_QUOTES, 'UTF-8'),
-            htmlspecialchars($row['nivel_dificultad'], ENT_QUOTES, 'UTF-8')
-        );
+    // Obtener el curso
+    $curso = es\ucm\fdi\aw\Curso::buscaCursoPorNombre($nombre_curso);
+    if ($curso) {
         $tituloPagina = $curso->getNombre();
          //TODO changer la vue suivant que l'utilisateur soit inscrit au cours (afficher chat et enlever inscribirse) ou non (enlever chat)
          //TODO dans Perfil : Que le lien envoie vers curso en etant connecté et plus a chat.php
@@ -59,8 +35,15 @@ if (isset($_GET['nombre_curso'])) {
         </div>
         <script src="JS/chat.js"></script>
         EOS;
+    } else {
+         // Si no se encuentra el curso en la base de datos
+        $tituloPagina = 'Error';
+        $contenidoPrincipal = '<h1>Curso no encontrado.</h1>';
     }
-    $stmt->close();
+} else {
+    // Si no se proporciona el nombre del curso en los parámetros GET
+    header('Location: index.php'); // Redirigir a la página principal
+    exit();
 }
 
 require __DIR__.'/includes/vistas/plantillas/plantilla.php';
