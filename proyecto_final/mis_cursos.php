@@ -16,14 +16,12 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
 
 // Obtener datos del profesor actual
 $profesorActual = es\ucm\fdi\aw\Profesor::buscaProfesorPorId($_SESSION['id']);
-
 if (!$profesorActual) {
     header('Location: login.php');
     exit();
 }
 // Obtener cursos asignados al profesor actual
 $cursosAsignados = $profesorActual->cursosDelProfesor($profesorActual-> getNombreUsuarioProfesor());
-
 // Construir la lista de cursos asignados
 $contenidoPrincipal .= '<h2>Cursos Asignados</h2>';
 $contenidoPrincipal .= '<ul>';

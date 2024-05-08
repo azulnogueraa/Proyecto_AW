@@ -89,7 +89,8 @@ class Profesor extends Usuario {
             // Recorrer los resultados y crear objetos Curso
             while ($fila = $rs->fetch_assoc()) {
                 // Crear un objeto Curso con los datos recuperados
-                $curso = new Curso($fila['nombre_curso'], $fila['descripcion'], $fila['duracion'], $fila['nivel_dificultad'], $fila['categoria'], $fila['precio']);                $cursos[] = $curso; // Agregar el curso al array de cursos
+                $curso = new Curso($fila['nombre_curso'], $fila['descripcion'], $fila['duracion'], $fila['nivel_dificultad'], $fila['categoria'], $fila['precio']);               
+                $cursos[] = $curso; // Agregar el curso al array de cursos
             }
     
             $rs->free(); // Liberar los resultados
@@ -111,7 +112,7 @@ class Profesor extends Usuario {
         if ($rs && $rs->num_rows > 0) {
             // Si se encuentra un profesor con el ID especificado, crear un objeto Profesor
             $fila = $rs->fetch_assoc();
-            $result = new Profesor($fila['id'], $fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena']);
+            $result = new Profesor($fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena'],$fila['id']);
             $rs->free();
         } else {
             // Si no se encuentra un profesor con ese ID, registrar un mensaje de error
