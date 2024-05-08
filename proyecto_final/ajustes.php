@@ -14,7 +14,7 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
         <p>No deberías estar ahí..</p>
     EOS;
 } else {
-    $contenidoPrincipal .= '<h1>Panel de administración</h1>';
+    $contenidoPrincipal .= '<h1 class="panel">Panel de administración</h1>';
 
     $mensaje = '';
 
@@ -91,7 +91,7 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
 
     /* Administrar Usuarios */
 
-    $contenidoPrincipal .= '<h1>1. Administrar Usuarios</h1>';
+    $contenidoPrincipal .= '<h2 class="panel">1. Administrar Usuarios</h2>';
 
     // Formulario para borrar usuarios
     $usuarios = es\ucm\fdi\aw\Admin::obtenerUsuarios();
@@ -105,7 +105,7 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
         }
         $contenidoPrincipal .= <<<EOS
         <div id="contenedor_ajustes" class='container'>
-            <h2>Borrar usuarios</h2>
+            <h3>Borrar usuarios</h3>
             <form method="POST">
                 <label for='usuario'>Selecciona el usuario:</label>
                 <select name='usuario' id='usuario'>
@@ -127,7 +127,7 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
         }
         $contenidoPrincipal .= <<<EOS
             <div id="contenedor_cambiar_rol" class='container'>
-                <h2>Cambiar Rol de Usuario</h2>
+                <h3>Cambiar Rol de Usuario</h3>
                 <form method="POST">
                     <label for='usuario'>Selecciona el usuario:</label>
                     <select name='usuario' id='usuario'>
@@ -149,12 +149,12 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
 
     /* Administrar Cursos */
 
-    $contenidoPrincipal .= '<h1>2. Administrar Cursos</h1>';
+    $contenidoPrincipal .= '<h2 class="panel">2. Administrar Cursos</h2>';
 
     // Formulario para agregar cursos
     $contenidoPrincipal .= <<<EOS
         <div id="contenedor_agregar_cursos" class='container'>
-            <h2>Agregar Cursos</h2>
+            <h3>Agregar Cursos</h3>
             <form action='agregar_curso.php' method='GET'>
                 <label for='nombre_curso'>Nombre del curso:</label>
                 <input type='text' name='nombre_curso' id='nombre_curso' required>
@@ -175,14 +175,16 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
             $seleccionar_cursos .= "<option value='{$nombre_curso}'>{$nombre_curso}</option>";
         }
         $contenidoPrincipal .= <<<EOS
-            <h2>Editar Cursos</h2>
-            <form action='editar_curso.php' method='GET'>
-                <label for='curso'>Selecciona el curso:</label>
-                <select name='nombre_curso' id='curso'>
-                    $seleccionar_cursos
-                </select>
-                <button type='submit'>Editar Curso</button>
-            </form>
+            <div id="contenedor_agregar_cursos" class='container'>
+                <h3>Editar Cursos</h3>
+                <form action='editar_curso.php' method='GET'>
+                    <label for='curso'>Selecciona el curso:</label>
+                    <select name='nombre_curso' id='curso'>
+                        $seleccionar_cursos
+                    </select>
+                    <button type='submit'>Editar Curso</button>
+                </form>
+            </div>
         EOS;
     }
 
@@ -199,7 +201,7 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
         }
         $contenidoPrincipal .= <<<EOS
             <div id="contenedor_borrar_cursos" class='container'>
-                <h2>Borrar Cursos</h2>
+                <h3>Borrar Cursos</h3>
                 <form method="POST">
                     <label for='curso'>Selecciona el curso:</label>
                     <select name='curso' id='curso'>
