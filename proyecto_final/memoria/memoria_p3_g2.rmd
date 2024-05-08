@@ -1,5 +1,5 @@
 ---
-title: "Práctica 2: Arquitectura y prototipo funcional del proyecto"
+title: "Proyecto Final"
 subtitle: "Link al repositorio: [https://github.com/azulnogueraa/Proyecto_AW](https://github.com/azulnogueraa/Proyecto_AW)"
 author:
     - "Azul Noguera" 
