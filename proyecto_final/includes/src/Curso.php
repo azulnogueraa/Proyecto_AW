@@ -76,7 +76,7 @@ class Curso {
 
         if ($result && $result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            $curso = new Curso($row['nombre_curso'], $row['descripcion'], $row['duracion'], $row['nivel_dificultad'], $row['categoria'], $row['precio']);
+            $curso = new Curso($row['nombre_curso'], $row['precio'], $row['descripcion'], $row['duracion'], $row['categoria'], $row['nivel_dificultad']);
             return $curso;
         }
 
