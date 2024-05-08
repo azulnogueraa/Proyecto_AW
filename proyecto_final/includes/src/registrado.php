@@ -7,34 +7,39 @@ class Registrado {
 
     private $u_id;
     private $curso_id;
+    private $p_id; // Falta el punto y coma (;) al final de esta línea
 
-    public function __construct($usuario, $curso) {
+    public function __construct($usuario, $curso, $profesor) {
         $this->u_id = $usuario;
         $this->curso_id = $curso;
+        $this->p_id = $profesor;
     }
 
-    public static function crea($usuario, $curso){
+    public static function crea($usuario, $curso, $profesor) {
         $nombre_usuario = $usuario->getNombreUsuario(); // Utiliza la flecha ->
         $nombre_curso = $curso->getNombre(); // Utiliza la flecha ->
-        $registrado = new Registrado($nombre_usuario, $nombre_curso);
+        $nombre_profesor = $profesor->getNombreUsuario(); // Utiliza la flecha ->
+        $registrado = new Registrado($nombre_usuario, $nombre_curso, $nombre_profesor);
         return self::inserta($registrado);
     }
 
     private static function inserta($registrado){
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $queryCheck = sprintf("SELECT COUNT(*) as count FROM Registrado WHERE u_id = '%s' AND curso_id = '%s'",
+        $queryCheck = sprintf("SELECT COUNT(*) as count FROM Registrado WHERE u_id = '%s' AND curso_id = '%s' AND p_id = '%s'",
         $conn->real_escape_string($registrado->u_id),
-        $conn->real_escape_string($registrado->curso_id)
+        $conn->real_escape_string($registrado->curso_id),
+        $conn->real_escape_string($registrado->p_id)
     );
 
     $resCheck = $conn->query($queryCheck);
     $row = $resCheck->fetch_assoc();
 
     if ($row['count'] == 0) { // If the pair does not exist, proceed with insertion
-        $query = sprintf("INSERT INTO Registrado(u_id, curso_id) VALUES ('%s', '%s')",
+        $query = sprintf("INSERT INTO Registrado(u_id, curso_id, p_id) VALUES ('%s', '%s', '%s')",
             $conn->real_escape_string($registrado->u_id),
-            $conn->real_escape_string($registrado->curso_id)
+            $conn->real_escape_string($registrado->curso_id), // Falta una coma (,) aquí
+            $conn->real_escape_string($registrado->p_id)
         );
 
         $res = $conn->query($query);
@@ -52,6 +57,9 @@ class Registrado {
     }
     public function getCurso() {
         return $this->curso_id;
+    }
+    public function getProfesor() {
+        return $this->p_id;
     }
 }
 ?>

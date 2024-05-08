@@ -9,15 +9,16 @@ class Curso {
     private $duracion;
     private $categoria;
     private $nivel_dificultad;
-    // private $lista_alumnos;
+    private $estudiante; // Agregamos la propiedad para el estudiante asignado
 
-    public function __construct($nombre, $precio, $descripcion, $duracion, $categoria, $nivel_dificultad) {
+    public function __construct($nombre, $precio, $descripcion, $duracion, $categoria, $nivel_dificultad, $estudiante = null) {
         $this->nombre_curso = $nombre;
         $this->precio = $precio;
         $this->descripcion = $descripcion;
         $this->duracion = $duracion;
         $this->categoria = $categoria;
         $this->nivel_dificultad = $nivel_dificultad;
+        $this->estudiante = $estudiante;
     }
 
     public static function crea($nombre, $precio, $descripcion, $duracion, $categoria, $nivel_dificultad){
@@ -81,6 +82,25 @@ class Curso {
 
         return null; // Si no se encuentra ningún curso con ese nombre
     }
+
+    public static function buscaCursoPorId($idCurso) {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+    
+        // Consulta SQL para buscar un curso por su ID
+        $query = "SELECT * FROM Curso WHERE id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $idCurso);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        if ($result && $result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $curso = new Curso($row['nombre_curso'], $row['precio'], $row['descripcion'], $row['duracion'], $row['categoria'], $row['nivel_dificultad']);
+            return $curso;
+        }
+    
+        return null; // Si no se encuentra ningún curso con ese ID
+    }
     
 
     public function getNombre() {
@@ -104,6 +124,11 @@ class Curso {
     public function getNivelDificultad() {
         return $this->nivel_dificultad;
     }    
+
+    public function getEstudiante() {
+        return $this->estudiante;
+    }
+    
     static public function obtenerCursos() {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM Curso");
@@ -212,25 +237,7 @@ class Curso {
         return $result;
     }
 
-    public static function cursosDelProfe($idProfe) {
-        $conn = Aplicacion::getInstance()->getConexionBd();
     
-        try {
-            $query = "SELECT COUNT(*) FROM Curso WHERE profesor_id = ?";
-            $stmt = $conn->prepare($query);
-            $stmt->bind_param("i", $idProfe);
-            $stmt->execute();
-    
-            $stmt->bind_result($numCursos);
-            $stmt->fetch();
-    
-            return $numCursos > 0;
-        } catch (mysqli_sql_exception $e) {
-            error_log("Error al contar cursos del profesor: " . $e->getMessage());
-            return false;
-        }
-    }
-
     public function tieneAlumnosInscritos() {
         // Obtener la conexión a la base de datos desde la aplicación
         $conn = Aplicacion::getInstance()->getConexionBd();

@@ -21,6 +21,9 @@ class Profesor extends Usuario {
         $idProfe = $this->getId();
         return Curso::cursosDelProfe($idProfe);
     }
+    public function getNombreUsuarioProfesor() {
+        return Usuario::getNombreUsuario();
+    }
 
     public static function obtenerNombres()
     {
@@ -69,4 +72,54 @@ class Profesor extends Usuario {
 
         return $id;
     }
+    
+    public static function cursosDelProfesor($nombre_usuario) {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $cursos = [];
+        // Consulta SQL para obtener los cursos asignados al usuario
+        $query = sprintf("SELECT c.* FROM Curso c 
+                          INNER JOIN Registrado r ON c.nombre_curso = r.curso_id
+                          INNER JOIN Profesor p ON r.p_id = p.id
+                          WHERE p.nombre_usuario = '%s'",
+                          $conn->real_escape_string($nombre_usuario));
+    
+        $rs = $conn->query($query);
+    
+        if ($rs && $rs->num_rows > 0) {
+            // Recorrer los resultados y crear objetos Curso
+            while ($fila = $rs->fetch_assoc()) {
+                // Crear un objeto Curso con los datos recuperados
+                $curso = new Curso($fila['nombre_curso'], $fila['descripcion'], $fila['duracion'], $fila['nivel_dificultad'], $fila['categoria'], $fila['precio']);                $cursos[] = $curso; // Agregar el curso al array de cursos
+            }
+    
+            $rs->free(); // Liberar los resultados
+        }
+    
+        return $cursos;
+    }
+    
+    
+    public static function buscaProfesorPorId($id) {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $result = false;
+    
+        // Consulta SQL para buscar en la tabla de profesores
+        $query = sprintf("SELECT * FROM Profesor WHERE id = %d", $id);
+    
+        $rs = $conn->query($query);
+    
+        if ($rs && $rs->num_rows > 0) {
+            // Si se encuentra un profesor con el ID especificado, crear un objeto Profesor
+            $fila = $rs->fetch_assoc();
+            $result = new Profesor($fila['id'], $fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena']);
+            $rs->free();
+        } else {
+            // Si no se encuentra un profesor con ese ID, registrar un mensaje de error
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+    
+        return $result;
+    }
+    
+
 }

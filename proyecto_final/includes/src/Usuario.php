@@ -149,7 +149,7 @@ abstract class Usuario {
     private $apellido;
     private $email;
     private $contrasena;
-    private function __construct($nombre_usuario, $apellido, $email, $contrasena, $id = null) {
+    public function __construct($nombre_usuario, $apellido, $email, $contrasena, $id = null) {
         $this->id = $id;
         $this->nombre_usuario = $nombre_usuario;
         $this->apellido = $apellido;
