@@ -91,7 +91,7 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
 
     /* Administrar Usuarios */
 
-    $contenidoPrincipal .= '<h2 class="panel">1. Administrar Usuarios</h2>';
+    $contenidoPrincipal .= '<h2 class="space">1. Administrar Usuarios</h2>';
 
     // Formulario para borrar usuarios
     $usuarios = es\ucm\fdi\aw\Admin::obtenerUsuarios();
@@ -149,7 +149,7 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
 
     /* Administrar Cursos */
 
-    $contenidoPrincipal .= '<h2 class="panel">2. Administrar Cursos</h2>';
+    $contenidoPrincipal .= '<h2 class="space">2. Administrar Cursos</h2>';
 
     // Formulario para agregar cursos
     $contenidoPrincipal .= <<<EOS

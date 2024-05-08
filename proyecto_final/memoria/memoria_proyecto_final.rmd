@@ -38,6 +38,101 @@ Responsables de gestionar y supervisar la plataforma, asegurando que el contenid
 
 \newpage
 
+## Descripción Detallada de la Aplicación Web 
+
+Nuestra plataforma de educación en línea ofrece una amplia gama de funciones diseñadas para mejorar la experiencia de aprendizaje y facilitar la gestión educativa. A continuación, describimos en detalle las características clave de la aplicación acompañadas de capturas de pantalla para una mejor comprensión.
+
+### Pantalla de Inicio
+
+Al acceder a la aplicación, el usuario se encuentra con la pantalla de inicio, que proporciona una visión general de la plataforma y una descripción de los cursos que se ofrecen. Un botón destacado, "Ver todos los cursos", permite explorar todas las opciones disponibles.
+
+![Pantalla de Inicio](ss/inicio.png){width=70%}
+
+
+### Pantallas de Registro y Log In
+
+La aplicación cuenta con pantallas separadas para registro y logIn. Los usuarios pueden registrarse o iniciar sesión como estudiantes, profesores o administradores, según su rol correspondiente.
+
+- Pantalla de Registro: Aquí, los nuevos usuarios pueden crear una cuenta.
+
+- Pantalla de LogIn: Los usuarios registrados pueden acceder a su cuenta.
+
+
+![Pantalla de Registro](ss/registro.png){width=50%}
+![Pantalla de Log In](ss/login.png){width=50%}
+
+
+
+### Perfil, Búsqueda de Curso e Inscripción (Estudiante)
+
+Una vez que un usuario se identifica como estudiante, obtiene acceso a las siguientes pantallas:
+
+- Inicio: Panel general de la actividad en la plataforma.
+- Cursos: Vista y gestión de todos los cursos disponibles.
+
+![Pantalla de Cursos](ss/cursos.png){width=70%}
+
+- Perfil: El estudiante puede ver y editar su información personal, además de revisar los cursos en los que está inscrito.
+
+![Pantalla de Perfil](ss/perfil.png){width=70%}
+
+- Buscar Curso: Se pueden buscar cursos utilizando filtros como nombre o precio.
+
+
+![Pantalla de Buscar Curso](ss/busca_curso.png){width=70%}
+
+- Detalle de Cursos: Se pueden ver el contenido del curso. 
+
+![Pantalla de Detalle de Cursos](ss/contenido.png){width=70%}
+
+- Inscripción a Cursos: Te puedes inscribir al curso que más te guste. 
+
+![Pantalla de inscripción](ss/inscripcion.png){width=70%}
+
+
+### Mis Cursos y Mis Alumnos (Profesor)
+
+Los profesores tienen acceso a las siguientes pantallas:
+
+- Inicio: Panel general de la actividad en la plataforma.
+- Mis Cursos: Listado de cursos que el profesor imparte.
+
+
+- Mis Alumnos: Gestión de estudiantes inscritos en los cursos del profesor.
+
+
+---------------`TERMINAR CUANDO ARREGLEN PANTALLAS MIS CURSOS Y MIS ALUMNOS`----------------------------------------------
+
+
+### Funcionalidades del Administrador
+
+Los administradores tienen acceso a un conjunto completo de herramientas para gestionar la plataforma, incluyendo:
+
+- Inicio: Panel general de la actividad en la plataforma.
+- Cursos: Vista y gestión de todos los cursos disponibles.
+- Ajustes: Panel de administración de la base de datos, permitiendo:
+  - Eliminar usuarios.
+  - Cambiar roles de usuarios.
+  - Agregar curso. 
+  - Editar curso.
+  - Eliminar cursos.
+  
+![Pantalla de Detalle de Cursos](ss/admin.png){width=70%}
+
+- Buscar Curso: Búsqueda de cursos por nombre o precio, similar a la funcionalidad disponible para los estudiantes.
+
+
+
+Conclusión
+La aplicación web de educación en línea está diseñada para ofrecer una experiencia completa tanto a estudiantes como a profesores y administradores. Las capturas de pantalla presentadas demuestran cómo cada tipo de usuario puede interactuar de manera eficiente con las distintas funcionalidades, contribuyendo así a una gestión y un aprendizaje óptimos.
+
+
+
+
+
+
+\newpage
+
 ## Listado de scripts para las vistas
 
 ### Pagina Principal

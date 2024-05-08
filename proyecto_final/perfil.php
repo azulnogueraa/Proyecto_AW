@@ -6,7 +6,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 $tituloPagina = 'Perfil de Usuario';
-$contenidoPrincipal = '<h1>Perfil de Usuario</h1>';
+$contenidoPrincipal = '<h1 class="panel">Perfil de Usuario</h1>';
 
 // Comprobar si el usuario está autenticado
 if (!isset($_SESSION['login']) || !$_SESSION['login']) {
@@ -36,7 +36,7 @@ if (isset($_GET['actualizado']) && $_GET['actualizado'] === 'true') {
 
 // Formulario de actualización de perfil
 $contenidoPrincipal .= <<<EOS
-<h2>Datos de Usuario</h2>
+<h2 class="space">Datos de Usuario</h2>
 <form method="post" action="procesarActualizarPerfil.php">
     <p><strong>Nombre:</strong> <input type="text" name="nombre" value="{$nombreUsuario}" required></p>
     <p><strong>Apellido:</strong> <input type="text" name="apellido" value="{$apellidoUsuario}" required></p>
@@ -44,7 +44,7 @@ $contenidoPrincipal .= <<<EOS
     <input type="submit" name="submit" value="Actualizar">
 </form>
 
-<h2>Cursos Asignados</h2>
+<h2 class="space">Cursos Asignados</h2>
 <ul>
 EOS;
 
