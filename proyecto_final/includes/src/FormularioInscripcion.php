@@ -81,11 +81,11 @@ class FormularioInscripcion extends Formulario {
                     </div>
                     <div>
                         <label for="numero_tarjeta">Número de Tarjeta:</label>
-                        <input id="numero_tarjeta" type="text" name="numero_tarjeta" required>
+                        <input id="numero_tarjeta" type="number" name="numero_tarjeta" required>
                     </div>
                     <div>
                         <label for="fecha_expiracion">Fecha de Expiración:</label>
-                        <input id="fecha_expiracion" type="text" name="fecha_expiracion" placeholder="MM/AA" required>
+                        <input id="fecha_expiracion" type="date" name="fecha_expiracion" placeholder="MM/AA" required>
                     </div>
 
                     <div class="boton">
