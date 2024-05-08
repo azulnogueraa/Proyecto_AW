@@ -453,3 +453,13 @@ button:hover {
 h3 {
     font-size: 2em;
 }
+
+
+
+
+/*                                         BUSCAR_CURSO.PHP                                                        */
+
+#contenedor_buscar_cursos{
+    align-self: center;
+    margin: 2% 0 2% 0;
+}
