@@ -2,7 +2,6 @@
 require_once __DIR__.'/includes/src/config.php';
 
 // Doble seguridad: unset + destroy
-session_start();
 unset($_SESSION['login']);
 unset($_SESSION['tipo_usuario']);
 unset($_SESSION['nombre']);

@@ -23,12 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
         $usuarioActual = es\ucm\fdi\aw\Usuario::buscaUsuarioPorId($_SESSION['id']);
 
         // Actualizar datos del usuario
-        $usuarioActual->setNombreUsuario($nombre);
+        $usuarioActual->setNombre($nombre);
         $usuarioActual->setApellido($apellido);
         $usuarioActual->setEmail($email);
 
         // Guardar cambios en la base de datos
-        if ($usuarioActual->actualizaUsuario()) {
+        if ($usuarioActual->actualizarUsuario()) {
             header('Location: perfil.php?actualizado=true');
             exit();
         } else {

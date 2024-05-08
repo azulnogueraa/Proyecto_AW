@@ -32,7 +32,7 @@ abstract class Usuario {
                 $fila = $rs->fetch_assoc();
                 switch ($table) {
                     case 'Estudiante':
-                        $result = new Estudiante($fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena'], $fila['id'], );
+                        $result = new Estudiante($fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena'], $fila['id']);
                         break;
                     case 'Profesor':
                         $result = new Profesor($fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena'], $fila['id']);
@@ -67,13 +67,13 @@ abstract class Usuario {
                 $fila = $rs->fetch_assoc();
                 switch ($table) {
                     case 'Estudiante':
-                        $result = new Estudiante($fila['id'], $fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena']);
+                        $result = new Estudiante($fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena'], $fila['id']);
                         break;
                     case 'Profesor':
-                        $result = new Profesor($fila['id'], $fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena']);
+                        $result = new Profesor($fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena'], $fila['id']);
                         break;
                     case 'Administrador':
-                        $result = new Admin($fila['id'], $fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena']);
+                        $result = new Admin($fila['nombre_usuario'], $fila['apellido'], $fila['email'], $fila['contrasena'], $fila['id']);
                         break;
                 }
                 $rs->free();
@@ -110,14 +110,14 @@ abstract class Usuario {
         return $usuario;
     }
     abstract protected static function actualiza($usuario);
-    private static function actualizaUsuario($table, $usuario) {
+    public static function actualizaUsuario($table, $usuario) {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query=sprintf("UPDATE %s U SET nombre_usuario = '%s', apellido = '%s', email='%s', password='%s' WHERE U.id=%d"
+        $query=sprintf("UPDATE %s U SET nombre_usuario = '%s', apellido = '%s', email='%s', contrasena='%s' WHERE U.id=%d"
             , $table
             , $conn->real_escape_string($usuario->nombre_usuario)
             , $conn->real_escape_string($usuario->apellido)
             , $conn->real_escape_string($usuario->email)
-            , $conn->real_escape_string($usuario->password)
+            , $conn->real_escape_string($usuario->contrasena)
             , $usuario->id
         );
         if (!$conn->query($query)) {
