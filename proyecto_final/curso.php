@@ -23,16 +23,16 @@ if (isset($_SESSION['login']) && $_SESSION['login'] && isset($_GET['nombre_curso
 
         // Cambiar el contenidoPrincipal en función del tipo de usuario y si está inscrito o no al curso
         if($_SESSION['tipo_usuario'] === es\ucm\fdi\aw\Usuario::ADMIN_ROLE) {
-            $contenidoPrincipal .= esInscrito();
+            $contenidoPrincipal .= esInscrito(false, $nombre_curso);
         } elseif($_SESSION['tipo_usuario'] === es\ucm\fdi\aw\Usuario::ESTUDIANTE_ROLE) {
             if(es\ucm\fdi\aw\Registrado::esRegistrado($_SESSION['id'], $curso->getNombre())) {
-                $contenidoPrincipal .= esInscrito();
+                $contenidoPrincipal .= esInscrito(true, $nombre_curso);
             } else {
                 $contenidoPrincipal .= noInscrito($curso);
             }
         } elseif($_SESSION['tipo_usuario'] === es\ucm\fdi\aw\Usuario::PROFESOR_ROLE) {
             if($curso->getProfesorId() === $_SESSION['id']) {
-                $contenidoPrincipal .= esInscrito();
+                $contenidoPrincipal .= esInscrito(false, $nombre_curso);
             } else {
                 $tituloPagina = 'Error';
                 $contenidoPrincipal = '<h1>No tienes permisos para ver este curso.</h1>';
@@ -52,9 +52,21 @@ if (isset($_SESSION['login']) && $_SESSION['login'] && isset($_GET['nombre_curso
 
 /**
  * ContenidoPrincipal si el usuario es inscrito al curso
+ * @param $esEstudiante bool que indica si el usuario es estudiante
+ * @param $nombre_curso Nombre del curso
  */
-function esInscrito() {
-    $contenido = <<<EOS
+function esInscrito($esEstudiante, $nombre_curso) {
+    $contenido = "";
+    if ($esEstudiante) {
+        //Posibilidad de darse de baja
+        $contenido .= <<<EOS
+        <form action="darseDeBaja.php" method="POST">
+            <input type="hidden" name="nombre_curso" value="{$nombre_curso}">
+            <button type="submit" class="button-curso">Darse de baja</button>
+        </form>
+        EOS;
+    }
+    $contenido .= <<<EOS
         </div>
         <div id="chat-container">
             <div id="chat">
@@ -72,6 +84,7 @@ function esInscrito() {
 
 /**
  * ContenidoPrincipal si el usuario no es inscrito al curso
+ * @param $curso Curso al que el usuario no está inscrito
  */
 function noInscrito($curso) {
     $contenido = <<<EOS
