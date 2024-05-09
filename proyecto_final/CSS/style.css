@@ -361,7 +361,7 @@ button:hover {
 
 
 
-/*                                          BUSCAR_CURSOS.PHP                                                */
+/*                                          CURSO.PHP                                                */
 
 #contenedor_vista_curso {
     display: grid;
@@ -396,7 +396,7 @@ button:hover {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 30rem;
+    height: 35rem;
 }
 
 #chat {
