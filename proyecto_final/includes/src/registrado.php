@@ -61,5 +61,22 @@ class Registrado {
     public function getProfesor() {
         return $this->p_id;
     }
+
+    /**
+     * Comprueba si un usuario está registrado en un curso
+     */
+    public static function esRegistrado($u_id, $curso_id) {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT COUNT(*) as count FROM Registrado WHERE u_id = '%s' AND curso_id = '%s'",
+            $conn->real_escape_string($u_id),
+            $conn->real_escape_string($curso_id)
+        );
+        $rs = $conn->query($query);
+        $result = false;
+        if ($rs) {
+            $count = $rs->fetch_assoc()['count'];
+            $result = $count > 0;
+        }
+        return $result;
+    }
 }
-?>

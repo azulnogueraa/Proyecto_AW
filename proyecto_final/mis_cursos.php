@@ -21,7 +21,7 @@ if (!$profesorActual) {
     exit();
 }
 // Obtener cursos asignados al profesor actual
-$cursosAsignados = $profesorActual->cursosDelProfesor($profesorActual-> getNombreUsuarioProfesor());
+$cursosAsignados = $profesorActual->cursosDelProfesor($profesorActual-> getNombreUsuario());
 // Construir la lista de cursos asignados
 $contenidoPrincipal .= '<h2>Cursos Asignados</h2>';
 $contenidoPrincipal .= '<ul>';

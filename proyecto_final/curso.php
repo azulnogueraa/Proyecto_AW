@@ -10,7 +10,18 @@ if (isset($_GET['nombre_curso'])) {
     if ($curso) {
         $tituloPagina = $curso->getNombre();
          //TODO changer la vue suivant que l'utilisateur soit inscrit au cours (afficher chat et enlever inscribirse) ou non (enlever chat)
-         //TODO dans Perfil : Que le lien envoie vers curso en etant connecté et plus a chat.php
+         //TODO Si es un admin, hacer como si fue inscrito 
+         //TODO Si es un estudiante, hacer los dos casos (inscrito o no inscrito)
+         if(isset($_SESSION['login']) && $_SESSION['login']) {
+            if($_SESSION['tipo_usuario'] === es\ucm\fdi\aw\Usuario::ESTUDIANTE_ROLE) {
+                if(es\ucm\fdi\aw\Registrado::esRegistrado($_SESSION['id'], $curso->getNombre())) {
+                //TODO
+                } else {
+                //TODO
+                }
+            }
+         }
+         //TODO Si es un profesor, no se...
         $contenidoPrincipal = <<<EOS
         <div id="contenedor_vista_curso"> 
             <div id="main_curso">
