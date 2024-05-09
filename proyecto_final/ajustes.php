@@ -237,7 +237,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['borrar'], $_POST['usua
         $resultado = $admin->borrarUsuario($table, $usuario);
     } elseif ($table == 'Profesor') {
         // Verificar si el profesor está asociado a cursos
-        $cursoDelProfe = $usuario->misCursos();
+        $cursoDelProfe = $usuario->misCursos($usuario->getNombreUsuario());
         if (!empty($cursoDelProfe)) {
             // El profesor tiene cursos asociados
             header("Location: ajustes.php?borrado=errorProfe&usuario=" . urlencode($_POST['usuario']));
