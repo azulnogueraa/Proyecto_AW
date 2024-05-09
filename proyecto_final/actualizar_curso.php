@@ -17,11 +17,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Crear una nueva instancia de Curso con los datos y nuevos valores
         $curso = new es\ucm\fdi\aw\Curso(
             $datosCurso['nombre_curso'],
-            $datosCurso['precio'],
+            $datosCurso['profesor_id'],
             $datosCurso['descripcion'],
             $datosCurso['duracion'],
             $datosCurso['categoria'],
-            $datosCurso['nivel_dificultad']
+            $datosCurso['nivel_dificultad'],
+            $datosCurso['precio']
         );
 
         // Actualizar los atributos del curso con los nuevos datos del formulario

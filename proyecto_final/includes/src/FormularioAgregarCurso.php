@@ -100,7 +100,7 @@ class FormularioAgregarCurso extends Formulario {
             $profesorId = Profesor::obtenerIdPorNombre($profesor);
 
             if ($profesorId !== null) {
-                $resultado = Curso::crearCurso($nombre_curso, $descripcion, $profesorId, $duracion, $nivel_dificultad, $categoria, $precio);
+                $resultado = Curso::crearCurso($nombre_curso, $descripcion, $profesorId, $duracion, $categoria, $nivel_dificultad, $precio);
 
                 if ($resultado) {
                     // Éxito al insertar el curso

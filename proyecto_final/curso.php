@@ -31,7 +31,12 @@ if (isset($_SESSION['login']) && $_SESSION['login'] && isset($_GET['nombre_curso
                 $contenidoPrincipal .= noInscrito($curso);
             }
         } elseif($_SESSION['tipo_usuario'] === es\ucm\fdi\aw\Usuario::PROFESOR_ROLE) {
-            //TODO no se
+            if($curso->getProfesorId() === $_SESSION['id']) {
+                $contenidoPrincipal .= esInscrito();
+            } else {
+                $tituloPagina = 'Error';
+                $contenidoPrincipal = '<h1>No tienes permisos para ver este curso.</h1>';
+            }
         }
 
     } else {

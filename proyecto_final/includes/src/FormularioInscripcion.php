@@ -1,6 +1,6 @@
 <?php
 namespace es\ucm\fdi\aw;
-
+//TODO cambiar este fichero para que no accede directamente a la base de datos
 class FormularioInscripcion extends Formulario {
 
     private $nombre_curso;

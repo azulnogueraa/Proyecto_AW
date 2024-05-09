@@ -30,7 +30,7 @@ $contenidoPrincipal .= '<ul>';
 if (!empty($cursosAsignados)) {
     foreach ($cursosAsignados as $curso) {
         $nbcurso = htmlspecialchars($curso->getNombre(), ENT_QUOTES, 'UTF-8');
-        $contenidoPrincipal .= "<li><a href='chat.php?nombre_curso={$nbcurso}'>{$nbcurso}</a></li>";
+        $contenidoPrincipal .= "<li><a href='curso.php?nombre_curso={$nbcurso}'>{$nbcurso}</a></li>";
     }
 } else {
     $contenidoPrincipal .= '<li>No tienes cursos asignados actualmente.</li>';
@@ -39,4 +39,3 @@ if (!empty($cursosAsignados)) {
 $contenidoPrincipal .= '</ul>';
 
 require_once __DIR__ . '/includes/vistas/plantillas/plantilla.php';
-?>
