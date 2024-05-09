@@ -201,9 +201,9 @@ abstract class Usuario {
             // Verificar si el cambio de profesor a estudiante está permitido
             if ($rolActual === 'Profesor' && $nuevoRol === 'Estudiante') {
                 $nombreUsuario = $usuario->getNombreUsuario();
-                $tieneCursos = Profesor::cursosDelProfesor($$nombreUsuario);
+                $tieneCursos = Profesor::cursosDelProfesor($nombreUsuario);
     
-                if ($tieneCursos) {
+                if ($tieneCursos > 0) {
                     return "error_profesor_con_cursos";
                 }
             }
