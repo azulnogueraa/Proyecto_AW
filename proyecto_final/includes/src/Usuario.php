@@ -280,9 +280,10 @@ abstract class Usuario {
     
         if ($rs && $rs->num_rows > 0) {
             // Recorrer los resultados y crear objetos Curso
-            while ($fila = $rs->fetch_assoc()) {
+            while ($row = $rs->fetch_assoc()) {
                 // Crear un objeto Curso con los datos recuperados
-                $curso = new Curso($fila['nombre_curso'], $fila['descripcion'], $fila['duracion'], $fila['nivel_dificultad'], $fila['categoria'], $fila['precio']);                $cursos[] = $curso; // Agregar el curso al array de cursos
+                $curso = new Curso($row['nombre_curso'], $row['precio'], $row['descripcion'], $row['duracion'], $row['categoria'], $row['nivel_dificultad']);
+                $cursos[] = $curso; // Agregar el curso al array de cursos
             }
     
             $rs->free(); // Liberar los resultados
