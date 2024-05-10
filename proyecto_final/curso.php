@@ -87,9 +87,10 @@ function esInscrito($esEstudiante, $nombre_curso) {
  * @param $curso Curso al que el usuario no está inscrito
  */
 function noInscrito($curso) {
+    $nombre_curso = urlencode($curso->getNombre());
     $contenido = <<<EOS
     <h3> {$curso->getPrecio()} EUR </h3><br>
-    <a href='inscripcion.php?nombre_curso={$curso->getNombre()}' class='button-curso'>Inscribirse</a>
+    <a href='inscripcion.php?nombre_curso={$nombre_curso}' class='button-curso'>Inscribirse</a>
     </div>
     </div>
     EOS;

@@ -10,7 +10,7 @@ $contenidoPrincipal = <<<EOS
         <h1>Buscar Curso</h1>
         <input type="text" id="searchInput" placeholder="Buscar curso...">
         <input type="number" id="searchPrecio" placeholder="Precio máximo (en EUR)">
-        <button id="buscPrecio" type="button">&#x1F50D</button>
+        <button id="buscPrecio" type="button">&#x1F50D;</button>
         <div id="searchResults"></div>
     </div>
 </div>

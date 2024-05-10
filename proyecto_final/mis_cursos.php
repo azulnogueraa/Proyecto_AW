@@ -25,8 +25,8 @@ $contenidoPrincipal .= '<ul>';
 // Listar cursos asignados
 if (!empty($cursosAsignados)) {
     foreach ($cursosAsignados as $curso) {
-        $nbcurso = htmlspecialchars($curso->getNombre(), ENT_QUOTES, 'UTF-8');
-        $contenidoPrincipal .= "<li><a href='curso.php?nombre_curso={$nbcurso}'>{$nbcurso}</a></li>";
+        $urlCurso = 'curso.php?nombre_curso=' . urlencode($curso->getNombre());
+        $contenidoPrincipal .= "<li><a href='$urlCurso'>{$curso->getNombre()}</a></li>";
     }
 } else {
     $contenidoPrincipal .= '<li>No tienes cursos asignados actualmente.</li>';

@@ -175,7 +175,7 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
             $seleccionar_cursos .= "<option value='{$nombre_curso}'>{$nombre_curso}</option>";
         }
         $contenidoPrincipal .= <<<EOS
-            <div id="contenedor_agregar_cursos" class='container'>
+            <div id="contenedor_editar_cursos" class='container'>
                 <h3>Editar Cursos</h3>
                 <form action='editar_curso.php' method='GET'>
                     <label for='curso'>Selecciona el curso:</label>

@@ -19,6 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
 
     // Verificar si los datos son válidos
     if ($nombre && $apellido && $email) {
+        if (es\ucm\fdi\aw\Usuario::buscaUsuario($nombre)) {
+            header('Location: perfil.php?error=usuario_existe');
+            exit();
+        }
         // Obtener el usuario actual
         $tipo = $_SESSION['tipo_usuario'];
         $tablas = [
