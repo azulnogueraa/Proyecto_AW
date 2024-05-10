@@ -307,20 +307,26 @@ URL al servicio de Guacamole:
 - Contribución en carpeta mysql
 - Contribución a diagrama de estructura de base de datos
 - Contribución a la configuración del VPS
+- Sanitización de entrada y salida de documentos
+- Corrección de errores practica anterior
 
 ### Rocio Gonzalez
 - leeme.txt
-- Contribución en registro de usuarios
+- Contriubición a Gestión de Roles: Estudiante, Profesor, Administrador
 - Contribución a carpeta mysql
 - Contribución a gestión de busqueda de cursos
 - Contribución a panel de administración
 - Contribución a la gestión de inscripciones y matriculación
+- Contribución en la memoria
+- Corrección de errores practica anterior
 
 ### Patricio Guledjian
-- Contribución a gestión de busqueda de cursos 
 - Contribución a panel de administración
 - Contribución al style.css
-- Contribución en la carpeta mysql 
+- Contribución en la carpeta mysql
+- Contribución en Gestión de Inscripciones y Matriculaciones
+- Contribución en Gestión de Búsqueda con Filtros
+- Corrección de errores practica anterior
 
 ### Vincent Jasou
 - Validación de ficheros php
@@ -329,13 +335,17 @@ URL al servicio de Guacamole:
 - Contribución a gestión de busqueda de cursos
 - Contribución a panel de administración
 - Contribución a la configuración del VPS
+- Contribución a la Gestión de Comunicación (chat)
+- Corrección de errores practica anterior
 
 ### Gabriel Zamy
 - Contribución a diagrama de estructura de base de datos
 - Contribución en carpeta mysql
 - Reorganización del codigo en clases
-- Contribución a la gestión de inscripciones y matriculación
+- Contribución en Gestión de Inscripciones y Matriculaciones
 - Contribución a la configuración del VPS
+- Contribución en Gestión de Búsqueda con Filtros
+
 
 
 
