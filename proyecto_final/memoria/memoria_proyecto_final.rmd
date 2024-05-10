@@ -78,16 +78,19 @@ Una vez que un usuario se identifica como estudiante, obtiene acceso a las sigui
 
 - Buscar Curso: Se pueden buscar cursos utilizando filtros como nombre o precio.
 
-
 ![Pantalla de Buscar Curso](ss/busca_curso.png){width=70%}
 
 - Detalle de Cursos: Se pueden ver el contenido del curso. 
 
-![Pantalla de Detalle de Cursos](ss/contenido.png){width=70%}
+![Pantalla de Detalle de Cursos](ss/detalle_curso.png){width=70%}
 
 - Inscripción a Cursos: Te puedes inscribir al curso que más te guste. 
 
 ![Pantalla de inscripción](ss/inscripcion.png){width=70%}
+
+- Chat: Acceso a chat con profesores si el alumno esta inscripto en el un curso.
+
+![Pantalla de chat](ss/chat.png){width=70%}
 
 
 ### Mis Cursos y Mis Alumnos (Profesor)
@@ -97,12 +100,11 @@ Los profesores tienen acceso a las siguientes pantallas:
 - Inicio: Panel general de la actividad en la plataforma.
 - Mis Cursos: Listado de cursos que el profesor imparte.
 
+![Pantalla de Mis Cursos](ss/mis_cursos.png){width=70%}
 
 - Mis Alumnos: Gestión de estudiantes inscritos en los cursos del profesor.
 
-
----------------`TERMINAR CUANDO ARREGLEN PANTALLAS MIS CURSOS Y MIS ALUMNOS`----------------------------------------------
-
+![Pantalla de Mis Alumnos](ss/mis_alumnos.png){width=70%}
 
 ### Funcionalidades del Administrador
 
@@ -117,13 +119,14 @@ Los administradores tienen acceso a un conjunto completo de herramientas para ge
   - Editar curso.
   - Eliminar cursos.
   
-![Pantalla de Detalle de Cursos](ss/admin.png){width=70%}
+![Pantalla de Ajustes](ss/admin.png){width=70%}
 
 - Buscar Curso: Búsqueda de cursos por nombre o precio, similar a la funcionalidad disponible para los estudiantes.
 
 
 
 Conclusión
+
 La aplicación web de educación en línea está diseñada para ofrecer una experiencia completa tanto a estudiantes como a profesores y administradores. Las capturas de pantalla presentadas demuestran cómo cada tipo de usuario puede interactuar de manera eficiente con las distintas funcionalidades, contribuyendo así a una gestión y un aprendizaje óptimos.
 
 
@@ -147,38 +150,36 @@ La aplicación web de educación en línea está diseñada para ofrecer una expe
 - plantilla.php : Plantilla que será llamada por todas las vistas. 
 
 ### F1: Gestión de Roles: Estudiante, Profesor, Administrador
-- login.php : Pantalla de login
+- login.php : Pantalla de login.
 
-- registro.php : Pantalla de registro
+- registro.php : Pantalla de registro.
 
-- logout.php : Pantalla de logout
+- logout.php : Pantalla de logout.
+
+- perfil.php : Pantalla de perfil de usuario.
+
+- mis_alumnos.php : Pantalla de alumnos de un profesor.
+
+- mis_cursos.php : Pantalla de cursos que dicta un profesor.
 
 ### F2: Gestión de Inscripciones y Matriculaciones
-- inscripcion.php : Pantalla de inscripción a un curso (se agrega el curso al carrito)
+- inscripcion.php : Pantalla de inscripción a un curso.
 
-- carrito.php : Pantalla de carrito de compras 
+- darseDeBaja.php : Pantalla de desinscripcion de un curso.
 
 ### F3: Gestión de Búsqueda con Filtros
 - cursos.php : Pantalla de listado de cursos. A partir de ahí, podemos seleccionar el curso para acceder a la información que deseamos.
 
-  - trading.php : vista de el curso de trading 
-  
-  - blockchain.php : vista de el curso de blockchain
-  
-  - cripto.php : vista de el curso de criptomonedas 
-  
-  - marketing.php : vista de el curso de marketing
-  
-    
-(estos cuatros cursos son ejemplos para entender lo que queremos hacer despues con la base de datos.)
-
-- curso.php : vista para un curso en particular, va a reemplazar los 4 previos.
+- curso.php : vista para un curso en particular.
 
 - buscar_cursos.php : Buscador de cursos.
 
 ### F4: Panel de Administración
-- ajustes.php : En ajustes se podrá borrar usuarios y administrar cursos.
+- ajustes.php : En ajustes se podrá borrar usuarios, cambiar roles de usuario y crear, editar o borrar cursos.
 
+- actualizar_curso.php: Gestiona la actualización de un curso.
+
+- agregar_curso.php: Gestiona la creación de un curso.
 
 ### F5: Gestión de Comunicación: Estudiantes y Profesores
 - chat.php : Pantalla de chat
@@ -198,7 +199,8 @@ La aplicación web de educación en línea está diseñada para ofrecer una expe
   - Registrado.php
    
   - Curso.php
-  
+
+  - Mensaje.php
   
 - Reorganización de la funcionalidad asociada a la gestión de los usuarios:
 
@@ -206,7 +208,7 @@ La aplicación web de educación en línea está diseñada para ofrecer una expe
 
 - Centralización de la gestión de conexiones a bases de datos y otras operaciones de la aplicación. 
 
-  - Aplicacion.php: 
+  - Aplicacion.php
   
 - Reorganización de la gestión de formularios:
 
@@ -218,12 +220,14 @@ La aplicación web de educación en línea está diseñada para ofrecer una expe
 
   - FormularioRegistro.php
   
+  - FormularioAgregarCurso.php
 
 - Configuración e inicialización de la aplicación:
 
   - Config.php
   
 - buscador.php
+- procesarActualizarPerfil.php
 
 \newpage
 
