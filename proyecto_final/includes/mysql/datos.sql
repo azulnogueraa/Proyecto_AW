@@ -54,3 +54,14 @@ VALUES
 ('14', 'Hola, Buenas!', '2024-05-10 19:19:02','1', 'Estudiante','Finanzas'),
 ('15', 'Que tal!', '2024-05-10 19:30:09','2', 'Estudiante','Finanzas');
 
+INSERT INTO Registrado (u_id, curso_id)
+VALUES (1, 'Desarrollo Web'),
+       (1, 'Finanzas'),
+       (1, 'Diseño Gráfico'),
+       (1, 'Marketing Digital'),
+       (1, 'Blockchain'),
+       (2, 'Desarrollo Web'),
+       (2, 'Finanzas'),
+       (2, 'Diseño Gráfico'),
+       (2, 'Marketing Digital'),
+       (2, 'Blockchain');
