@@ -107,8 +107,8 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
         <div id="contenedor_ajustes" class='container'>
             <h3>Borrar usuarios</h3>
             <form method="POST">
-                <label for='usuario'>Selecciona el usuario:</label>
-                <select name='usuario' id='usuario'>
+                <label>Selecciona el usuario:</label>
+                <select name='usuario'>
                     $seleccionar_usuarios
                 </select>
                 <button type='submit' name='borrar'>Borrar usuario</button>
@@ -129,8 +129,8 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
             <div id="contenedor_cambiar_rol" class='container'>
                 <h3>Cambiar Rol de Usuario</h3>
                 <form method="POST">
-                    <label for='usuario'>Selecciona el usuario:</label>
-                    <select name='usuario' id='usuario'>
+                    <label>Selecciona el usuario:</label>
+                    <select name='usuario'>
                         $seleccionar_usuarios
                     </select>
                     <label for='nuevo_rol'>Nuevo Rol:</label>
@@ -178,8 +178,8 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
             <div id="contenedor_editar_cursos" class='container'>
                 <h3>Editar Cursos</h3>
                 <form action='editar_curso.php' method='GET'>
-                    <label for='curso'>Selecciona el curso:</label>
-                    <select name='nombre_curso' id='curso'>
+                    <label>Selecciona el curso:</label>
+                    <select name='nombre_curso'>
                         $seleccionar_cursos
                     </select>
                     <button type='submit'>Editar Curso</button>
@@ -203,8 +203,8 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true || $_SESSION['tipo
             <div id="contenedor_borrar_cursos" class='container'>
                 <h3>Borrar Cursos</h3>
                 <form method="POST">
-                    <label for='curso'>Selecciona el curso:</label>
-                    <select name='curso' id='curso'>
+                    <label>Selecciona el curso:</label>
+                    <select name='curso'>
                         $seleccionar_cursos
                     </select>
                     <button type='submit' name='borrar_curso'>Borrar Curso</button>
