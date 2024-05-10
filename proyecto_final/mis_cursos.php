@@ -15,7 +15,7 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
 }
 
 // Obtener datos del profesor actual
-$profesorActual = es\ucm\fdi\aw\Profesor::buscaProfesorPorId($_SESSION['id']);
+$profesorActual = es\ucm\fdi\aw\Usuario::buscaUsuarioPorId("Profesor", $_SESSION['id']);
 if (!$profesorActual) {
     header('Location: login.php');
     exit();

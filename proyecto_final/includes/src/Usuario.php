@@ -304,10 +304,9 @@ abstract class Usuario {
     
             // Verificar si el cambio de profesor a estudiante está permitido
             if ($rolActual === 'Profesor' && $nuevoRol === 'Estudiante') {
-                $nombreUsuario = $usuario->getNombreUsuario();
-                $tieneCursos = Profesor::cursosDelProfesor($nombreUsuario);
+                $tieneCursos = Curso::obtenerCursosPorProfesor($usuario->getId());
     
-                if ($tieneCursos > 0) {
+                if ($tieneCursos && count($tieneCursos) > 0) {
                     return "error_profesor_con_cursos";
                 }
             }
@@ -316,7 +315,7 @@ abstract class Usuario {
             if ($rolActual === 'Estudiante' && $nuevoRol === 'Profesor') {
                 $cursosAsignados = Estudiante::getCursosAsignados($nombreUsuario);
     
-                if ($cursosAsignados) {
+                if ($cursosAsignados && count($cursosAsignados) > 0) {
                     return "error_estudiante_con_cursos";
                 }
             }
