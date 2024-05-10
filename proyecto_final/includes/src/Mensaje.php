@@ -1,155 +1,127 @@
 <?php
 namespace es\ucm\fdi\aw;
-use mysqli_sql_exception;
 class Mensaje {
 
     private $id;
-    private $curso_nombre;
-    private $contenido;
-    private $creacion;
-    private $u_id;
-   
+    private $mensaje;
+    private $created_at;
+    private $user_id;
+    private $tipo_usuario;
+    private $nombre_curso;
 
-    public function __construct($nombre, $u_id, $contenido) {
-        $this->curso_nombre = $nombre;
-        $this->u_id = $u_id;
-        $this->contenido = $contenido;
-        //$this->creacion = $creacion;
+    /**
+     * Constructor de la clase Mensaje
+     */
+    public function __construct($mensaje, $created_at, $user_id, $tipo_usuario, $nombre_curso, $id = null) {
+        $this->id = $id;
+        $this->mensaje = $mensaje;
+        $this->created_at = $created_at;
+        $this->user_id = $user_id;
+        $this->tipo_usuario = $tipo_usuario;
+        $this->nombre_curso = $nombre_curso;
     }
 
-    public static function crea($nombre, $u_id, $contenido){
-        $msg = new Mensaje($nombre, $u_id, $contenido);
-        return self::inserta($msg);
-
+    /**
+     * Crea un nuevo mensaje
+     */
+    public function crea($mensaje, $created_at, $user_id, $tipo_usuario, $nombre_curso) {
+        $mess = new Mensaje($mensaje, $created_at, $user_id, $tipo_usuario, $nombre_curso);
+        return $mess->guarda();
     }
 
-    private static function inserta($mensaje){
-        $result = false;
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query=sprintf("INSERT INTO Mensaje(curso_nombre, u_id, contenido, created_at) VALUES ('%s', '%s', '%s', current_timestamp())"
-            , $conn->real_escape_string($mensaje->curso_nombre)                  
-            , $conn->real_escape_string($mensaje->u_id)
-            , $conn->real_escape_string($mensaje->contenido)
-        );
-        
-        if ($conn->query($query)) {
-            $mensaje->id = $conn->insert_id;
-        } else {
-            error_log("Error BD ({$conn->errno}): {$conn->error}");
-            return false;
+    /**
+     * Guarda un mensaje en la base de datos
+     */
+    public function guarda() {
+        if ($this->id !== null) {
+            return self::actualiza($this);
         }
-        return $mensaje;
+        return self::inserta($this);
     }
 
-    // public static function crearMensaje($nombre, $u_id, $contenido) {
-    //     $conn = Aplicacion::getInstance()->getConexionBd();
-    
-    //     $query = "INSERT INTO Mensaje (curso_nombre, contenido, u_id, creacion) 
-    //               VALUES (?, ?, ?, current_timestamp())";
-    
-    //     $stmt = $conn->prepare($query);
-    //     $stmt->bind_param("ssissss", $nombre, $u_id, $contenido);
-
-    //     $result = $stmt->execute();
-    
-    //     if ($result === false) {
-    //         error_log("Error al insertar mensaje: " . $stmt->error);
-    //         return false;
-    //     }
-    
-    //     $stmt->close();
-    
-    //     return true;
-    // }
-    
-
-    public function getCurso_nombre() {
-        return $this->curso_nombre;
-    }
-    public function getU_id() {
-        return $this->u_id;
-    }
-    public function getContenido() {
-        return $this->contenido;
-    }
-
-    public function getCreacion() {
-        return $this->creacion;
-    }
-
-    public function getId() {
-        return $this->id;
-    }
-
-    
-    static public function obtenerMensajes($id_curso) {
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Mensaje Where nombre_curso = '%s'", $conn->real_escape_string($id_curso));
-        $rs = $conn->query($query);
+    /**
+     * Actualiza un mensaje en la base de datos
+     * @return true si se ha actualizado correctamente, false en caso contrario
+     */
+    private static function actualiza($mess) {
         $result = false;
-        if ($rs) {
-            $result = [];
-            while ($row = $rs->fetch_assoc()) {
-                $msg = new Mensaje(
-                    $row['nombre_curso'],
-                    $row['u_id'],
-                    $row['contenido'],);
-                $result[] = $msg;
-            }
-            $rs->free();
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("UPDATE Mensaje SET mensaje = '%s', created_at = '%s', user_id = '%s', tipo_usuario = '%s', nombre_curso = '%s' WHERE id = '%s'"
+            , $conn->real_escape_string($mess->mensaje)
+            , $conn->real_escape_string($mess->created_at)
+            , $conn->real_escape_string($mess->user_id)
+            , $conn->real_escape_string($mess->tipo_usuario)
+            , $conn->real_escape_string($mess->nombre_curso)
+            , $mess->id
+        );
+        if ($conn->query($query)) {
+            $result = true;
         } else {
-
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
         return $result;
     }
 
-    public static function getSender($u_id){
+    /**
+     * Inserta un mensaje en la base de datos
+     * @return true si se ha insertado correctamente, false en caso contrario
+     */
+    private static function inserta($mess) {
+        $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Estudiante WHERE id = %d", $u_id);
-        if($res = $conn->query($query)){
-            return $res;
-        }else{
-            $query2 = sprintf("SELECT * FROM Profesor WHERE id = %d", $u_id);
-            if($res2 = $conn->query($query2)){
-                return $res2;
-            }
+        $query = sprintf("INSERT INTO Mensaje(mensaje, created_at, user_id, tipo_usuario, nombre_curso) VALUES ('%s', '%s', '%s', '%s', '%s')"
+            , $conn->real_escape_string($mess->mensaje)
+            , $conn->real_escape_string($mess->created_at)
+            , $conn->real_escape_string($mess->user_id)
+            , $conn->real_escape_string($mess->tipo_usuario)
+            , $conn->real_escape_string($mess->nombre_curso)
+        );
+        if ($conn->query($query)) {
+            $mess->id = $conn->insert_id;
+            $result = true;
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
-
+        return $result;
     }
 
-    // static public function obtenerNombreCursos() {
-    //     $conn = Aplicacion::getInstance()->getConexionBd();
-    //     $query=sprintf("SELECT nombre_curso FROM Curso");
-    //     $rs = $conn->query($query);
-    //     $result = false;
-    //     if ($rs) {
-    //         $result = [];
-    //         while ($row = $rs->fetch_assoc()) {
-    //             $result[] = $row["nombre_curso"];
-    //         }
-    //         $rs->free();
-    //     } else {
-    //         error_log("Error BD ({$conn->errno}): {$conn->error}");
-    //     }
-    //     return $result;
-    // }
+    /**
+     * Borra los mensajes de un usuario
+     * @param int $user_id ID del usuario
+     * @param string $tipo_usuario Tipo de usuario
+     * @return true si se han borrado correctamente, false en caso contrario
+     */
+    public static function borraPorUsuario($user_id, $tipo_usuario) {
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("DELETE FROM Mensaje WHERE user_id = '%i' AND tipo_usuario = '%s'"
+            , $user_id
+            , $conn->real_escape_string($tipo_usuario)
+        );
+        if ($conn->query($query)) {
+            $result = true;
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
 
-    
-
-    // public static function borrarCurso($nombreCurso) {
-    //     $conn = Aplicacion::getInstance()->getConexionBd();
-
-    //     // Consulta SQL para eliminar el curso por su nombre
-    //     $query = "DELETE FROM Curso WHERE nombre_curso = ?";
-    //     $stmt = $conn->prepare($query);
-    //     $stmt->bind_param("s", $nombreCurso);
-
-    //     // Ejecutar la consulta y verificar el resultado
-    //     $result = $stmt->execute();
-    //     $stmt->close();
-
-    //     return $result;
-    // }
-
+    /**
+     * Borra los mensajes de un curso
+     * @param string $nombre_curso Nombre del curso
+     * @return true si se han borrado correctamente, false en caso contrario
+     */
+    public static function borraPorCurso($nombre_curso) {
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("DELETE FROM Mensaje WHERE nombre_curso = '%s'"
+            , $conn->real_escape_string($nombre_curso)
+        );
+        if ($conn->query($query)) {
+            $result = true;
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
 }

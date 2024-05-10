@@ -13,10 +13,6 @@ class Profesor extends Usuario {
         $table = 'Profesor';
         return self::actualizaUsuario($table, $usuario);
     }
-    public static function borra($usuario) {
-        $table = 'Profesor';
-        return self::borraUsuario($table, $usuario);
-    }
     public function misCursos($nombre_usuario) {
         if (self::cursosDelProfesor($nombre_usuario) > 0) {
             return true;

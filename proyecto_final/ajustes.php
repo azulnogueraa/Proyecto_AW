@@ -270,6 +270,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['borrar_curso'], $_POST
     }
 
     // Si no tiene alumnos inscritos, proceder con el borrado
+    // Borrar los mensajes asociados al curso
+    $resultadoMensaje = es\ucm\fdi\aw\Mensaje::borraPorCurso($curso_a_borrar);
+    if (!$resultadoMensaje) {
+        header("Location: ajustes.php?borrado-curso=error");
+        exit();
+    }
     $resultado = es\ucm\fdi\aw\Curso::borrarCurso($curso_a_borrar);
     if ($resultado) {
         header("Location: ajustes.php?borrado-curso=exito&nombre_curso=" . urlencode($curso_a_borrar));

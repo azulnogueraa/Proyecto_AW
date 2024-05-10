@@ -108,6 +108,7 @@ class FormularioRegistro extends Formulario {
                     $usuario = Profesor::crea($nombre_usuario, $apellido, $email, $password);
                 }
                 $_SESSION['login'] = true;
+                $_SESSION['id'] = $usuario->getId();
                 $_SESSION['nombre'] = $nombre_usuario;
                 $_SESSION['apellido'] = $apellido;
                 $_SESSION['email'] = $email;

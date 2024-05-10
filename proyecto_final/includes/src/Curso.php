@@ -1,6 +1,5 @@
 <?php
 namespace es\ucm\fdi\aw;
-use mysqli_sql_exception;
 class Curso {
 
     private $nombre_curso;
@@ -35,7 +34,7 @@ class Curso {
                   VALUES (?, ?, ?, ?, ?, ?, ?, current_timestamp())";
     
         $stmt = $conn->prepare($query);
-        $stmt->bind_param("ssissss", $nombre, $descripcion, $profesorId, $duracion, $nivelDificultad, $categoria, $precio);
+        $stmt->bind_param("ssissss", $nombre_curso, $descripcion, $profesorId, $duracion, $nivelDificultad, $categoria, $precio);
 
         $result = $stmt->execute();
     
@@ -311,6 +310,30 @@ class Curso {
         $stmt->close();
 
         return $result;
+    }
+
+    /**
+     * Obtener los cursos de un profesor por su ID
+     * @param $profesor_id ID del profesor
+     * @return array Devuelve un array con los cursos del profesor, o null si no hay cursos
+     */
+    public static function obtenerCursosPorProfesor($profesor_id) {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = "SELECT * FROM Curso WHERE profesor_id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $profesor_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result) {
+            $cursos = [];
+            while ($row = $result->fetch_assoc()) {
+                $curso = new Curso($row['nombre_curso'], $row['descripcion'], $row['profesor_id'], $row['duracion'], $row['categoria'], $row['nivel_dificultad'], $row['precio']);
+                $cursos[] = $curso;
+            }
+            return $cursos;
+        }
+        return [];
     }
 
     //TODO a enlever : pas logique

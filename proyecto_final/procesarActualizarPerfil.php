@@ -20,7 +20,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     // Verificar si los datos son válidos
     if ($nombre && $apellido && $email) {
         // Obtener el usuario actual
-        $usuarioActual = es\ucm\fdi\aw\Usuario::buscaUsuarioPorId($_SESSION['id']);
+        $tipo = $_SESSION['tipo_usuario'];
+        $tablas = [
+            es\ucm\fdi\aw\Usuario::ADMIN_ROLE => "Administrador",
+            es\ucm\fdi\aw\Usuario::ESTUDIANTE_ROLE => "Estudiante",
+            es\ucm\fdi\aw\Usuario::PROFESOR_ROLE => "Profesor"
+        ];
+        $tabla = $tablas[$tipo] ?? "";
+        $usuarioActual = es\ucm\fdi\aw\Usuario::buscaUsuarioPorId($tabla, $_SESSION['id']);
 
         // Actualizar datos del usuario
         $usuarioActual->setNombre($nombre);
@@ -28,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
         $usuarioActual->setEmail($email);
 
         // Guardar cambios en la base de datos
-        if ($usuarioActual->actualizarUsuario()) {
+        if (es\ucm\fdi\aw\Usuario::actualizaUsuario($tabla, $usuarioActual)) {
             header('Location: perfil.php?actualizado=true');
             exit();
         } else {

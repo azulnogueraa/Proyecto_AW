@@ -31,7 +31,7 @@ if (isset($_SESSION['login']) && $_SESSION['login'] && isset($_GET['nombre_curso
                 $contenidoPrincipal .= noInscrito($curso);
             }
         } elseif($_SESSION['tipo_usuario'] === es\ucm\fdi\aw\Usuario::PROFESOR_ROLE) {
-            if($curso->getProfesorId() === $_SESSION['id']) {
+            if($curso->getProfesorId() == $_SESSION['id']) {
                 $contenidoPrincipal .= esInscrito(false, $nombre_curso);
             } else {
                 $tituloPagina = 'Error';

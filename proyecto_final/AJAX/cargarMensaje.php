@@ -4,7 +4,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET'){
     if(isset($_SESSION['login']) && $_SESSION["login"] == true) {
         if(isset($_GET['nombre_curso']) && isset($_GET['lastId'])){
             // Recuperamos el id del curso y el ultimo id de mensaje asociado
-            $nombre_curso = filter_var($_GET['nombre_curso'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $nombre_curso = filter_var($_GET['nombre_curso'], FILTER_SANITIZE_STRING);
             $lastId = filter_var($_GET['lastId'], FILTER_SANITIZE_NUMBER_INT);
 
             // Initializamos un filtro para recuperar los mensajes

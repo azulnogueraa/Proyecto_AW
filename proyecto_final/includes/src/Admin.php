@@ -20,12 +20,6 @@ class Admin extends Usuario {
         return self::actualizaUsuario($table, $usuario);
     }
 
-    // Borrar un Administrador de la base de datos
-    public static function borra($usuario) {
-        $table = 'Administrador';
-        return self::borraUsuario($table, $usuario);
-    }
-
     // Obtener todos los usuarios
     public static function obtenerUsuarios() {
         $conn = Aplicacion::getInstance()->getConexionBd();

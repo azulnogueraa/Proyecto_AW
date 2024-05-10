@@ -15,7 +15,14 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
 }
 
 // Obtener datos del usuario actual
-$usuarioActual = es\ucm\fdi\aw\Usuario::buscaUsuarioPorId($_SESSION['id']);
+$tipo = $_SESSION['tipo_usuario'];
+$tablas = [
+    es\ucm\fdi\aw\Usuario::ADMIN_ROLE => "Administrador",
+    es\ucm\fdi\aw\Usuario::ESTUDIANTE_ROLE => "Estudiante",
+    es\ucm\fdi\aw\Usuario::PROFESOR_ROLE => "Profesor"
+];
+$tabla = $tablas[$tipo] ?? "";
+$usuarioActual = es\ucm\fdi\aw\Usuario::buscaUsuarioPorId($tabla, $_SESSION['id']);
 
 if (!$usuarioActual) {
     header('Location: login.php');
@@ -51,8 +58,8 @@ EOS;
 // Listar cursos asignados
 if (!empty($cursosAsignados)) {
     foreach ($cursosAsignados as $curso) {
-        $nbcurso = htmlspecialchars($curso->getNombre(), ENT_QUOTES, 'UTF-8');
-        $contenidoPrincipal .= "<li><a href='curso.php?nombre_curso={$nbcurso}'>{$nbcurso}</a></li>";
+        $urlCurso = 'curso.php?nombre_curso=' . urlencode($curso->getNombre());
+        $contenidoPrincipal .= "<li><a href='$urlCurso'>{$curso->getNombre()}</a></li>";
     }
 } else {
     $contenidoPrincipal .= '<li>No tienes cursos asignados actualmente.</li>';
