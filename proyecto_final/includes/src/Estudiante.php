@@ -45,4 +45,23 @@ class Estudiante extends Usuario {
     
         return $cursos;
     }
+
+    /**
+     * Obtener el nombre de un estudiante por su ID
+     */
+    public static function obtenerIdporNombre($id)
+    {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+
+        // Consulta SQL para obtener el ID del profesor por su nombre
+        $query = "SELECT nombre_usuario FROM Estudiante WHERE id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $stmt->bind_result($nombre_usuario);
+        $stmt->fetch();
+        $stmt->close();
+
+        return $nombre_usuario;
+    }
 }

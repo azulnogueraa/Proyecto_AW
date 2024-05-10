@@ -1,10 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/src/config.php';
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 $tituloPagina = 'Mis Cursos';
 $contenidoPrincipal = '<h1>Mis Cursos</h1>';
 
