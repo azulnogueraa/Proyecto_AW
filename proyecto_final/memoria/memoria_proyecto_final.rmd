@@ -244,9 +244,9 @@ Paralelamente, la tabla `profesor` captura información detallada de los educado
 
 Los cursos se detallan en la tabla `curso`, que incluye un nombre descriptivo, `nombre_curso`, una `descripcion` extensa del contenido, `fecha_creacion`, `duracion` estimada, y un `nivel_dificultad` que clasifica el curso. Además, cada curso tiene asignado una `categoria`, `requisitos_previos` necesarios para el alumno y un `precio`, además de un estado (`estado_curso`) que indica si está activo, inactivo o en desarrollo.
 
-Para gestionar las inscripciones, disponemos de la tabla `Registrado`, que establece una relación entre los estudiantes y los cursos a los que se han inscrito, mediante los campos `u_id` y `curso_id`. Esta tabla es crucial para el seguimiento de las inscripciones activas y el acceso a los contenidos del curso.
+Para gestionar las inscripciones, disponemos de la tabla `registrado`, que establece una relación entre los estudiantes y los cursos a los que se han inscrito, mediante los campos `u_id` y `curso_id`. Esta tabla es crucial para el seguimiento de las inscripciones activas y el acceso a los contenidos del curso.
 
-Por último, la tabla `comentarios` permite a los estudiantes y profesores interactuar y discutir dentro del contexto de un curso, facilitando el intercambio de conocimientos y opiniones. Registra el `u_id` y `curso_id` correspondiente, junto con la `fecha` del comentario y su `contenido`.
+Por último, la tabla `mensaje` en esta base de datos registra mensajes enviados por usuarios relacionados con cursos específicos en un entorno educativo. Cada mensaje está identificado por un número único `id` y contiene el contenido del mensaje (`mensaje`), la fecha y hora de creación (`created_at`), el usuario que envió el mensaje (`user_id`) y su tipo (`tipo_usuario`), que puede ser 'Administrador', 'Estudiante' o 'Profesor'. Además, cada mensaje está asociado a un curso específico (`nombre_curso`) a través de una clave externa que referencia la tabla Curso. 
 
 
 \newpage
