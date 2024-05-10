@@ -56,9 +56,7 @@ create table if not exists Mensaje (
 create table if not exists Registrado (
     u_id int,
     curso_id VARCHAR(100),
-    p_id int,
-    primary key (u_id, curso_id, p_id),
+    primary key (u_id, curso_id),
     foreign key (u_id) references Estudiante(id),
-    foreign key (curso_id) references Curso(nombre_curso),
-    foreign key (p_id) references Profesor(id)
+    foreign key (curso_id) references Curso(nombre_curso)
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

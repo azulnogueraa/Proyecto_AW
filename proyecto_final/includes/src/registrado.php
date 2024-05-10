@@ -5,25 +5,22 @@ class Registrado {
 
     private $u_id;
     private $curso_id;
-    private $p_id;
 
     /**
      * Constructor de la clase Registrado
      */
-    public function __construct($usuario, $curso, $profesor) {
-        $this->u_id = $usuario;
-        $this->curso_id = $curso;
-        $this->p_id = $profesor;
+    public function __construct($u_id, $curso_id) {
+        $this->u_id = $u_id;
+        $this->curso_id = $curso_id;
     }
 
     /**
      * Crea un nuevo registro
      */
-    public static function crea($usuario, $curso, $profesor) {
-        $nombre_usuario = $usuario->getNombreUsuario();
+    public static function crea($usuario, $curso) {
+        $u_id = $usuario->getId();
         $nombre_curso = $curso->getNombre();
-        $nombre_profesor = $profesor->getNombreUsuario();
-        $registrado = new Registrado($nombre_usuario, $nombre_curso, $nombre_profesor);
+        $registrado = new Registrado($u_id, $nombre_curso);
         return self::inserta($registrado);
     }
 
@@ -34,20 +31,18 @@ class Registrado {
     private static function inserta($registrado){
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $queryCheck = sprintf("SELECT COUNT(*) as count FROM Registrado WHERE u_id = '%s' AND curso_id = '%s' AND p_id = '%s'",
+        $queryCheck = sprintf("SELECT COUNT(*) as count FROM Registrado WHERE u_id = '%s' AND curso_id = '%s'",
             $conn->real_escape_string($registrado->u_id),
             $conn->real_escape_string($registrado->curso_id),
-            $conn->real_escape_string($registrado->p_id)
         );
 
         $resCheck = $conn->query($queryCheck);
         $row = $resCheck->fetch_assoc();
 
         if ($row['count'] == 0) { // If the pair does not exist, proceed with insertion
-            $query = sprintf("INSERT INTO Registrado(u_id, curso_id, p_id) VALUES ('%s', '%s', '%s')",
+            $query = sprintf("INSERT INTO Registrado(u_id, curso_id) VALUES ('%s', '%s')",
                 $conn->real_escape_string($registrado->u_id),
-                $conn->real_escape_string($registrado->curso_id),
-                $conn->real_escape_string($registrado->p_id)
+                $conn->real_escape_string($registrado->curso_id)
             );
 
             $res = $conn->query($query);
@@ -71,13 +66,6 @@ class Registrado {
      */
     public function getCursoId() {
         return $this->curso_id;
-    }
-
-    /**
-     * Devuelve el id del profesor
-     */
-    public function getProfesorId() {
-        return $this->p_id;
     }
 
     /**
@@ -121,6 +109,7 @@ class Registrado {
 
     /**
      * Devuelve los ids de los estudiantes registrados en un curso
+     * @return array con los ids de los estudiantes registrados
      */
     public static function getEstudianteIdRegistrados($curso_id) {
         $conn = Aplicacion::getInstance()->getConexionBd();

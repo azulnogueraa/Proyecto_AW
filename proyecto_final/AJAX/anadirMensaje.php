@@ -9,7 +9,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = json_decode($dataJson);
 
         // Recuperamos el usuario conectado y su rol
-        $usuario = es\ucm\fdi\aw\Usuario::buscaUsuario($_SESSION['nombre']);
         $tipo = $_SESSION['tipo_usuario'];
         $roles = [
             es\ucm\fdi\aw\Usuario::ADMIN_ROLE => "Administrador",
@@ -17,6 +16,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
             es\ucm\fdi\aw\Usuario::PROFESOR_ROLE => "Profesor"
         ];
         $rol = $roles[$tipo] ?? "";
+        $usuario = es\ucm\fdi\aw\Usuario::buscaUsuario($_SESSION['nombre']);
 
         if(isset($data->mensaje) && !empty($data->mensaje) && isset($data->nombre_curso)) {
             $conn = es\ucm\fdi\aw\Aplicacion::getInstance()->getConexionBd();

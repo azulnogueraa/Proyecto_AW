@@ -282,7 +282,6 @@ abstract class Usuario {
      * @param string $nuevoRol Nuevo rol
      * @return string Mensaje de éxito o error
      */
-    //TODO a changer c bizarre
     public static function cambiarRol($nombreUsuario, $nuevoRol) {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $usuario = self::buscaUsuario($nombreUsuario);
