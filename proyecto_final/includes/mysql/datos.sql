@@ -34,3 +34,23 @@ VALUES ('Marketing Digital', 'Descubre estrategias avanzadas de marketing digita
 
 INSERT INTO Curso (nombre_curso, descripcion, profesor_id, fecha_creacion, duracion, nivel_dificultad, categoria, requisitos_previos, precio, estado_curso)
 VALUES ('Blockchain', 'Aprende a desarrollar aplicaciones descentralizadas y contratos inteligentes con tecnologías blockchain.', '1', '2024-04-20', '40h', 'Avanzado', 'Tecnología', 'Conocimientos previos en programación', 90, 'Activo');
+
+
+INSERT INTO Mensaje (id, mensaje, created_at, user_id, tipo_usuario, nombre_curso)
+VALUES
+('1', 'Hola, les doy la bienvenida al curso de Blockchain', '2024-05-10 19:17:00','1', 'profesor','Blockchain'),
+('2', 'Hola, Buenas!', '2024-05-10 19:19:02','1', 'Estudiante','Blockchain'),
+('3', 'Que tal!', '2024-05-10 19:30:09','2', 'Estudiante','Blockchain'),
+('4', 'Hola, les doy la bienvenida al curso de Desarrollo Web', '2024-05-10 19:17:00','1', 'profesor','Desarrollo Web'),
+('5', 'Hola, Buenas!', '2024-05-10 19:19:02','1', 'Estudiante','Desarrollo Web'),
+('6', 'Que tal!', '2024-05-10 19:30:09','2', 'Estudiante','Desarrollo Web'),
+('7', 'Hola, les doy la bienvenida al curso de Diseño Gráfico', '2024-05-10 19:17:00','1', 'profesor','Diseño Gráfico'),
+('8', 'Hola, Buenas!', '2024-05-10 19:19:02','1', 'Estudiante','Diseño Gráfico'),
+('9', 'Que tal!', '2024-05-10 19:30:09','2', 'Estudiante','Diseño Gráfico'),
+('10', 'Hola, les doy la bienvenida al curso de Marketing Digital', '2024-05-10 19:17:00','2', 'profesor','Marketing Digital'),
+('11', 'Hola, Buenas!', '2024-05-10 19:19:02','1', 'Estudiante','Marketing Digital'),
+('12', 'Que tal!', '2024-05-10 19:30:09','2', 'Estudiante','Marketing Digital'),
+('13', 'Hola, les doy la bienvenida al curso de Finanzas', '2024-05-10 19:17:00','2', 'profesor','Finanzas'),
+('14', 'Hola, Buenas!', '2024-05-10 19:19:02','1', 'Estudiante','Finanzas'),
+('15', 'Que tal!', '2024-05-10 19:30:09','2', 'Estudiante','Finanzas');
+

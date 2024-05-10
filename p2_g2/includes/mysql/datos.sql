@@ -23,3 +23,9 @@ VALUES
 INSERT INTO Curso (nombre_curso, descripcion, profesor_id, fecha_creacion, duracion, nivel_dificultad, categoria, requisitos_previos, precio, estado_curso)
 VALUES
 ('Marketing', 'descripcion del curso', '6','2024-01-01', '20h','Intermedio', 'Negocios', '', 60, 'Activo')
+
+INSERT INTO Mensaje (id, mensaje, created_at, user_id, tipo_usuario, nombre_curso)
+VALUES
+('1', 'Hola, les doy la bienvenida al curso de Blockchain', '2024-05-10 19:17:00','1', 'profesor','Blockchain')
+('2', 'Hola, Buenas!', '2024-05-10 19:19:02','1', 'Estudiante','Blockchain')
+('3', 'Que tal!', '2024-05-10 19:30:09','2', 'Estudiante','Blockchain')
