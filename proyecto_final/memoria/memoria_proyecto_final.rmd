@@ -312,7 +312,7 @@ URL al servicio de Guacamole:
 
 ### Rocio Gonzalez
 - leeme.txt
-- Contriubición a Gestión de Roles: Estudiante, Profesor, Administrador
+- Contribución a Gestión de Roles: Estudiante, Profesor, Administrador
 - Contribución a carpeta mysql
 - Contribución a gestión de busqueda de cursos
 - Contribución a panel de administración
